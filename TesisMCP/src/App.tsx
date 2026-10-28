@@ -15,6 +15,7 @@ import ProjectSelectionScreen from "./features/projects/ProjectSelectionScreen"
 import DemoApp from "./DemoApp"
 import { AppShellTesis, PanelPrincipal, type PantallaApp } from "./app/ShellWorkspace"
 import { VistaRevision } from "./app/VistaRevision"
+import { VistaEditor } from "./app/VistaEditor"
 import { downloadDraftDocx } from "./api/exports"
 
 type AppView = "checking" | "access" | "projects" | "app" | "workspace" | "editor" | "workflow" | "library" | "advisor" | "ai" | "artifacts" | "demo"
@@ -219,7 +220,8 @@ export default function App() {
         detalles={projectDetails}
         alConmutar={(destino) => {
           setPantallaApp(destino)
-          if (destino === "editor") setView("editor")
+          // R4/R5: mientras no existan las vistas reales de fuentes y asesor
+          // dentro del shell, esos destinos abren las pantallas de respaldo.
           if (destino === "fuentes") setView("library")
           if (destino === "asesor") setView("advisor")
         }}
@@ -243,12 +245,20 @@ export default function App() {
       >
         {pantallaApp === "revision" ? (
           <VistaRevision proyecto={selectedProject} />
+        ) : pantallaApp === "editor" ? (
+          <VistaEditor
+            proyecto={selectedProject}
+            csrfToken={csrfToken ?? ""}
+            onUnauthorized={handleUnauthorized}
+            onAccessLost={handleAccessLost}
+            onRefreshCsrf={refreshCsrf}
+          />
         ) : (
           <PanelPrincipal
             usuario={sessionUser}
             proyecto={selectedProject}
             detalles={projectDetails}
-            alContinuar={() => abrirPantallaBloque("editor")}
+            alContinuar={() => setPantallaApp("editor")}
             alRecorrido={() => abrirPantallaBloque("workflow")}
             alFuentes={() => abrirPantallaBloque("library")}
           />
