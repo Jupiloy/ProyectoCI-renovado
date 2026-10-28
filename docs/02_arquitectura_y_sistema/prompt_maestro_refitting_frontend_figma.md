@@ -5,7 +5,13 @@
 ## Prompt listo para pegar
 
 ```text
-TAREA: RE-FITTING DEL FRONTEND DE TESISMCP — DEVOLVER EL DISEÑO ORIGINAL DE FIGMA A LA APP CONECTADA, REUTILIZANDO LA CAPA DE API EXISTENTE. SIN ELIMINAR LO QUE YA FUNCIONA Y SIN DATOS FALSOS.
+TAREA: RE-FITTING DEL FRONTEND DE TESISMCP — CONTINUAR LO EJECUTADO (BLOQUES R0, R1, R2 Y R5-LITE DE REVISIÓN QUEDAN HECHOS): FALTAN R3 (EDITOR), R4 (FUENTES), R5 (PANEL ASESOR COMPLETO) Y R6 (CIERRE). SIN ELIMINAR LO QUE YA FUNCIONA Y SIN DATOS FALSOS.
+
+ESTADO DE EJECUCIÓN AL CORTE (27/10/2026, chat OpenCode — NO rehacer):
+- Commits del header: 48a1ded (blindaje inicial), fc4e757 (R0-R2), e9d7ba3 (R5-lite). Verifica primero con `git log --oneline` y `git status --short`; el árbol debe estar limpio.
+- HECHO: TesisMCP/src/app/base.tsx (Icon/Button/StatusBadge copiados del demo de Figma) y ShellWorkspace.tsx (AppShellTesis: sidebar/topbar reales con sesión, proyecto activo, rol OWNER/ADVISOR, descarga del borrador DOCX real, «Vista clásica» como respaldo; PanelPrincipal: saludo real, progreso N de M calculado de StepProgress+workflow, avance por capítulos con GET /chapters/{n}, próximo paso por order_index, recorrido vigente con versión real y aviso P26/P27, fuentes contadas con listSources). VistaRevision.tsx (Revisión de lectura: observaciones del asesor y snapshots con SHA real por capítulo). App.tsx: nueva vista «app» como destino al abrir proyecto; las pantallas de features/ se abren desde el shell y vuelven con onBack a vistaPantallas ('app' o 'workspace').
+- PENDIENTE REGISTRADO: verificación visual en navegador de R1/R2/R5-lite (compilación tsc/build exit 0 verificada; la UI no fue probada por clics). Revalida al continuar.
+- REGLA AL CONTINUAR: reutiliza src/app/base.tsx y AppShellTesis tal cual (no dupliques shell ni iconos); DemoApp.tsx sigue siendo solo-lectura; features/ sigue intacta como respaldo.
 
 DIRECTORIO DE TRABAJO ÚNICO:
 /home/janr/Documentos/Universidad/Apuntes_Obsidian/Estudiando/Ciclo7/Curso Integrador 1/ProyectoCI-renovado
@@ -60,6 +66,7 @@ SALIDA OBLIGATORIA POR BLOQUE (en la bitácora y en la respuesta al usuario):
 
 ## Notas de contexto firmes para el siguiente chat
 
-- La decisión del usuario (27/10/2026): conservar `features/` de Antigravity como respaldo; el retiro final se decide con el usuario al cierre.
-- Si el usuario pide «desconfigurado» u otra cosa distinta del alcance, detén el trabajo aplicable y notifica; este prompt solo cubre el re-fitting visual/conector en `TesisMCP/`.
+- **Dónde se quedó el chat OpenCode (27/10/2026):** R0 (blindaje Git), R1 (shell Figma con datos reales), R2 (panel principal) y la vista Revisión de lectura (R5-lite) están ejecutados, compilados y commiteados (48a1ded → fc4e757 → e9d7ba3). Se detuvo por límite de contexto del chat, como pidió el usuario; **faltan exactamente R3, R4, R5 (asesor completo) y R6 (cierre con verify_project.py)**.
+- Si el navegador está disponible, primero valida visualmente R1/R2/R5-lite (acceso → proyecto → shell Figma → panel, revisión) sobre datos de entorno aislado; la compilación ya verificó tipos y build, no la interfaz.
+- La decisión del usuario (27/10/2026) sigue vigente: conservar `features/` de Antigravity como respaldo; el retiro final se decide con el usuario al cierre.
 - Referencias: diseño objetivo `TesisMCP/src/DemoApp.tsx`; integración previa `continuidad_frontend_antigravity.md`; orden original del usuario `prompt_maestro_antigravity_frontend_restante.md`.

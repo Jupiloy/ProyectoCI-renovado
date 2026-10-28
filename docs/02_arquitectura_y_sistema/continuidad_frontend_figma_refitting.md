@@ -168,3 +168,22 @@ Ojo: los badges de la maqueta usan casi el mismo vocabulario («En revisión», 
 - Arrancar por `docs/02_arquitectura_y_sistema/prompt_maestro_refitting_frontend_figma.md` (orden de trabajo lista para pegar).
 - Este informe **no modifica código**; el estado del 27/10/2026 sigue siendo: integración de bloques 1–8 en `TesisMCP/`, tsc/build exit 0, demo intacto, repo Git sin commits.
 - Ante cualquier discrepancia entre este documento y el código, el archivo en disco prevalece (regla del proyecto).
+
+---
+
+## 9. Corte de ejecución del chat OpenCode (27/10/2026, tarde)
+
+El usuario pidió ejecutar el plan directamente en esta sesión y detenerse al acercarse al límite de contexto, actualizando el prompt maestro con «hecho / dónde quedó / qué falta».
+
+**Ejecutado y commiteado (verificación tsc/build exit 0 por bloque):**
+
+| Bloque | Estado | Commits y evidencia |
+|---|---|---|
+| R0 | ✅ Hecho | `48a1ded`: commit inicial (548 archivos tras revisión de `.gitignore`; `docs/antecedentes_descargados/` y `dist/` excluidos del historial sin borrarse del disco). Árbol limpio tras cada commit |
+| R1 | ✅ Hecho | `fc4e757`: `TesisMCP/src/app/base.tsx` + `ShellWorkspace.tsx` — shell con diseño de Figma (sidebar/topbar) alimentado por sesión, proyecto y rol reales; borrador DOCX vía `downloadDraftDocx`; «Vista clásica» mantiene `ConnectedProjectScreen` accesible |
+| R2 | ✅ Hecho | `fc4e757`: `PanelPrincipal` — saludo real por hora, heroe con progreso N de M de `StepProgress`+workflow, avance por capítulos (`Chapter.Status` mapeado a badges del demo), próximo paso por `order_index`, recorrido vigente con versión real y aviso P26/P27, fuentes contadas |
+| R5-lite | ✅ Hecho | `e9d7ba3`: `VistaRevision.tsx` — Revisión de lectura del tesista (observaciones del asesor + snapshots con SHA real, selector de capítulo desde el workflow publicado); el elemento Revisión ya no está deshabilitado |
+
+**Pendiente explícitos:** verificación visual en navegador (la sesión no tenía navegador: solo tsc/build/HTTP no; también quedó sin ejecutar suite backend). **Faltan:** R3 (editor de tres paneles real), R4 (biblioteca de fuentes real), R5 completo (panel de asesor: submit/decisión/resolver), R6 (cierre: matriz, bitácora y `verify_project.py` una vez).
+
+El prompt maestro ya actualizado describe este corte al principio del bloque pegable (`ESTADO DE EJECUCIÓN AL CORTE`) y ordena reutilizar `src/app/base.tsx`/`AppShellTesis` sin duplicarlos.
