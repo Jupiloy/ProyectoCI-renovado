@@ -1,6 +1,7 @@
 """Importaciones públicas de los modelos Django de TesisMCP."""
 
 from .accounts import UserManager, User, McpAccessToken
+from .agent_connections import AgentConnection
 from .projects import Project, ProjectParticipant
 from .research import ResearchProfile, ConsistencyRow, ResearchVariable, ConsistencyRowVariable, VariableDimension, Indicator
 from .instruments import Instrument, InstrumentItem, InstrumentItemIndicator
@@ -30,6 +31,7 @@ __all__ = [
     "UserManager",
     "User",
     "McpAccessToken",
+    "AgentConnection",
     "Project",
     "ProjectParticipant",
     "ResearchProfile",

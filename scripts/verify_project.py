@@ -13,8 +13,8 @@ del sistema antes de permitir declarar una tarea como completada:
 5. Higiene de Repositorio (repository-hygiene-auditor): sin archivos masivos accidentales,
    sin fugas de .gitignore, sin caches residuales ni archivos sobredimensionados no autorizados.
 6. Consistencia Código vs. Documentación:
-   - Modelos Django exactos (58 tras B8.3)
-   - Migraciones activas (44, hasta 0044)
+   - Modelos Django exactos (59 tras BYOA local)
+   - Migraciones activas (47, hasta 0047)
    - Pasos metodológicos P01-P32 (32)
    - Herramientas MCP (34) y Prompts MCP (35)
    - Enlaces internos en Markdown 100% válidos (0 rotos)
@@ -225,22 +225,22 @@ class VerificationSuite:
         t0 = time.time()
         errors = []
 
-        # A. Conteo de Modelos Django (58 esperados después de B8.3)
+        # A. Conteo de Modelos Django (59 esperados después de BYOA local)
         try:
             import django
             django.setup()
             from django.apps import apps
             thesis_models = list(apps.get_app_config("thesis").get_models())
             model_count = len(thesis_models)
-            if model_count != 58:
-                errors.append(f"Modelos Django discrepantes: encontrados {model_count}, esperados 58")
+            if model_count != 59:
+                errors.append(f"Modelos Django discrepantes: encontrados {model_count}, esperados 59")
         except Exception as e:
             errors.append(f"Error importando modelos Django: {e}")
 
-        # B. Conteo de Migraciones (44 esperadas: 0001 a 0044)
+        # B. Conteo de Migraciones (47 esperadas: 0001 a 0047)
         mig_files = list((ROOT_DIR / "backend" / "thesis" / "migrations").glob("0*.py"))
-        if len(mig_files) != 44:
-            errors.append(f"Migraciones discrepantes: encontradas {len(mig_files)}, esperadas 44")
+        if len(mig_files) != 47:
+            errors.append(f"Migraciones discrepantes: encontradas {len(mig_files)}, esperadas 47")
 
         # C. Conteo de Pasos Metodológicos (32 esperados: P01 a P32)
         try:

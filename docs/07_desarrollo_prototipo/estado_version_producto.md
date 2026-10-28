@@ -1,6 +1,6 @@
 # Estado verificable del producto
 
-**Frontend, corte 27/10/2026:** `TesisMCP/` contiene la integración real de los bloques 1 al 8 con el backend Django:
+**Frontend, corte 27/10/2026 (los cambios UI posteriores deben revisarse en el checkout):** `TesisMCP/` contiene la integración real de los bloques 1 al 8 con el backend Django:
 - **Acceso y sesión:** Autenticación por sesión Django, CSRF en cabecera y cookies con credentials: `include`.
 - **Selección de proyectos:** Listado paginado de membresías reales, creación autorizada y roles (`OWNER` / `ADVISOR`).
 - **Recorrido metodológico configurable (Bloque 3):** Cálculo de avance sobre tareas activas (sin '8 de 32' ficticio), edición de borrador, protección de núcleo institucional, tareas `USR_...`, validación estructural y publicación/restauración de versiones inmutables.
@@ -13,7 +13,17 @@ TypeScript y build de producción Vite pasan con código de salida 0. La interac
 
 
 **Alcance del prototipo acordado:** detener el recorrido antes de elaborar y aplicar instrumentos. P30–P32 no son obligatorios para la demostración; P26/P27 mencionan instrumentos previstos y deben decidirse en el recorrido concreto. Conservar pasos disponibles y recorridos editables, sin afirmar que se completa toda la tesis. IEEE es el estilo priorizado para el piloto; APA 7 sigue admitido por compatibilidad histórica.
-> **Corte integral B8 verificado (26/10/2026):** 58 modelos, 44 migraciones (`0001`–`0044`), 32 contratos metodológicos, 34 herramientas MCP y 35 prompts. Puerta 7/7, total 479.66 s, pytest completa 457.26 s, exit code 0. OAuth Zotero real no se ha probado por falta de credenciales externas.
+> **Corte integral B8 verificado (26/10/2026):** 58 modelos, 44 migraciones (`0001`–`0044`), 32 contratos metodológicos, 34 herramientas MCP y 35 prompts. Puerta 7/7, total 479.66 s, pytest completa 457.26 s, exit code 0. Es un registro histórico; BYOA local añade después tres migraciones y un modelo. OAuth Zotero real no se ha probado por falta de credenciales externas.
+
+> **Estado BYOA local (28/10/2026, revisión de código; sin ejecución runtime real):** backend de conexiones por proyecto, despacho de jobs, leases, eventos, resultado validado y adaptador registrable con Antigravity CLI implementados. Conteo actual del verificador: 59 modelos y 47 migraciones (`0001`–`0047`). No se ejecutó la puerta integral en este corte. Falta UI de gestión/conexión BYOA, instalación/autenticación real de `agy` y verificación end-to-end. Solo Antigravity está implementado; otros runtimes requieren su adaptador.
+
+## BYOA local: adaptadores de agentes (28/10/2026; revisión de código, sin runtime real)
+
+- `AgentConnection` vincula usuario, proyecto y runtime; los secretos de conector/MCP solo se devuelven al crear la conexión y se almacenan como hashes. La revocación invalida ambos y cancela jobs activos.
+- `AIGenerationJob` separa `SERVER` y `BYOA`; el worker server-side reclama únicamente `SERVER`. El job BYOA conserva contexto y esquema, lease, eventos acotados y procedencia declarada. La respuesta validada termina como propuesta pendiente de aceptación.
+- Rutas de conexión: `POST/GET/DELETE /api/v1/integrations/agents`. Rutas de conector: `POST /api/v1/integrations/agents/connector/claim` y `/jobs/{job_id}/heartbeat|events|complete|fail`. Generación: ruta existente `POST /api/v1/projects/{id}/workflow/tasks/{task_id}/generate` con `execution_mode=BYOA` y `agent_connection_id`.
+- `AgentRuntimeAdapter` y el registro de `backend/thesis/agent_runtimes/` separan invocación, configuración MCP y normalización de eventos. Solo `ANTIGRAVITY_CLI` tiene implementación ahora; cada nuevo runtime necesita su adaptador concreto.
+- El comando `run_byoa_connector` necesita `agy` instalado y autenticado y permiso MCP explícito. No hay interfaz de gestión BYOA integrada ni ejecución real verificada. BYOA en nube está pendiente. Las migraciones `0045`–`0047` llevan el conteo del código a 59 modelos/47 migraciones; no se aplicaron ni se comprobaron contra una base en este corte.
 
 ## B8.1: datasets originales versionados (implementado y verificado)
 

@@ -55,6 +55,9 @@ class McpAccessToken(models.Model):
 
     token_hash = models.CharField(max_length=64, unique=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    agent_connection = models.ForeignKey(
+        "thesis.AgentConnection", null=True, blank=True, on_delete=models.CASCADE, related_name="mcp_tokens"
+    )
     expires_at = models.DateTimeField()
     revoked_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -20,6 +20,8 @@ def generate_proposal(request, project_id: UUID, task_id: str, payload: Generate
         idempotency_key=payload.idempotency_key,
         expected_state_version=payload.expected_state_version,
         workflow_version_no=payload.workflow_version_no,
+        execution_mode=payload.execution_mode,
+        agent_connection_id=payload.agent_connection_id,
     )
     status_code = 200 if job.get("status") == "SUCCEEDED" else 202
     return Status(status_code, job)

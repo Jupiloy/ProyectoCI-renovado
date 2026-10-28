@@ -219,6 +219,10 @@ class WorkflowTaskExecuteIn(Schema):
     idempotency_key: UUID
 
 class GenerateTaskProposalIn(Schema):
+    model_config = ConfigDict(extra="forbid")
+
+    execution_mode: Literal["SERVER", "BYOA"] = "SERVER"
+    agent_connection_id: UUID | None = None
     expected_state_version: int | None = None
     workflow_version_no: int | None = None
     input_data: dict = {}
@@ -283,3 +287,32 @@ class AcceptAIProposalIn(Schema):
 class RejectAIProposalIn(Schema):
     decision_key: UUID
     reason: str = ""
+
+class AgentConnectionCreateIn(Schema):
+    model_config = ConfigDict(extra="forbid")
+
+    project_id: UUID
+    name: str
+    runtime: Literal["ANTIGRAVITY_CLI"] = "ANTIGRAVITY_CLI"
+
+
+class AgentEventIn(Schema):
+    model_config = ConfigDict(extra="forbid")
+
+    type: Literal["progress", "tool_activity"]
+    payload: dict
+
+
+class AgentCompleteIn(Schema):
+    model_config = ConfigDict(extra="forbid")
+
+    output_data: dict
+    provenance: dict = {}
+    usage_data: dict = {}
+
+
+class AgentFailIn(Schema):
+    model_config = ConfigDict(extra="forbid")
+
+    error_code: str
+    message: str

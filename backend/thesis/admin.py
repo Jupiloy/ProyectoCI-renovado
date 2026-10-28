@@ -4,7 +4,7 @@ from django.contrib import messages
 from reversion.admin import VersionAdmin
 from unfold.admin import ModelAdmin
 
-from thesis.models import (Chapter, ChapterRevision, ConsistencyRow, EvidenceLink, Indicator,
+from thesis.models import (AgentConnection, Chapter, ChapterRevision, ConsistencyRow, EvidenceLink, Indicator,
                            Instrument, InstrumentItem, McpAccessToken, Project,
                            ProjectParticipant, ResearchProfile, ResearchVariable, ReviewComment,
                            ReviewEvent, SourceMetadataCheck, StepProgress, User,
@@ -233,4 +233,19 @@ class McpAccessTokenAdmin(ModelAdmin):
     readonly_fields = ("token_hash", "created_at")
 
     def has_add_permission(self, request):
+        return False
+
+
+@admin.register(AgentConnection)
+class AgentConnectionAdmin(ModelAdmin):
+    list_display = ("name", "runtime", "user", "project", "expires_at", "last_seen_at", "revoked_at")
+    list_filter = ("runtime", "revoked_at")
+    search_fields = ("name", "user__email", "project__name")
+    readonly_fields = ("id", "user", "project", "name", "runtime", "connector_token_hash",
+                       "created_at", "expires_at", "last_seen_at", "revoked_at")
+
+    def has_add_permission(self, request):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
         return False

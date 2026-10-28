@@ -1,6 +1,6 @@
 # Arquitectura BYOA: web, API, agente del usuario y MCP
 
-**Estado:** decisión de arquitectura objetivo para el producto. Describe cómo debe conectarse la web de TesisMCP con un agente aportado por el usuario. No afirma que el conector de agentes ya esté implementado.
+**Estado (28/10/2026):** arquitectura objetivo y primer slice BYOA local implementado en backend. Antigravity CLI es el primer runtime. La UI BYOA y ejecución real de CLI no están verificadas; el soporte no es automáticamente universal.
 
 ## 1. Decisión en una frase
 
@@ -117,7 +117,7 @@ MCP puede transportar mensajes cliente-servidor y Streamable HTTP ofrece respues
 - El agente llama al servidor MCP local usando las credenciales asociadas a la identidad autorizada.
 - La identidad web y la identidad MCP deben quedar vinculadas explícitamente. No pasar `user_id` desde el prompt.
 
-El código actual dispone de MCP `stdio` iniciado por un cliente, token MCP emitido administrativamente, endpoints de sesión web y un camino opcional de generación Gemini en el servidor. **No se debe afirmar que la web ya despacha jobs a un agente BYOA:** el conector, la vinculación de cuenta desde la interfaz y el ciclo web → agente → web siguen pendientes de diseño/implementación.
+El backend local ahora dispone de `AgentConnection`, credenciales distintas con hashes y revocación, alcance a un proyecto, modo `BYOA` en `AIGenerationJob`, endpoints autenticados de claim/heartbeat/evento/completado/fallo y el comando `run_byoa_connector` para invocar Antigravity CLI. La salida vuelve a validarse en Django y queda pendiente de aceptación humana. La UI de conexión/generación no está integrada al frontend y no se ha probado una llamada real con `agy` instalado y autenticado. El servidor MCP permanece en stdio local; el camino server-side Gemini sigue opcional y separado.
 
 ### Despliegue en nube (recomendado)
 
@@ -146,18 +146,22 @@ En esa vía, la clave del proveedor debe estar en el entorno protegido del backe
 - Una salida del agente es una propuesta. La aceptación del tesista, revisión del asesor y aprobación institucional, si aplica, son estados independientes.
 - Registrar qué runtime/proveedor/modelo se declaró, cuándo se ejecutó, entradas referenciadas, herramientas llamadas, salida y errores. Si el cliente no informa un dato, marcarlo desconocido; no inferirlo.
 
-## 9. Etapas de implementación recomendadas
+## 9. Etapas de implementación y estado
 
-1. **Contrato del job y de eventos:** definir tipos de tarea, payload mínimo, estados, errores, idempotencia, cancelación y formato de resultado/procedencia. Reutilizar `AIGenerationJob` solo si inspección confirma que sirve para ejecuciones delegadas; de lo contrario, ampliar o crear entidades justificadas.
-2. **Vinculación local de agente:** permitir que una cuenta autenticada registre una conexión nombrada, emita secreto de un solo uso/credencial con caducidad y revocación, y muestre configuración para un runtime compatible.
-3. **Gateway local:** recibir jobs desde la API, invocar el runtime soportado y devolver progreso/resultado sin exponer puertos del usuario. Implementar un conector concreto, no prometer soporte universal.
-4. **Reutilizar MCP:** dar al agente herramientas MCP protegidas sobre los mismos servicios y permisos. No replicar lógica de dominio en el gateway.
-5. **Integración web:** presentar progreso, cancelación, fuentes consultadas, advertencias y decisiones humanas.
-6. **Preparación cloud:** desplegar Streamable HTTP + OAuth para el servidor MCP, API HTTPS, cola durable y gateway/conectores salientes; realizar revisión de seguridad, privacidad, costos y desconexiones.
+1. **Contrato y vínculo local — implementados:** `AIGenerationJob` separa `SERVER` y `BYOA`; `AgentConnection` es revocable y acotada por proyecto.
+2. **Despacho y autenticación — implementados en código:** claim, heartbeat, eventos, cierre del job y token MCP ligado a la conexión.
+3. **Primer adaptador local — implementado, no ejecutado en vivo:** Antigravity CLI vía `run_byoa_connector`; requiere instalación, autenticación y permiso MCP en la máquina.
+4. **Adaptadores adicionales — extensión prevista:** registrar una implementación de `AgentRuntimeAdapter` por runtime; no hay compatibilidad universal automática.
+5. **Integración web — pendiente:** conexión/listado/revocación, selección de modo BYOA, progreso, cancelación y salida.
+6. **Cloud — pendiente:** API HTTPS, MCP remoto autorizado, cola durable, gateway seguro de conectores, control de cuotas, desconexiones y pruebas de seguridad/privacidad.
 
-No se recomienda empezar por conectar la web directamente a APIs de modelos de varios proveedores. Primero cerrar el contrato independiente de proveedor y un conector BYOA concreto. La integración directa de proveedor puede conservarse como modo opcional, claramente identificado.
+El backend ya tiene contrato independiente del runtime, registry de adaptadores y primer adaptador local Antigravity. La integración visual y la ejecución real siguen pendientes. La vía de proveedor server-side puede conservarse como modo opcional, claramente identificado.
 
-## 10. Criterios de aceptación de esta arquitectura
+## 10. Estado de implementación local y primer runtime
+
+El código implementa el contrato de conexión, seguridad y ciclo de job descrito en [Contrato del conector BYOA](contrato_conector_byoa.md), con Antigravity CLI local como primer runtime. La interfaz del frontend, una ejecución real autenticada, permisos MCP de la máquina usuaria y una integración de segundo runtime siguen sin comprobarse. Otros runtimes implementarán adaptadores pequeños contra el mismo contrato; MCP proporciona las herramientas de TesisMCP.
+
+## 11. Criterios de aceptación de esta arquitectura
 
 - La web puede crear un job autenticado y ver sus estados/resultados usando la API de TesisMCP.
 - Un conector registrado recibe jobs solo para la identidad/proyectos autorizados y puede revocarse.

@@ -42,6 +42,7 @@ from .schemas import (
     RestoreWorkflowIn,
     WorkflowTaskExecuteIn,
     GenerateTaskProposalIn,
+    AgentConnectionCreateIn, AgentEventIn, AgentCompleteIn, AgentFailIn,
     AIBatchTaskIn,
     CreateAIBatchIn,
     CreateBatchSynthesisIn,
@@ -75,6 +76,9 @@ from .routes_integrations import (
     zotero_connect,
     zotero_oauth_callback,
     zotero_disconnect,
+    create_agent_connection_route, list_agent_connections_route, revoke_agent_connection_route,
+    agent_connector_claim, agent_connector_heartbeat, agent_connector_event,
+    agent_connector_complete, agent_connector_fail,
 )
 from .routes_chapters import (
     set_advisor,

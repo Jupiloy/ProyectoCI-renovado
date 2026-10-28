@@ -4,7 +4,6 @@ import { getSession, login, logout } from "./api/auth"
 import { getProject } from "./api/projects"
 import type { ProjectState, ProjectSummary, SessionResponse, SessionUser } from "./api/types"
 import AccessScreen from "./features/auth/AccessScreen"
-import ConnectedProjectScreen from "./features/projects/ConnectedProjectScreen"
 import ChapterEditorScreen from "./features/editor/ChapterEditorScreen"
 import WorkflowScreen from "./features/workflow/WorkflowScreen"
 import LibraryScreen from "./features/library/LibraryScreen"
@@ -229,11 +228,9 @@ export default function App() {
           setVistaPantallas("app")
           setView("workflow")
         }}
-        alVistaClasica={() => {
-          setPantallaApp("tesis")
-          setVistaPantallas("workspace")
-          setView("workspace")
-        }}
+        alOpenAI={() => setView("ai")}
+        alOpenDatos={() => setView("artifacts")}
+        alCambiarProyecto={handleChangeProject}
         alDescargarBorrador={() => {
           void downloadDraftDocx(projectDetails.project_id).catch((cause) =>
             window.alert(cause instanceof Error ? cause.message : "No se pudo descargar el borrador."),
@@ -277,36 +274,6 @@ export default function App() {
           />
         )}
       </AppShellTesis>
-    )
-  }
-
-  if (view === "workspace" && selectedProject && projectDetails) {
-    return (
-      <ConnectedProjectScreen
-        project={selectedProject}
-        details={projectDetails}
-        user={sessionUser}
-        onChangeProject={handleChangeProject}
-        onLogout={handleLogout}
-        onOpenEditor={() => {
-          setVistaPantallas("workspace")
-          setView("editor")
-        }}
-        onOpenWorkflow={() => {
-          setVistaPantallas("workspace")
-          setView("workflow")
-        }}
-        onOpenLibrary={() => {
-          setVistaPantallas("workspace")
-          setView("library")
-        }}
-        onOpenAdvisor={() => {
-          setVistaPantallas("workspace")
-          setView("advisor")
-        }}
-        onOpenAI={() => setView("ai")}
-        onOpenArtifacts={() => setView("artifacts")}
-      />
     )
   }
 

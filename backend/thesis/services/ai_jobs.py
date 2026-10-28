@@ -23,6 +23,7 @@ from thesis.integrations.llm import (
 from thesis.models import (
     AIGenerationBatchSynthesis,
     AIGenerationJob,
+    AgentConnection,
     ProjectWorkflow,
     ResearchProfile,
     StepProgress,
@@ -64,6 +65,8 @@ def request_task_generation(
     idempotency_key: str | UUID | None = None,
     expected_state_version: int | None = None,
     workflow_version_no: int | None = None,
+    execution_mode: str = AIGenerationJob.ExecutionMode.SERVER,
+    agent_connection_id: UUID | None = None,
 ) -> dict[str, Any]:
     """Solicita la generación asistida con IA de una propuesta estructurada."""
     project = require_project(actor, project_id, owner_only=True)
@@ -75,6 +78,20 @@ def request_task_generation(
         raise DomainError("VALIDATION_ERROR", "idempotency_key debe ser un UUID válido") from exc
 
     input_data = input_data or {}
+    if execution_mode not in AIGenerationJob.ExecutionMode.values:
+        raise DomainError("VALIDATION_ERROR", "execution_mode debe ser SERVER o BYOA")
+    agent_connection = None
+    if execution_mode == AIGenerationJob.ExecutionMode.BYOA:
+        if not agent_connection_id:
+            raise DomainError("VALIDATION_ERROR", "agent_connection_id es obligatorio para BYOA")
+        agent_connection = AgentConnection.objects.filter(
+            pk=agent_connection_id, user=actor, project=project, revoked_at__isnull=True,
+            expires_at__gt=timezone.now(), project__status="ACTIVE",
+        ).first()
+        if agent_connection is None:
+            raise DomainError("NOT_FOUND", "Conexión BYOA no encontrada para este proyecto")
+    elif agent_connection_id is not None:
+        raise DomainError("VALIDATION_ERROR", "agent_connection_id solo se permite con execution_mode=BYOA")
 
     with transaction.atomic():
         profile = ResearchProfile.objects.select_for_update().get(project=project)
@@ -135,7 +152,9 @@ def request_task_generation(
         # Idempotencia de solicitud
         existing = AIGenerationJob.objects.filter(project=project, idempotency_key=key).first()
         if existing:
-            if existing.workflow_task_id != task_id or existing.input_data != input_data:
+            if (existing.workflow_task_id != task_id or existing.input_data != input_data
+                    or existing.execution_mode != execution_mode
+                    or existing.agent_connection_id != getattr(agent_connection, "pk", None)):
                 raise DomainError(
                     "VERSION_CONFLICT",
                     "La clave de idempotencia ya fue utilizada con otra tarea o datos de entrada diferentes",
@@ -144,10 +163,11 @@ def request_task_generation(
 
         # Rechazar la solicitud con error de dominio estable si el proveedor
         # está deshabilitado o falta su configuración; no dejar un job ficticio.
-        try:
-            get_llm_adapter()
-        except LLMProviderUnavailableError as exc:
-            raise DomainError("PROVIDER_UNAVAILABLE", str(exc)) from exc
+        if execution_mode == AIGenerationJob.ExecutionMode.SERVER:
+            try:
+                get_llm_adapter()
+            except LLMProviderUnavailableError as exc:
+                raise DomainError("PROVIDER_UNAVAILABLE", str(exc)) from exc
 
         context_snapshot = _build_context_snapshot(project, profile, active_wf, task, context_refs)
 
@@ -177,6 +197,8 @@ def request_task_generation(
             prompt_text_used=prompt_text_used,
             prompt_version_used=prompt_version_used,
             status=AIGenerationJob.Status.QUEUED,
+            execution_mode=execution_mode,
+            agent_connection=agent_connection,
             acceptance_status=AIGenerationJob.AcceptanceStatus.PENDING_ACCEPTANCE,
             idempotency_key=key,
             input_data=input_data,
@@ -186,7 +208,8 @@ def request_task_generation(
         )
 
     # La API encola siempre. El worker procesa el job fuera de la petición HTTP.
-    if getattr(settings, "TESISMCP_SYNC_AI_GENERATION", False):
+    if (execution_mode == AIGenerationJob.ExecutionMode.SERVER
+            and getattr(settings, "TESISMCP_SYNC_AI_GENERATION", False)):
         process_ai_generation_job(job.id)
         job.refresh_from_db()
 
@@ -207,6 +230,8 @@ def process_ai_generation_job(job_id: UUID, *, already_claimed: bool = False) ->
         job = AIGenerationJob.objects.select_for_update().filter(pk=job_id).first()
         expected_status = AIGenerationJob.Status.RUNNING if already_claimed else AIGenerationJob.Status.QUEUED
         if not job or job.status != expected_status:
+            return job
+        if job.execution_mode != AIGenerationJob.ExecutionMode.SERVER:
             return job
 
         if not already_claimed:
@@ -324,6 +349,15 @@ def get_ai_job(actor: Any, project_id: UUID, job_id: UUID) -> dict[str, Any]:
     job = AIGenerationJob.objects.filter(project=project, pk=job_id).first()
     if not job:
         raise DomainError("NOT_FOUND", "Trabajo de generación no encontrado en el proyecto")
+    if (job.execution_mode == AIGenerationJob.ExecutionMode.BYOA
+            and job.status == AIGenerationJob.Status.RUNNING
+            and (job.lease_expires_at is None or job.lease_expires_at <= timezone.now())):
+        job.status = AIGenerationJob.Status.FAILED
+        job.error_code = "LEASE_EXPIRED"
+        job.error_message = "El conector dejó de renovar la tarea; vuelve a solicitarla si aún la necesitas"
+        job.finished_at = timezone.now()
+        job.lease_expires_at = None
+        job.save(update_fields=["status", "error_code", "error_message", "finished_at", "lease_expires_at"])
     return present_ai_job(job)
 
 
@@ -334,7 +368,7 @@ def run_next_ai_job() -> bool:
     with transaction.atomic():
         job = (
             AIGenerationJob.objects.select_for_update(skip_locked=True)
-            .filter(status=AIGenerationJob.Status.QUEUED)
+            .filter(status=AIGenerationJob.Status.QUEUED, execution_mode=AIGenerationJob.ExecutionMode.SERVER)
             .order_by("created_at")
             .first()
         )
@@ -380,7 +414,7 @@ def fail_interrupted_ai_jobs() -> int:
     with transaction.atomic():
         interrupted = list(
             AIGenerationJob.objects.select_for_update()
-            .filter(status=AIGenerationJob.Status.RUNNING)
+            .filter(status=AIGenerationJob.Status.RUNNING, execution_mode=AIGenerationJob.ExecutionMode.SERVER)
             .order_by("started_at", "created_at")
         )
         for job in interrupted:
@@ -412,14 +446,19 @@ def cancel_ai_job(actor: Any, project_id: UUID, job_id: UUID) -> dict[str, Any]:
         job = AIGenerationJob.objects.select_for_update().filter(project=project, pk=job_id).first()
         if not job:
             raise DomainError("NOT_FOUND", "Trabajo de generación no encontrado en el proyecto")
-        if job.status != AIGenerationJob.Status.QUEUED:
+        can_cancel_running_by_agent = (
+            job.execution_mode == AIGenerationJob.ExecutionMode.BYOA
+            and job.status == AIGenerationJob.Status.RUNNING
+        )
+        if job.status != AIGenerationJob.Status.QUEUED and not can_cancel_running_by_agent:
             raise DomainError(
                 "JOB_NOT_CANCELLABLE",
-                f"No se puede cancelar un trabajo en estado '{job.status}' (solo permitido en QUEUED)",
+                f"No se puede cancelar un trabajo en estado '{job.status}'",
             )
         job.status = AIGenerationJob.Status.CANCELLED
         job.finished_at = timezone.now()
-        job.save(update_fields=["status", "finished_at"])
+        job.lease_expires_at = None
+        job.save(update_fields=["status", "finished_at", "lease_expires_at"])
     return present_ai_job(job)
 
 

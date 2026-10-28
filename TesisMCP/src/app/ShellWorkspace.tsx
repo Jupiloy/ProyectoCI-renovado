@@ -51,7 +51,9 @@ export function AppShellTesis({
   alConmutar,
   alRevision,
   alRecorrido,
-  alVistaClasica,
+  alOpenAI,
+  alOpenDatos,
+  alCambiarProyecto,
   alDescargarBorrador,
   alCerrarSesion,
   children,
@@ -63,7 +65,9 @@ export function AppShellTesis({
   alConmutar: (pantalla: PantallaApp) => void
   alRevision: () => void
   alRecorrido: () => void
-  alVistaClasica: () => void
+  alOpenAI: () => void
+  alOpenDatos: () => void
+  alCambiarProyecto: () => void
   alDescargarBorrador: () => void
   alCerrarSesion: () => void
   children: ReactNode
@@ -93,6 +97,9 @@ export function AppShellTesis({
                 <span>{item.label}</span>
               </button>
             ))}
+          <button className="nav-item" type="button" onClick={alRecorrido}><Icon name="edit" /><span>Recorrido metodológico</span></button>
+          <button className="nav-item" type="button" onClick={alOpenAI}><Icon name="spark" /><span>Asistente de IA</span></button>
+          <button className="nav-item" type="button" onClick={alOpenDatos}><Icon name="document" /><span>Datos y figuras</span></button>
           <button
             className="nav-item"
             type="button"
@@ -104,6 +111,7 @@ export function AppShellTesis({
           </button>
         </nav>
         <div className="sidebar-project">
+          <button className="text-link" type="button" onClick={alCambiarProyecto}>Cambiar proyecto</button>
           <span className="eyebrow">PROYECTO ACTIVO</span>
           <strong>{proyecto.title || proyecto.name}</strong>
           <span>
@@ -114,9 +122,6 @@ export function AppShellTesis({
           <button className="download-project" type="button" onClick={alDescargarBorrador}>
             <Icon name="download" />
             <span>Descargar borrador (DOCX)</span>
-          </button>
-          <button className="text-link" type="button" onClick={alVistaClasica}>
-            Vista clásica del proyecto (respaldo)
           </button>
           <button className="profile" onClick={alCerrarSesion} title="Cerrar sesión">
             <div className="avatar">{iniciales(usuario.display_name)}</div>

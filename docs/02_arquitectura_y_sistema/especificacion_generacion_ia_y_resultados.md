@@ -37,13 +37,13 @@ sequenceDiagram
     A-->>W: Confirmación o STALE/CONFLICT
 ```
 
-## 1.1 Arquitectura objetivo BYOA para la web
+## 1.1 BYOA para la web: objetivo e implementación actual
 
 En el flujo principal objetivo, la web crea la tarea mediante la API de TesisMCP y el backend la coordina. Un conector entrega el job al agente/runtime que el usuario vinculó. El agente ejecuta el modelo disponible en ese runtime y llama herramientas del servidor MCP para consultar recursos autorizados. El conector devuelve avances y el resultado al backend; la web muestra el estado y la propuesta mediante la API.
 
 La API de TesisMCP resuelve el ciclo de aplicación (crear job, estado, eventos, cancelación y resultado). MCP resuelve el acceso del agente a herramientas y datos de TesisMCP. La API comercial del proveedor de IA, si el runtime la usa, es una tercera interfaz y no se confunde con ninguna de las anteriores. El backend comparte servicios de dominio y controles de permisos entre API y MCP.
 
-El servidor MCP local, los tokens administrados por consola y los endpoints de sesión no implementan por sí solos vinculación autogestionada del agente ni despacho de tareas desde la web. El conector, el gateway de jobs y el canal de eventos web siguen pendientes. Para el diseño detallado, leer [arquitectura BYOA, API y MCP](./arquitectura_byoa_api_mcp.md).
+La vinculación BYOA y el despacho local ya están implementados en backend: conexión por proyecto, secreto de conector y token MCP vinculados, jobs BYOA, claim/heartbeat/eventos/resultados, validación y adaptador local de Antigravity CLI. No está integrada la UI de conexión y no hay evidencia de una ejecución real Antigravity autenticada. El detalle vigente está en [arquitectura BYOA, API y MCP](./arquitectura_byoa_api_mcp.md) y el [contrato del conector](./contrato_conector_byoa.md).
 
 La generación y la aceptación son operaciones distintas. `HTTP 200`, `SUCCEEDED` o una salida JSON válida significan que se obtuvo una propuesta; **no** significan que el tesista la aceptó, que el asesor la aprobó, que la evidencia sea correcta ni que la tesis esté terminada.
 

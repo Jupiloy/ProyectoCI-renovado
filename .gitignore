@@ -16,6 +16,11 @@ graphify-out/obsidian/
 # Registros internos de ejecución de agentes; las skills permanecen compartibles
 /.agents/teamwork/
 
+# Bases de datos y logs locales
+*.sqlite3
+*.db
+*.log
+
 # Archivos generados por herramientas y sistemas
 .mypy_cache/
 .ruff_cache/

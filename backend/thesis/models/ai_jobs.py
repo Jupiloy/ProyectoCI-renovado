@@ -13,6 +13,10 @@ class AIGenerationJob(models.Model):
         FAILED = "FAILED", "Generación fallida"
         CANCELLED = "CANCELLED", "Generación cancelada"
 
+    class ExecutionMode(models.TextChoices):
+        SERVER = "SERVER", "Proveedor configurado en servidor"
+        BYOA = "BYOA", "Agente conectado por el usuario"
+
     class AcceptanceStatus(models.TextChoices):
         PENDING_ACCEPTANCE = "PENDING_ACCEPTANCE", "Pendiente de aceptación humana"
         ACCEPTED = "ACCEPTED", "Aceptada e incorporada como revisión canónica"
@@ -73,6 +77,17 @@ class AIGenerationJob(models.Model):
         blank=True,
         verbose_name="Versión del prompt utilizada",
     )
+    execution_mode = models.CharField(
+        max_length=10, choices=ExecutionMode.choices, default=ExecutionMode.SERVER,
+        verbose_name="Modo de ejecución",
+    )
+    agent_connection = models.ForeignKey(
+        "thesis.AgentConnection", null=True, blank=True, on_delete=models.PROTECT,
+        related_name="generation_jobs", verbose_name="Conexión BYOA asignada",
+    )
+    lease_expires_at = models.DateTimeField(null=True, blank=True, verbose_name="Vencimiento del lease BYOA")
+    agent_events = models.JSONField(default=list, blank=True, verbose_name="Eventos informativos del agente")
+    agent_provenance = models.JSONField(default=dict, blank=True, verbose_name="Procedencia declarada por el agente")
     status = models.CharField(
         max_length=20,
         choices=Status.choices,
@@ -214,6 +229,13 @@ class AIGenerationJob(models.Model):
         verbose_name_plural = "Trabajos de generación con IA"
         ordering = ["-created_at"]
         constraints = [
+            models.CheckConstraint(
+                condition=(
+                    models.Q(execution_mode="SERVER", agent_connection__isnull=True)
+                    | models.Q(execution_mode="BYOA", agent_connection__isnull=False)
+                ),
+                name="ai_job_execution_mode_connection_ck",
+            ),
             models.UniqueConstraint(
                 fields=["project", "idempotency_key"],
                 name="unique_ai_job_project_idempotency",

@@ -212,3 +212,21 @@ Cada herramienta MCP debe ser una fachada tipada sobre un caso de uso compartido
 ## Compatibilidad y aceptación
 
 Antes de modificar un endpoint: registrar método/ruta/esquema actual, consumidores (frontend, pruebas, MCP indirecto), transición de compatibilidad y ejemplo viejo/nuevo. La aceptación requiere comprobar autenticación, aislamiento de proyecto, errores, conflicto concurrente, idempotencia y serialización. La documentación del `backend/README.md` se actualiza en el mismo cambio.
+
+## BYOA local: conexiones y jobs delegados (28/10/2026)
+
+Estas rutas reutilizan `AIGenerationJob`; no forman una segunda cola. Las rutas de gestión requieren sesión Django y CSRF en operaciones mutables; las rutas del conector usan `Authorization: Bearer <connector_token>`. La identidad del conector se obtiene de la credencial; no se acepta un `user_id` como autoridad.
+
+| Método y ruta | Actor/permiso | Resultado |
+| --- | --- | --- |
+| `POST /api/v1/integrations/agents` | Sesión; titular del proyecto. Body: `project_id`, `name`, `runtime` (`ANTIGRAVITY_CLI`). | Crea conexión acotada al proyecto. Devuelve una vez `connector_token` y `mcp_token`, con `Cache-Control: no-store`; solo se persisten hashes. Caduca en 30 días. |
+| `GET /api/v1/integrations/agents?project_id={uuid}` | Sesión; titular. | Lista conexiones del titular para ese proyecto; nunca vuelve a entregar secretos. |
+| `DELETE /api/v1/integrations/agents/{connection_id}` | Sesión; dueño de la conexión. | Revoca conexión y tokens MCP y cancela jobs BYOA en cola/ejecución. |
+| `POST /api/v1/integrations/agents/connector/claim` | Token del conector activo. | Reclama atómicamente el job BYOA más antiguo asignado a la conexión, devuelve el runtime y lease de 300 s, o `job: null`. |
+| `POST /api/v1/integrations/agents/connector/jobs/{job_id}/heartbeat` | Token de la conexión asignada. | Renueva lease; informa cancelación o vencimiento. |
+| `POST /api/v1/integrations/agents/connector/jobs/{job_id}/events` | Token de la conexión asignada. | Persiste eventos permitidos `progress`/`tool_activity`, con payload acotado. |
+| `POST /api/v1/integrations/agents/connector/jobs/{job_id}/complete` | Token de la conexión asignada. | Valida salida Pydantic/JSON Schema y guarda propuesta `PENDING_ACCEPTANCE`; no acepta ni escribe capítulo por sí solo. |
+| `POST /api/v1/integrations/agents/connector/jobs/{job_id}/fail` | Token de la conexión asignada. | Registra error normalizado y finaliza el job. |
+| `POST /api/v1/projects/{project_id}/workflow/tasks/{task_id}/generate` | Sesión; titular. | Acepta `execution_mode: "BYOA"` junto con `agent_connection_id` del mismo proyecto y campos de contexto/versiones existentes. La respuesta se encola; sin fallback a `SERVER`. |
+
+El runtime registrado se identifica en el sobre del job. `AgentRuntimeAdapter` separa el proceso de ejecución del contrato HTTP. Antigravity CLI es el único runtime implementado hoy; añadir otros requiere implementar/registrar su adaptador y su configuración MCP. La UI de conexión BYOA, una ejecución real autenticada y la nube no se consideran verificadas. Ver [contrato BYOA](./contrato_conector_byoa.md).

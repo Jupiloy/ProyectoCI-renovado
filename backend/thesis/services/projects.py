@@ -16,6 +16,8 @@ def _clean_text(value: str, name: str, max_length: int) -> str:
 
 @transaction.atomic
 def create_project(actor, name: str, title: str | None = None) -> Project:
+    if getattr(actor, "_tesismcp_agent_connection_id", None) is not None:
+        raise DomainError("PERMISSION_DENIED", "Una conexión BYOA limitada a un proyecto no puede crear proyectos")
     project = Project.objects.create(
         name=_clean_text(name, "name", 160),
         title=_clean_text(title, "title", 300) if title else "Título por definir",
