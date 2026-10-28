@@ -13,8 +13,10 @@ import { AIAssistantScreen } from "./features/ai/AIAssistantScreen"
 import { ResearchArtifactsScreen } from "./features/artifacts/ResearchArtifactsScreen"
 import ProjectSelectionScreen from "./features/projects/ProjectSelectionScreen"
 import DemoApp from "./DemoApp"
+import { AppShellTesis, PanelPrincipal, type PantallaApp } from "./app/ShellWorkspace"
+import { downloadDraftDocx } from "./api/exports"
 
-type AppView = "checking" | "access" | "projects" | "workspace" | "editor" | "workflow" | "library" | "advisor" | "ai" | "artifacts" | "demo"
+type AppView = "checking" | "access" | "projects" | "app" | "workspace" | "editor" | "workflow" | "library" | "advisor" | "ai" | "artifacts" | "demo"
 type SessionAvailability = "checking" | "available" | "unavailable"
 
 export default function App() {
@@ -28,6 +30,8 @@ export default function App() {
   const [openingProjectId, setOpeningProjectId] = useState<string | null>(null)
   const [selectedProject, setSelectedProject] = useState<ProjectSummary | null>(null)
   const [projectDetails, setProjectDetails] = useState<ProjectState | null>(null)
+  const [pantallaApp, setPantallaApp] = useState<PantallaApp>("tesis")
+  const [vistaPantallas, setVistaPantallas] = useState<"app" | "workspace">("app")
   const [loggingOut, setLoggingOut] = useState(false)
 
   const refreshSession = useCallback(async () => {
@@ -129,7 +133,9 @@ export default function App() {
       }
       setSelectedProject(project)
       setProjectDetails(details)
-      setView("workspace")
+      setVistaPantallas("app")
+      setPantallaApp("tesis")
+      setView("app")
       return true
     } catch (cause) {
       if (cause instanceof ApiError && cause.status === 401) {
@@ -163,6 +169,24 @@ export default function App() {
     setView("projects")
   }, [])
 
+  const handleLogoutSafe = useCallback(() => {
+    void (async () => {
+      try {
+        await handleLogout()
+      } catch (cause) {
+        window.alert(cause instanceof Error ? cause.message : "No se pudo cerrar la sesión.")
+      }
+    })()
+  }, [handleLogout])
+
+  const abrirPantallaBloque = useCallback(
+    (vista: "editor" | "workflow" | "library" | "advisor") => {
+      setVistaPantallas("app")
+      setView(vista)
+    },
+    [],
+  )
+
   if (view === "checking") {
     return <main className="access-loading" role="status">Comprobando la sesión…</main>
   }
@@ -185,6 +209,48 @@ export default function App() {
     )
   }
 
+  if (view === "app" && selectedProject && projectDetails && sessionUser) {
+    return (
+      <AppShellTesis
+        pantalla={pantallaApp}
+        usuario={sessionUser}
+        proyecto={selectedProject}
+        detalles={projectDetails}
+        alConmutar={(destino) => {
+          setPantallaApp(destino)
+          if (destino === "editor") setView("editor")
+          if (destino === "fuentes") setView("library")
+          if (destino === "asesor") setView("advisor")
+        }}
+        alRecorrido={() => {
+          setPantallaApp("tesis")
+          setVistaPantallas("app")
+          setView("workflow")
+        }}
+        alVistaClasica={() => {
+          setPantallaApp("tesis")
+          setVistaPantallas("workspace")
+          setView("workspace")
+        }}
+        alDescargarBorrador={() => {
+          void downloadDraftDocx(projectDetails.project_id).catch((cause) =>
+            window.alert(cause instanceof Error ? cause.message : "No se pudo descargar el borrador."),
+          )
+        }}
+        alCerrarSesion={handleLogoutSafe}
+      >
+        <PanelPrincipal
+          usuario={sessionUser}
+          proyecto={selectedProject}
+          detalles={projectDetails}
+          alContinuar={() => abrirPantallaBloque("editor")}
+          alRecorrido={() => abrirPantallaBloque("workflow")}
+          alFuentes={() => abrirPantallaBloque("library")}
+        />
+      </AppShellTesis>
+    )
+  }
+
   if (view === "workspace" && selectedProject && projectDetails) {
     return (
       <ConnectedProjectScreen
@@ -193,10 +259,22 @@ export default function App() {
         user={sessionUser}
         onChangeProject={handleChangeProject}
         onLogout={handleLogout}
-        onOpenEditor={() => setView("editor")}
-        onOpenWorkflow={() => setView("workflow")}
-        onOpenLibrary={() => setView("library")}
-        onOpenAdvisor={() => setView("advisor")}
+        onOpenEditor={() => {
+          setVistaPantallas("workspace")
+          setView("editor")
+        }}
+        onOpenWorkflow={() => {
+          setVistaPantallas("workspace")
+          setView("workflow")
+        }}
+        onOpenLibrary={() => {
+          setVistaPantallas("workspace")
+          setView("library")
+        }}
+        onOpenAdvisor={() => {
+          setVistaPantallas("workspace")
+          setView("advisor")
+        }}
         onOpenAI={() => setView("ai")}
         onOpenArtifacts={() => setView("artifacts")}
       />
@@ -211,7 +289,7 @@ export default function App() {
         canWrite={selectedProject.role === "OWNER"}
         csrfToken={csrfToken ?? ""}
         stateVersion={projectDetails.state_version}
-        onBack={() => setView("workspace")}
+        onBack={() => setView(vistaPantallas)}
         onStateVersionChanged={(newVer) => {
           setProjectDetails((prev) => (prev ? { ...prev, state_version: newVer } : null))
         }}
@@ -227,7 +305,7 @@ export default function App() {
         canWrite={selectedProject.role === "OWNER"}
         csrfToken={csrfToken ?? ""}
         stateVersion={projectDetails.state_version}
-        onBack={() => setView("workspace")}
+        onBack={() => setView(vistaPantallas)}
       />
     )
   }
@@ -239,7 +317,7 @@ export default function App() {
         details={projectDetails}
         user={sessionUser}
         csrfToken={csrfToken ?? ""}
-        onBack={() => setView("workspace")}
+        onBack={() => setView(vistaPantallas)}
         onUnauthorized={handleUnauthorized}
         onAccessLost={handleAccessLost}
         onLogout={handleLogout}
@@ -254,7 +332,7 @@ export default function App() {
         details={projectDetails}
         user={sessionUser}
         csrfToken={csrfToken ?? ""}
-        onBack={() => setView("workspace")}
+        onBack={() => setView(vistaPantallas)}
         onUnauthorized={handleUnauthorized}
         onAccessLost={handleAccessLost}
         onLogout={handleLogout}
@@ -269,7 +347,7 @@ export default function App() {
         details={projectDetails}
         user={sessionUser}
         csrfToken={csrfToken ?? ""}
-        onBack={() => setView("workspace")}
+        onBack={() => setView(vistaPantallas)}
         onUnauthorized={handleUnauthorized}
         onAccessLost={handleAccessLost}
         onRefreshCsrf={refreshCsrf}
@@ -284,7 +362,7 @@ export default function App() {
         project={selectedProject}
         user={sessionUser}
         csrfToken={csrfToken ?? ""}
-        onBack={() => setView("workspace")}
+        onBack={() => setView(vistaPantallas)}
         onUnauthorized={handleUnauthorized}
         onAccessLost={handleAccessLost}
         onRefreshCsrf={refreshCsrf}
