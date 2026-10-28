@@ -115,6 +115,10 @@ export function VistaEditor({
             onTab={editor.setRightTab}
             projectId={proyecto.project_id}
             numeroCapitulo={editor.numeroCapitulo}
+            draft={editor.draft}
+            csrfToken={csrfToken}
+            esPropietario={proyecto.role === "OWNER"}
+            esAsesor={proyecto.role === "ADVISOR"}
             snapshots={editor.snapshots}
             cargandoVersion={editor.cargandoVersion}
             onAbrirVersion={(id) => editor.abrirVersion("snapshot", id)}

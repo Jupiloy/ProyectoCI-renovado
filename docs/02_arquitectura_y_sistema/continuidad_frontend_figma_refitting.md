@@ -542,3 +542,41 @@ Desviación del borrador de diseño, por decisión propia y documentada: no se p
 **Nota sobre «Estado N» en la barra lateral (verificado, no un defecto):** el número es `state_version` del proyecto (`lock_version`), y `services/chapter_documents.py:345-346` lo incrementa en **cada guardado confirmado de capítulo**. Los dos guardados de R9 (v6 y v7) explican exactamente el paso 29→31 durante esta sesión.
 
 **Alcance no probado en R9:** grupos con varias fuentes por cita (la UI inserta de a una; el PUT ya maneja `sources[]` con N elementos) y citas sobre bloques ya anclados (se anclarían al final del texto; caminos cubiertos por la misma lógica pero no recorridos en navegador).
+
+---
+
+## 17. Bloque R10: consultar fuentes + evidencia de citas (28/10/2026)
+
+Cierra las brechas A3/A4 del inventario de §14 (asistente de consulta en el editor → reutilización de la búsqueda de pasajes; evidencia de citas → ciclo candidato/decisión). R11 (generación IA) sigue en pausa por decisión del usuario.
+
+### 17.1 Contratos del backend verificados (literales)
+
+- `services/citation_evidence.py` — `create_citation_evidence_candidate`: `owner_only`; la afirmación debe estar dentro del texto del párrafo con `claim_start <= occurrence.char_offset <= claim_end` (por eso el rango por defecto siempre incluye el ancla); `claim` recortado entre 10 y 1000 caracteres; el pasaje debe pertenecer a la **misma fuente** de la ocurrencia («El pasaje no pertenece a la fuente citada»); la fuente exige `TEXT_CHECKED` («La fuente aún no tiene texto extraído y verificable»); se verifica el hash del excerpt (`VERSION_CONFLICT` si difiere); rango del pasaje válido sobre su texto; `review_version` incremental con idempotencia.
+- `review_citation_evidence`: solo rol ADVISOR; estados `SUPPORTS | CONTRADICTS | UNRELATED | INSUFFICIENT`; `expected_version` + idempotencia; nota ≤2000.
+- `list_citation_evidence`: cualquier miembro del proyecto, ordenado por `review_version`.
+- El par `source_ids[i] ↔ occurrence_ids[i]` de `IeeeCitationMark` corresponde a la misma fuente dentro del grupo (base del aplanado de opciones).
+- Los bloques con cita anclada tienen el texto bloqueado en el borrador, por lo que el texto del párrafo del draft coincide con la revisión del servidor: la selección de afirmación sobre el borrador es válida para el backend.
+- Los vínculos genéricos `/evidence-links` (`evidence_links.py`, otro ciclo similar sin anclaje a cita) **quedan fuera de alcance** de R10: sin UI en el shell, documentados como resto (candidato para un bloque futuro).
+
+### 17.2 Implementación
+
+| Módulo | Líneas | Papel |
+|---|---|---|
+| `editor/evidencia.ts` (nuevo) | 240 | Lógica: hook `useEvidencia` (carga vista IEEE, extractos por fuente, historial por ocurrencia, crear candidato, decidir); `opcionesDeEvidencia` (aplana marks a pares ocurrencia↔fuente); `rangoAfirmacionInicial` (ventana ≤1000 que siempre incluye el ancla). |
+| `editor/PanelEvidencia.tsx` (nuevo) | 218 | Pestaña «Evidencia»: selector de cita y extracto, textareas de solo lectura para seleccionar afirmación y pasaje con el cursor (offsets UTF-16 → puntos de código vía `utf16ACodePoints`), botón «Crear candidato de evidencia» solo propietario, decisiones solo asesor, historial con nota. |
+| `editor/PanelAsistencia.tsx` (145→183) | +38 | 5 pestañas (Versiones/Observaciones/Citas IEEE/Evidencia/Consultar); tipo `PestañaDerecha` exportado; reutiliza `fuentes/PanelPasajes.tsx` (el mismo de R8) en la pestaña «Consultar». |
+| `useEditorEstado.ts` (305→306) | +1 | `rightTab` usa el tipo `PestañaDerecha`. |
+| `VistaEditor.tsx` (126→151) | +25 | Pasa `draft`, `csrfToken`, `esPropietario` y `esAsesor` al panel. |
+
+**Nota honesta sobre el techo:** `evidencia.ts` (240) y `PanelEvidencia.tsx` (218) quedan algo sobre el techo guía ~200 líneas; la lógica/JSX siguen separados y no se forzó una subdivisión adicional porque la responsabilidad (ciclo de evidencia) es única y cohesiva.
+
+### 17.3 Verificación ejecutada (navegador, base `tesismcp_r6`)
+
+1. `npx tsc --noEmit` → exit 0; `npm run build` → exit 0.
+2. **Tesista (Lucía, OWNER), Cap 1:** cita confirmada y guardada → **v8** con manifiesto real del servidor (`position: 186` — fin del párrafo, caret null —, `locator: "p. 1, §2"`, fuente `R6-aislado-pag1` con `TEXT_CHECKED`). Detalle honesto: la fuente no tiene título, por lo que en el modal la opción se eligió por su etiqueta real «(sin título) (Texto completo disponible)»; un filtro por nombre habría fallado.
+3. **Pestaña «Evidencia» (tesista):** opción `[1] · 1 · posición 186`; extracto «Página física 1» (2831 caracteres); **candidato CANDIDATE creado (v1)** con aviso literal «Candidato de evidencia creado (CANDIDATE); queda pendiente de la decisión del asesor.»; historial muestra la afirmación «La elaboración de tesis de pregrado muestra dispersión metodológica en los estud…» con rangos usados: afirmación 0–186 (incluye el ancla 186) y pasaje 0–2831. Gating correcto: sin botones de decisión, con nota «La decisión (respalda / contradice / no relacionada / insuficiente) la toma el asesor del proyecto.»
+4. **Pestaña «Evidencia» (asesor, Roberto, ADVISOR):** historial v1 · CANDIDATE visible; nota de decisión + botones Respalda/Contradice/No relacionada/Insuficiente; **«Respalda» con nota** → aviso «Decisión registrada: SUPPORTS.» e historial actualizado: **v1 · CANDIDATE → v2 · SUPPORTS** con la nota del asesor. Sin botón «Crear candidato» (gating inverso correcto).
+5. **Pestaña «Consultar» (asesor):** `PanelPasajes` con la advertencia obligatoria literal; búsqueda «dispersión metodológica en la elaboración de tesis» → **5 resultados** «Página física 1» de la fuente con distancia coseno (patrón R8), más banner «El asesor puede consultar el documento, pero no editar.»
+6. Cero errores de consola no provocados (los únicos mensajes son CORS de un fetch de verificación ejecutado adrede contra :8010 fuera del proxy). Captura de evidencia de la pestaña Consultar como asesor.
+
+**Alcance no probado en R10:** reemplazos de cita (`citation_replacements.py`: proponer cualquier participante con rationale 10–2000, decidir owner_only ACCEPTED/REJECTED; wrappers ya en `chapters.ts` — `proposeCitationReplacement` sin UI) → candidato para R12 u otro bloque; estados CONTRADICTS/UNRELATED/INSUFFICIENT no recorridos en navegador (mismo camino que SUPPORTS, cubierto por la misma acción).

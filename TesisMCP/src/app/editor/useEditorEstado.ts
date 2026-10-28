@@ -16,6 +16,7 @@ import { estadoGuardado, getWorkflowRecursos } from "./etiquetas"
 import { consultarVersionVigente, guardar } from "./guardado"
 import { cambiarCapitulo } from "./operaciones"
 import type { EditorCtx, Loaded, ModoDocumento, PendingSave, SaveCitation } from "./tipos"
+import type { PestañaDerecha } from "./PanelAsistencia"
 import { abrirModo, resolverObservacion } from "./versiones"
 
 /**
@@ -57,7 +58,7 @@ export function useEditorEstado(args: {
   const [leftOpen, setLeftOpen] = useState(true)
   const [rightOpen, setRightOpen] = useState(true)
   const [leftTab, setLeftTab] = useState<"estructura" | "fuentes">("estructura")
-  const [rightTab, setRightTab] = useState<"versiones" | "observaciones" | "citas">("versiones")
+  const [rightTab, setRightTab] = useState<PestañaDerecha>("versiones")
   const loadSequence = useRef(0)
 
   const dirty =

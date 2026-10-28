@@ -1,15 +1,24 @@
 import { StatusBadge } from "../base"
-import type { ChapterSnapshotSummaryApi, ReviewComment } from "../../api/types"
+import type { ChapterContentTree, ChapterSnapshotSummaryApi, ReviewComment } from "../../api/types"
+import { PanelEvidencia } from "./PanelEvidencia"
 import { PanelIeee } from "./PanelIeee"
+import { PanelPasajes } from "../fuentes/PanelPasajes"
 
-/** Panel derecho del editor ("asistencia"): pestaña de versiones (snapshots
- * con SHA del contrato real), pestaña de observaciones del asesor y pestaña
- * de citas IEEE (vista preliminar real del backend, bajo demanda). */
+export type PestañaDerecha = "versiones" | "observaciones" | "citas" | "evidencia" | "consulta"
+
+/** Panel derecho del editor ("asistencia"): versiones (snapshots con SHA del
+ * contrato real), observaciones del asesor, citas IEEE (vista preliminar
+ * real), evidencia de citas (candidato + decisiones) y consulta de fuentes
+ * (búsqueda semántica de pasajes), todas bajo demanda. */
 export function PanelAsistencia({
   tab,
   onTab,
   projectId,
   numeroCapitulo,
+  draft,
+  csrfToken,
+  esPropietario,
+  esAsesor,
   snapshots,
   cargandoVersion,
   onAbrirVersion,
@@ -20,10 +29,14 @@ export function PanelAsistencia({
   onResolver,
   onUnauthorized,
 }: {
-  tab: "versiones" | "observaciones" | "citas"
-  onTab: (tab: "versiones" | "observaciones" | "citas") => void
+  tab: PestañaDerecha
+  onTab: (tab: PestañaDerecha) => void
   projectId: string
   numeroCapitulo: number | null
+  draft: ChapterContentTree | null
+  csrfToken: string
+  esPropietario: boolean
+  esAsesor: boolean
   snapshots: ChapterSnapshotSummaryApi[]
   cargandoVersion: boolean
   onAbrirVersion: (snapshotId: string) => void
@@ -55,6 +68,18 @@ export function PanelAsistencia({
         >
           Citas IEEE
         </button>
+        <button
+          className={tab === "evidencia" ? "active" : ""}
+          onClick={() => onTab("evidencia")}
+        >
+          Evidencia
+        </button>
+        <button
+          className={tab === "consulta" ? "active" : ""}
+          onClick={() => onTab("consulta")}
+        >
+          Consultar
+        </button>
       </div>
       {tab === "citas" ? (
         <PanelIeee
@@ -63,6 +88,19 @@ export function PanelAsistencia({
           activa={tab === "citas"}
           onUnauthorized={onUnauthorized}
         />
+      ) : tab === "evidencia" ? (
+        <PanelEvidencia
+          projectId={projectId}
+          numeroCapitulo={numeroCapitulo}
+          csrfToken={csrfToken}
+          activa={tab === "evidencia"}
+          draft={draft}
+          esPropietario={esPropietario}
+          esAsesor={esAsesor}
+          onUnauthorized={onUnauthorized}
+        />
+      ) : tab === "consulta" ? (
+        <PanelPasajes projectId={projectId} csrfToken={csrfToken} onUnauthorized={onUnauthorized} />
       ) : tab === "versiones" ? (
         <div className="sources-panel">
           {cargandoVersion ? (
