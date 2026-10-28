@@ -100,18 +100,21 @@ export function Button({
   icon,
   disabled,
   onClick,
+  title,
 }: {
   children: ReactNode
   variant?: "primary" | "secondary" | "danger" | "ghost"
   icon?: IconNameTesis
   disabled?: boolean
   onClick?: () => void
+  title?: string
 }) {
   return (
     <button
       className={`button button-${variant}`}
       disabled={disabled}
       onClick={onClick}
+      title={title}
     >
       {icon && <Icon name={icon} size={16} />}
       <span>{children}</span>

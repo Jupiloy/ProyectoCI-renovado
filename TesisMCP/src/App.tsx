@@ -17,6 +17,7 @@ import { AppShellTesis, PanelPrincipal, type PantallaApp } from "./app/ShellWork
 import { VistaRevision } from "./app/VistaRevision"
 import { VistaEditor } from "./app/VistaEditor"
 import { VistaFuentes } from "./app/VistaFuentes"
+import { VistaAsesor } from "./app/VistaAsesor"
 import { downloadDraftDocx } from "./api/exports"
 
 type AppView = "checking" | "access" | "projects" | "app" | "workspace" | "editor" | "workflow" | "library" | "advisor" | "ai" | "artifacts" | "demo"
@@ -221,9 +222,6 @@ export default function App() {
         detalles={projectDetails}
         alConmutar={(destino) => {
           setPantallaApp(destino)
-          // R5: mientras no exista la vista real del panel asesor dentro del
-          // shell, ese destino abre la pantalla de respaldo.
-          if (destino === "asesor") setView("advisor")
         }}
         alRevision={() => setPantallaApp("revision")}
         alRecorrido={() => {
@@ -259,6 +257,14 @@ export default function App() {
             csrfToken={csrfToken ?? ""}
             onUnauthorized={handleUnauthorized}
             onAccessLost={handleAccessLost}
+          />
+        ) : pantallaApp === "asesor" ? (
+          <VistaAsesor
+            proyectoActivo={selectedProject}
+            csrfToken={csrfToken ?? ""}
+            onUnauthorized={handleUnauthorized}
+            onAccessLost={handleAccessLost}
+            onRefreshCsrf={refreshCsrf}
           />
         ) : (
           <PanelPrincipal

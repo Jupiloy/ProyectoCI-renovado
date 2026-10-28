@@ -187,3 +187,21 @@ El usuario pidió ejecutar el plan directamente en esta sesión y detenerse al a
 **Pendiente explícitos:** verificación visual en navegador (la sesión no tenía navegador: solo tsc/build/HTTP no; también quedó sin ejecutar suite backend). **Faltan:** R3 (editor de tres paneles real), R4 (biblioteca de fuentes real), R5 completo (panel de asesor: submit/decisión/resolver), R6 (cierre: matriz, bitácora y `verify_project.py` una vez).
 
 El prompt maestro ya actualizado describe este corte al principio del bloque pegable (`ESTADO DE EJECUCIÓN AL CORTE`) y ordena reutilizar `src/app/base.tsx`/`AppShellTesis` sin duplicarlos.
+
+---
+
+## 10. Continuación: R3 y R4 (chat Antigravity posterior) + cierre de R5 (chat OpenCode, noche del 27/10)
+
+**Chat que continuó la tarea (otro agente):** ejecutó y commiteó:
+- `fa9639d` — R3: `TesisMCP/src/app/VistaEditor.tsx` (editor de tres paneles: documento real validado con árbol content_tree, guardado con `expected_version` + `Idempotency-Key` y conflicto 409 visible) + copia local de `editorDocument.ts`.
+- `ed21ef0` — R4: `TesisMCP/src/app/VistaFuentes.tsx` (biblioteca real: estados de verificación, extractos con página física, subida de PDF con sondeo de job, búsqueda de pasajes con advertencia obligatoria).
+- Quedó a mitad del R5: creó `VistaAsesor.tsx` (panel del asesor con dashboard y revisión: snapshots, observaciones ancladas por selección de texto, resolver, REQUEST_CHANGES/APPROVE/REOPEN) pero sin terminar: JSX truncado, sin rama de renderizado en `App.tsx`, sin commit.
+
+**Cierre de R5 por el chat OpenCode (verificado con tsc/build exit 0):**
+1. `VistaAsesor.tsx`: cerrados los 2 `<strong>` truncados (líneas 117/127).
+2. `App.tsx`: añadida la rama `pantallaApp === "asesor"` que renderiza `VistaAsesor` dentro del shell (el chat anterior solo había importado el componente); eliminado el desvío al respaldo en `alConmutar`.
+3. `base.tsx`: `Button` acepta prop `title` (la usaba `VistaAsesor` para documentar el botón «Solicitar cambios»).
+4. Clases CSS usadas por `VistaAsesor` verificadas presentes en `index.css`.
+5. Resultado: `tsc --noEmit` exit 0; `pnpm run build` exit 0 (490.33 kB gzip 131.19 kB).
+
+**Pendientes hacia R6:** verificación visual en navegador (nunca ejecutada en toda la tarea), actualización de matriz/bitácora final y `python3 scripts/verify_project.py` única. La orden exacta para un chat nuevo está en `docs/02_arquitectura_y_sistema/prompt_maestro_cierre_r6_frontend_figma.md`.
