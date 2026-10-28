@@ -173,6 +173,22 @@ export function createSearchStrategy(
   )
 }
 
+/** Encola la indexación de pasajes de una fuente (kind INDEX del backend,
+ * DocumentJob en cola; exige TEXT_CHECKED y rol OWNER). Devuelve el job 202. */
+export function indexSourcePassages(
+  projectId: string,
+  sourceId: string,
+  csrfToken: string,
+): Promise<DocumentJob> {
+  return apiRequest<DocumentJob>(
+    `/projects/${encodeURIComponent(projectId)}/sources/${encodeURIComponent(sourceId)}/index`,
+    {
+      method: "POST",
+      csrfToken,
+    },
+  )
+}
+
 export function getZoteroStatus(): Promise<ZoteroConnectionStatus> {
   return apiRequest<ZoteroConnectionStatus>("/integrations/zotero")
 }

@@ -59,6 +59,8 @@ export function etiquetaVerificacion(estado: SourceDocument["verification_status
       return "Texto completo disponible"
     case "METADATA_CHECKED":
       return "Solo metadatos"
+    case "UNVERIFIED_METADATA":
+      return "Metadatos sin verificar"
     case "OCR_REQUIRED":
       return "OCR requerido"
     case "PENDING_EXTRACTION":

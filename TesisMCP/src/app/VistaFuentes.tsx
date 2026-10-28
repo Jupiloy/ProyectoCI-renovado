@@ -2,15 +2,14 @@ import { useCallback, useEffect, useMemo, useState } from "react"
 import { ApiError } from "../api/client"
 import {
   getDocumentJob,
+  indexSourcePassages,
   listSourceExcerpts,
   listSourceSegments,
   listSources,
-  searchPassages,
   uploadSource,
 } from "../api/sources"
 import type {
   DocumentJob,
-  PassageItem,
   ProjectSummary,
   SourceDocument,
   SourceExcerpt,
@@ -18,9 +17,9 @@ import type {
 } from "../api/types"
 import { Button, Icon, StatusBadge } from "./base"
 import { etiquetaVerificacion } from "./VistaEditor"
-
-const advertenciaBusqueda =
-  "Los resultados son candidatos de recuperación semántica por similitud vectorial: no equivalen a una respuesta sintetizada ni constituyen verificación de la afirmación."
+import { PanelImportar } from "./fuentes/PanelImportar"
+import { PanelPasajes } from "./fuentes/PanelPasajes"
+import { ZoteroPanel } from "./fuentes/ZoteroPanel"
 
 function etiquetaProcedencia(f: SourceDocument): string {
   if (f.kind === "UPLOAD") return f.original_filename ? `Carga local · ${f.original_filename}` : "Carga local"
@@ -48,15 +47,15 @@ export function VistaFuentes({
   const [extractos, setExtractos] = useState<SourceExcerpt[] | null>(null)
   const [segmentos, setSegmentos] = useState<SourceSegment[] | null>(null)
   const [cargandoExtractos, setCargandoExtractos] = useState(false)
-  const [consulta, setConsulta] = useState("")
-  const [limite, setLimite] = useState(5)
-  const [buscando, setBuscando] = useState(false)
-  const [pasajes, setPasajes] = useState<PassageItem[] | null>(null)
-  const [estadoBusqueda, setEstadoBusqueda] = useState<string | null>(null)
   const [activeJob, setActiveJob] = useState<DocumentJob | null>(null)
   const [uploadFile, setUploadFile] = useState<File | null>(null)
   const [uploadLabel, setUploadLabel] = useState("")
   const [subiendo, setSubiendo] = useState(false)
+  const [indexando, setIndexando] = useState(false)
+  const [indexJob, setIndexJob] = useState<DocumentJob | null>(null)
+  const esPropietario = proyecto.role === "OWNER"
+  // Regla literal del backend (document_jobs.py:51): INDEX exige TEXT_CHECKED.
+  const indexJobPermitida = seleccionada?.verification_status === "TEXT_CHECKED"
 
   const recargar = useCallback(async () => {
     setLoading(true)
@@ -98,6 +97,26 @@ export function VistaFuentes({
     }, 2500)
     return () => clearInterval(timer)
   }, [activeJob, proyecto.project_id, recargar])
+
+  // Sondeo del trabajo de indexación de pasajes (kind INDEX).
+  useEffect(() => {
+    if (!indexJob || indexJob.status === "SUCCEEDED" || indexJob.status === "FAILED") return
+    const timer = setInterval(async () => {
+      try {
+        const updated = await getDocumentJob(proyecto.project_id, indexJob.job_id)
+        setIndexJob(updated)
+        if (updated.status === "SUCCEEDED") {
+          setNotice("Indexación de pasajes completada: los pasajes ya son consultables.")
+          void recargar()
+        } else if (updated.status === "FAILED") {
+          setError(`Fallo en la indexación: ${updated.error_message || updated.error_code || "Error desconocido"}`)
+        }
+      } catch {
+        /* error transitorio de sondeo */
+      }
+    }, 2500)
+    return () => clearInterval(timer)
+  }, [indexJob, proyecto.project_id, recargar])
 
   const visibles = useMemo(() => {
     const lista = fuentes ?? []
@@ -145,21 +164,24 @@ export function VistaFuentes({
     }
   }
 
-  async function buscarPasajes(evento: React.FormEvent) {
-    evento.preventDefault()
-    const q = consulta.trim()
-    if (!q) return
-    setBuscando(true)
+  async function indexarPasajes() {
+    const f = seleccionada
+    if (!f || indexando || !esPropietario) return
+    setIndexando(true)
     setError(null)
-    setEstadoBusqueda(null)
+    setNotice(null)
     try {
-      const res = await searchPassages(proyecto.project_id, q, limite, undefined, csrfToken)
-      setPasajes(res.results)
-      setEstadoBusqueda(res.search_status)
+      const job = await indexSourcePassages(proyecto.project_id, f.source_id, csrfToken)
+      setIndexJob(job)
+      setNotice("Indexación de pasajes en cola (trabajo del backend).")
     } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "No se pudo completar la búsqueda de pasajes.")
+      if (cause instanceof ApiError && cause.status === 401) {
+        onUnauthorized()
+      } else {
+        setError(cause instanceof Error ? cause.message : "No se pudo encolar la indexación.")
+      }
     } finally {
-      setBuscando(false)
+      setIndexando(false)
     }
   }
 
@@ -223,6 +245,23 @@ export function VistaFuentes({
 
       {error && <div className="aviso aviso-error" role="alert">{error}</div>}
       {notice && <div className="aviso" role="status">{notice}</div>}
+
+      <ZoteroPanel
+        projectId={proyecto.project_id}
+        csrfToken={csrfToken}
+        puedeImportar={esPropietario}
+        onUnauthorized={onUnauthorized}
+        onAccessLost={onAccessLost}
+        alImportar={recargar}
+      />
+
+      <PanelImportar
+        projectId={proyecto.project_id}
+        csrfToken={csrfToken}
+        puedeImportar={esPropietario}
+        onUnauthorized={onUnauthorized}
+        alImportar={recargar}
+      />
 
       <form className="search-box" onSubmit={(e) => e.preventDefault()}>
         <Icon name="library" size={16} />
@@ -352,6 +391,33 @@ export function VistaFuentes({
               </dl>
 
               <div className="fragment">
+                <span className="eyebrow">INDEXACIÓN Y EXTRACCIÓN</span>
+                {esPropietario ? (
+                  <Button
+                    variant="secondary"
+                    disabled={indexando || !indexJobPermitida}
+                    title={
+                      indexJobPermitida
+                        ? "Encola la indexación de pasajes de esta fuente (trabajo del backend)"
+                        : "La indexación exige texto completo verificado (TEXT_CHECKED) en el backend"
+                    }
+                    onClick={() => void indexarPasajes()}
+                  >
+                    {indexando ? "Encolando…" : "Indexar pasajes"}
+                  </Button>
+                ) : (
+                  <small className="version-sha">
+                    La indexación y las acciones de procesamiento son del tesista propietario.
+                  </small>
+                )}
+                {indexJob && indexJob.status !== "SUCCEEDED" && indexJob.status !== "FAILED" && (
+                  <small className="version-sha" role="status">
+                    Indexación: {indexJob.status} (intentos {indexJob.attempts})
+                  </small>
+                )}
+              </div>
+
+              <div className="fragment">
                 <span className="eyebrow">EXTRACTOS CON LOCALIZADOR FÍSICO</span>
                 {cargandoExtractos ? (
                   <p className="aviso" role="status">Cargando extractos…</p>
@@ -400,58 +466,11 @@ export function VistaFuentes({
         </aside>
       </div>
 
-      <section className="section-card passages-panel">
-        <div className="section-title">
-          <div>
-            <h2>Búsqueda de pasajes</h2>
-            <p>Consulta semántica sobre el corpus extraído del proyecto</p>
-          </div>
-        </div>
-        <div className="aviso">
-          <strong>Advertencia obligatoria:</strong> {advertenciaBusqueda}
-        </div>
-        <form className="passages-form" onSubmit={buscarPasajes}>
-          <input
-            type="text"
-            maxLength={500}
-            placeholder="Pregunta o consulta semántica sobre tus fuentes (hasta 500 caracteres)…"
-            value={consulta}
-            onChange={(e) => setConsulta(e.target.value)}
-          />
-          <select value={limite} onChange={(e) => setLimite(Number(e.target.value))} aria-label="Número de candidatos">
-            <option value={3}>3 candidatos</option>
-            <option value={5}>5 candidatos</option>
-            <option value={10}>10 candidatos</option>
-            <option value={15}>15 candidatos</option>
-          </select>
-          <Button disabled={buscando || !consulta.trim()}>
-            {buscando ? "Buscando…" : "Buscar pasajes"}
-          </Button>
-        </form>
-        {estadoBusqueda && estadoBusqueda !== "OK" && pasajes?.length === 0 && (
-          <p className="aviso">
-            Estado de la búsqueda: {estadoBusqueda}. No hay pasajes indexados
-            para esta consulta; sube documentos con texto extraído para
-            habilitar la búsqueda semántica.
-          </p>
-        )}
-        {pasajes && pasajes.length > 0 && (
-          <div className="chapter-list">
-            {pasajes.map((p) => (
-              <article className="chapter-row" key={p.passage_id}>
-                <div>
-                  <strong>{p.physical_page ? `Página física ${p.physical_page}` : p.locator_kind || "Segmento"}</strong>
-                  <blockquote className="anchored-quote">«{p.text}»</blockquote>
-                  <small>
-                    SHA {p.text_sha256.slice(0, 12)}… · distancia coseno {p.cosine_distance.toFixed(4)} ·{" "}
-                    {p.supports_claim_verified ? "validado" : "candidato no evaluado semánticamente"}
-                  </small>
-                </div>
-              </article>
-            ))}
-          </div>
-        )}
-      </section>
+      <PanelPasajes
+        projectId={proyecto.project_id}
+        csrfToken={csrfToken}
+        onUnauthorized={onUnauthorized}
+      />
     </main>
   )
 }

@@ -74,3 +74,7 @@ A petición del usuario, los dos archivos sobredimensionados del shell se dividi
 - `app/VistaAsesor.tsx` (590) → dashboard (162) + `app/asesor/` (8 módulos: cabecera de revisión, documento de revisión, versiones, comentarios marginales, anclaje, carga, acciones y etiquetas).
 
 Los endpoints de la matriz no cambian; las rutas de archivo `app/VistaEditor.tsx` y `app/VistaAsesor.tsx` se conservan (App.tsx y VistaFuentes.tsx sin cambios). Verificación en navegador posterior a la división (guardado real, conflicto 409 con ambas recuperaciones, anclaje del asesor, plegado y pestañas) en [§13 de la bitácora](continuidad_frontend_figma_refitting.md).
+
+## Inventario de brechas demo ↔ shell ↔ backend (§14)
+
+La comparación completa del demo (`src/DemoApp.tsx`) contra el shell (`src/app/`) y los contratos del backend está en [§14 de la bitácora](continuidad_frontend_figma_refitting.md): funciones del demo sin sustento de contrato (formato en línea, exportación PDF), funciones reales del backend sin UI (Zotero, generación IA, citas IEEE, evidencia, indexar pasajes, discovery, research, manuscritos, submit) y clasificación de trabajo (solo UI / wrapper nuevo / cambio de contrato).

@@ -401,3 +401,104 @@ Más `editor/useEditorEstado.ts` (260): estado del editor, efectos, contexto y a
 
 - Sin cambios de contrato, endpoints ni estilos. Nada subido a GitHub.
 - Puerta integral: ejecutada tras el commit de esta sección (ver resultado al final de esta bitácora).
+
+---
+
+## 14. Inventario de brechas demo ↔ shell ↔ backend (27/10/2026)
+
+A petición del usuario («comparando el modo demostración con el modo normal… nos falta bastante formas de integrarlo… zotero tampoco lo veo agregado, las funciones que soporta en teoría el backend no se reflejan en el frontend»), se levantó un inventario con verificación física de los tres lados: `src/DemoApp.tsx` (maqueta, 1617 líneas), `src/app/` (shell real) y `backend/thesis/` (contratos reales). Resultado de la puerta integral R7 previa a este inventario: 8/8 PASÓ, 468.86 s, exit 0.
+
+### 14.1 Funciones del demo que el shell NO conecta (con línea literal del demo)
+
+**Editor:**
+
+| # | Función del demo | Estado en shell | Sustento backend real |
+|---|---|---|---|
+| A1 | Formato en línea: Normal/Título 1/2, Negrita, Cursiva (`DemoApp.tsx:658-671`) | No existe | **Sin sustento en contrato**: `ChapterTextBlock` solo modela `heading/paragraph/blockquote/code_block/bullet_list/ordered_list` (`src/api/types.ts:54-56`); implementarlo exige cambio de contrato backend |
+| A2 | «Insertar cita» con modal APA 7/Vancouver (`DemoApp.tsx:673, 1403-1476`) | Citas se conservan y anclan al guardar, pero no hay UI para insertarlas | Real: `PUT …/document` acepta `citations[]`; existe `GET …/chapters/{n}/citations/ieee` y `getChapterIeeeCitations()` en `src/api/reviews.ts` sin consumir |
+| A3 | Menú de selección «Mejorar redacción / Sintetizar / Buscar respaldo / Insertar cita» (`DemoApp.tsx:831-835`) | No existe | Real vía IA: `ai-jobs` (accept/reject/document-diff) y `POST …/passages/search` |
+| A4 | Pestañas «Consultar fuentes» / «Propuestas» en panel derecho (`DemoApp.tsx:850-856`) | Panel derecho solo Versiones/Observaciones | `searchPassages()` existe en `src/api/sources.ts:85` y solo se usa en `VistaFuentes` |
+| A5 | TrackChange con Aceptar/Descartar (`DemoApp.tsx:573-605, 803`) | No existe | Real: `ai-jobs/{id}/document-diff` + accept/reject (`routes_generation_decisions.py`) |
+| A6 | Botón «Comentar» en editor del tesista (`DemoApp.tsx:677`) | No existe | **Misleading**: `addComment` es acción de asesor (403 para tesista) |
+| A7 | Modal Exportar DOCX/**PDF** (`DemoApp.tsx:190, 1403-1476`) | Solo «Descargar borrador (DOCX)» | `routes_overview.py:33,44` define solo `draft.docx` y `approved.docx`; **no existe exportación PDF en el backend** |
+
+**Biblioteca/Fuentes:** «Conectar Zotero» (`DemoApp.tsx:992-1001`), filtros por Autor/Año/Institución y vista previa PDF del demo (falsa). El shell tiene lista honesta + extractos/segmentos/búsqueda de pasajes (verificado en R6) y **cero menciones de Zotero en `src/app/`**.
+
+**Asesor:** el demo muestra «5 tesistas», «Periodo 2025-I» e inbox (`DemoApp.tsx:1155-1172`) con datos fabricados; el shell solo muestra lo que entrega `GET /projects/advisor/dashboard` (honesto). En observaciones el shell es superior al demo: anclaje real por selección del asesor vs comentario suelto.
+
+### 14.2 Capacidades del backend sin UI en el shell
+
+| Capacidad | Endpoints reales (`backend/thesis/api/`) | Capa API (`src/api/`) | UI shell |
+|---|---|---|---|
+| Zotero | `/integrations/zotero` GET (status), GET (connect), GET (callback), DELETE; `/{p}/sources/zotero`; `/{p}/sources/import-zotero` (`routes_integrations.py:7-22`) | ✅ `getZoteroStatus/disconnectZotero/listZoteroItems/importZoteroItem` (`sources.ts:176-212`) | ❌ 0 |
+| Generación IA | `/{p}/ai-batches` (+syntheses/decision/cancel), `/{p}/ai-jobs/{id}` (accept/cancel/reject/document-diff), `/{p}/workflow/tasks/{id}/generate`, `/{p}/idea`, `/{p}/idea/explore` | ✅ 16 funciones (`generation.ts`) | ❌ 0 |
+| Citas IEEE | `/{p}/chapters/{n}/citations/ieee` | ✅ | ❌ 0 |
+| Evidencia de citas | `/{p}/evidence-links` (+review), `citations/{occ}/evidence` (+decision), `citation-replacement-proposals` (+decision) | ✅ (`reviews.ts`: addCitationEvidence, decideCitationEvidence, proposeCitationReplacement, previewCitationReplacement) | ❌ 0 |
+| Fuentes avanzadas | `/{p}/sources/{id}/index`, `/doi-check`, `/locate`, `/ocr`, `/grobid`, `/select-discovery`, `/import-bibliography`; `discovery/peru`, `discovery/semantic-scholar`; `search-strategies` (+executions) | ✅ casi todo (`sources.ts`) | ❌ 0 («Indexar pasajes» = brecha B4 de §11.5) |
+| Research | `/{p}/datasets` (+versions/table-recipes/figures/preview) | ✅ 15 funciones (`research.ts`) | ❌ 0 |
+| Invitaciones de apoyo | `/{p}/support-invitations` (+accept/contributions/revoke) | ✅ | ❌ 0 |
+| Manuscritos | `/{p}/manuscripts` (upload/list/get), inspección de campos Zotero/Word (`services/manuscripts.py`, `integrations/docx.py:24`) | ❌ ni wrapper | ❌ 0 |
+| Enviar a revisión | `/{p}/chapters/{n}/submit` | ✅ (`reviews.ts:16`) | ❌ 0 (B3) |
+
+Protocolo MCP: **34 herramientas y 35 prompts** (`scripts/verify_project.py:254`) operables sin UI; ninguna se refleja en el shell.
+
+### 14.3 Lectura técnica honesta
+
+El demo no es «más completo que el shell»: es una maqueta con datos fabricados (A6, A7-PDF, dashboard de 5 tesistas) y funciones que hoy exigirían cambiar el contrato del documento (A1). Lo que sí revela es que una parte grande del backend **ya está envuelta en `src/api/` sin consumir**: la brecha mayor es cableado de UI, no desarrollo backend. Clasificación de trabajo:
+
+- **Solo UI (capa API lista):** Zotero, indexar pasajes (B4), importar bibliografía, discovery, citas IEEE, evidencia, generación IA, research, invitaciones, submit (B3).
+- **Requiere wrapper nuevo en `src/api/`:** manuscritos.
+- **Requiere cambio de contrato backend:** formato en línea (A1), exportación PDF (A7).
+
+**Decisión del usuario:** documentar en §14 y ejecutar **R8: Zotero + Fuentes** (Zotero conectar/estado/importar, botón «Indexar pasajes» que cierra B4, e importación de bibliografía) con verificación completa estilo R6. R9 (citas en el editor) queda como bloque siguiente candidato.
+
+### 14.4 Análisis del backend (a petición expresa del usuario, 27/10/2026)
+
+El usuario pidió analizar el backend «para que sepas exactamente de qué va, qué tecnología usa, cómo se comporta, qué se puede aprovechar del backend para mejorar el frontend». Verificación física del código:
+
+**Stack tecnológico** (`requirements-backend.txt`, literal): Django 5.2 + django-ninja (API REST), psycopg 3 + **pgvector** (embeddings de 384 dimensiones en `models/sources.py:166-167`, modelo `fastembed`), **django-fsm-2** (máquina de estados del workflow), django-reversion (versionado), python-docx (exportes DOCX), ocrmypdf (OCR), docling (formatos Office), rapidfuzz (duplicados), google-genai (adaptador Gemini), cryptography/Fernet (cifrado de la API key de Zotero), requests-oauthlib (OAuth Zotero), mcp>=2.3 (servidor MCP con `django_bridge`).
+
+**Ejecución fuera de la petición HTTP — dos workers** (`backend/thesis/management/commands/`):
+- `run_document_worker`: cola `DocumentJob` con kinds literales GROBID, INDEX, OCR, DOI_CHECK, DOCX, PDF_EXTRACT, OPENALEX_PDF, FORMAT_EXTRACT (`models/documents.py:16-24`); estados QUEUED/RUNNING/SUCCEEDED/FAILED/CANCELLED. Reglas (`services/document_jobs.py:31-51`): `enqueue_document_job` es **owner_only**; INDEX y GROBID exigen `TEXT_CHECKED`; OCR exige `OCR_REQUIRED`.
+- `run_ai_worker`: concurrencia 4 (`TESISMCP_AI_WORKER_MAX_CONCURRENCY`); el proveedor LLM es `TESISMCP_LLM_PROVIDER` con **DISABLED por defecto** (`config/settings.py:101`); `DEVELOPMENT_MOCK` solo en DEBUG y `GEMINI` exige `GEMINI_API_KEY` (`integrations/llm/factory.py`). La API **encola siempre** y el worker procesa fuera de la petición (`services/ai_jobs.py:188-190`).
+
+**Reglas de acceso verificadas que condicionan la UI:** `import_zotero_item` es owner_only, `list_zotero_items` es de cualquier miembro (`services/zotero.py:178-186, 236`); `import_bibliography` acepta provider SCOPUS/WOS/OTHER y archivos .ris/.bib/.bibtex/.csv de hasta 5 MiB (`services/bibliography.py:38-48`).
+
+**Implicación para el frontend:** la mayoría de capacidades del backend son cableables desde la UI sin tocar Django (la capa `src/api/` ya las envuelve en su mayoría). La excepción estructural es la generación IA: sin proveedor LLM configurado en el servidor, los jobs fallarán con error honesto del backend; la UI debe mostrar ese error tal cual y no simular progreso.
+
+---
+
+## 15. Bloque R8: Zotero + Fuentes (27/10/2026)
+
+Ejecución del bloque aprobado tras el inventario de §14: conservar la vista general de la Biblioteca científica y cablear capacidades reales del backend sin tocar Django.
+
+### 15.1 Alcance implementado
+
+| Capacidad | Implementación | Contrato real usado |
+|---|---|---|
+| **Zotero: estado y conexión** | Nueva tarjeta «Zotero» con estado real (`SIN CONEXIÓN` / `CUENTA CONECTADA` con usuario, fecha y alcances), botón «Conectar Zotero» (redirect OAuth del backend en pestaña nueva) y «Verificar estado» | `GET /api/v1/integrations/zotero` (status) y `GET /integrations/zotero/connect` |
+| **Zotero: buscar e importar** | Formulario de búsqueda en la biblioteca personal (paginación «Cargar más») e importación por registro con aviso honesto de creado/duplicado | `GET /projects/{id}/sources/zotero`, `POST /sources/import-zotero` (owner_only) |
+| **Indexar pasajes (cierra B4)** | Botón «Indexar pasajes» en el detalle de fuente, habilitado solo con `TEXT_CHECKED` y propietario; sondeo del job con aviso de finalización | `POST /sources/{id}/index` (202 + DocumentJob, kind INDEX) + `GET /jobs/{id}` |
+| **Importar bibliografía** | Panel con origen (SCOPUS/WOS/OTHER) y archivo .ris/.bib/.bibtex/.csv (≤5 MiB); resumen literal de la importación y nota de que quedan **sin verificación contra portada** | `POST /sources/import-bibliography` |
+| **Etiqueta nueva** | `UNVERIFIED_METADATA` → «Metadatos sin verificar» en `editor/etiquetas.ts`; además se corrigió el tipo `SourceDocument["verification_status"]` en `src/api/types.ts:253`, que no declaraba ese estado que el backend sí devuelve (`models/sources.py:22`) | — |
+
+### 15.2 Estructura (techo ~200 líneas respetado)
+
+- `src/app/fuentes/useZotero.ts` (170): estado y acciones de Zotero (misma separación lógica/JSX de R7).
+- `src/app/fuentes/ZoteroPanel.tsx` (141): composición del panel + listado importable.
+- `src/app/fuentes/ZoteroEstado.tsx` (59): tarjeta de conexión.
+- `src/app/fuentes/PanelPasajes.tsx` (105): búsqueda de pasajes (extraída de VistaFuentes).
+- `src/app/fuentes/PanelImportar.tsx` (121): importación de bibliografía.
+- `src/app/VistaFuentes.tsx`: 457 → 476 líneas (agrega acción de indexación y sondeo; conserva tabla, detalle y formularios existentes).
+- `src/api/sources.ts`: +`indexSourcePassages()`.
+
+Reglas de acceso respetadas tal como las aplica el backend: indexar e importar (Zotero y bibliografía) solo propietario; la UI muestra nota honesta al asesor («Solo el propietario del proyecto puede importar»).
+
+### 15.3 Verificación ejecutada (navegador, entorno aislado `tesismcp_r6`)
+
+1. `npx tsc --noEmit` → exit 0; `npm run build` → exit 0.
+2. Tesista (Lucía, OWNER): la pestaña Fuentes muestra los tres paneles nuevos; Zotero «SIN CONEXIÓN» honesto; **Conectar Zotero** abre el endpoint real y el backend responde con su error literal `CONFIG_ERROR: Zotero OAuth no está configurado para esta instalación` (la instalación aislada no tiene credenciales OAuth; la UI lo reporta tal cual, sin simular conexión); **importación de bibliografía** con un RIS de 2 registros → «registros leídos: 2; creados: 2; ya existentes: 0» y las 2 fuentes aparecen en la tabla con procedencia OTHER; **Indexar pasajes** sobre `R6-aislado-pag1` (TEXT_CHECKED) → 202 en cola → sondeo → «Indexación de pasajes completada: los pasajes ya son consultables.» (worker local procesó el job real); búsqueda de pasajes del panel movido: 5 resultados con distancia coseno.
+3. Asesor (Roberto, ADVISOR): «Importar registros» y su input de archivo deshabilitados con nota «Solo el propietario del proyecto puede importar»; en el detalle de fuente, sin botón de indexación y con nota «La indexación y las acciones de procesamiento son del tesista propietario.»
+4. Cero errores de consola no provocados. Captura de evidencia tomada (Fuentes como asesor).
+
+Alcance no probado en R8: importación real de registros de Zotero (requiere OAuth configurado en el servidor) y OCR/GROBID/DOI-check (queda para bloque posterior).

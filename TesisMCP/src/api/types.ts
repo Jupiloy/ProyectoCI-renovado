@@ -250,7 +250,7 @@ export type SourceDocument = {
   landing_page_url: string
   pdf_url: string
   openalex_retracted: boolean | null
-  verification_status: "PENDING_EXTRACTION" | "TEXT_CHECKED" | "OCR_REQUIRED" | "REJECTED" | "METADATA_CHECKED"
+  verification_status: "PENDING_EXTRACTION" | "TEXT_CHECKED" | "OCR_REQUIRED" | "REJECTED" | "METADATA_CHECKED" | "UNVERIFIED_METADATA"
   physical_page_count: number | null
   text_extraction_method: string | null
   extraction_state: string
