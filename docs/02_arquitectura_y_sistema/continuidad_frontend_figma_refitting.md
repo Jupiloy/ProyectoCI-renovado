@@ -205,3 +205,108 @@ El prompt maestro ya actualizado describe este corte al principio del bloque peg
 5. Resultado: `tsc --noEmit` exit 0; `pnpm run build` exit 0 (490.33 kB gzip 131.19 kB).
 
 **Pendientes hacia R6:** verificación visual en navegador (nunca ejecutada en toda la tarea), actualización de matriz/bitácora final y `python3 scripts/verify_project.py` única. La orden exacta para un chat nuevo está en `docs/02_arquitectura_y_sistema/prompt_maestro_cierre_r6_frontend_figma.md`.
+
+---
+
+## 11. Cierre R6: verificación visual en navegador, documentación y puerta integral (27/10/2026, noche)
+
+Este cierre ejecuta la orden de `prompt_maestro_cierre_r6_frontend_figma.md`: R6.1 verificación visual real en navegador, R6.2 actualización de matriz y esta bitácora, y R6.3 la puerta integral `python3 scripts/verify_project.py` ejecutada **una sola vez**. No se agregó UI nueva ni refactorizaciones; los dos cambios de código surgieron de defectos heredados de `48a1ded` que impedían literalmente arrancar o usar la app, y se corrigieron como **fix mínimo** con decisión explícita del usuario («Fix mínimo (Recomendado)» en ambos casos).
+
+### 11.1 Entorno aislado de verificación (ningún dato de la base activa)
+
+| Componente | Valor literal |
+|---|---|
+| Base de datos | PostgreSQL `tesismcp_r6` en el contenedor podman `tesismcp-local-pg` (`DATABASE_URL=postgresql://tesismcp:tesismcp_local@127.0.0.1:5432/tesismcp_r6`); 64 migraciones aplicadas. La base activa `tesismcp` no fue usada ni tocada |
+| Backend | `.venv/bin/python backend/manage.py runserver 127.0.0.1:8010 --noreload` con `PYTHONPATH=/tmp/opencode`, `DJANGO_DEBUG=1` y settings override `/tmp/opencode/dev_r6_settings.py` (MEDIA_ROOT `/tmp/opencode/r6_media`, CSRF_TRUSTED_ORIGINS `localhost:8443`); log `/tmp/opencode/django_r6.log` |
+| Worker | `.venv/bin/python backend/manage.py run_document_worker` con la misma base; log `/tmp/opencode/worker_r6.log` |
+| Frontend | `TESISMCP_API_TARGET=http://127.0.0.1:8010 pnpm dev` (Vite 8443, proxy `/api`); log `/tmp/opencode/vite_r6.log` |
+| Puerto 8000 | Ocupado por un proceso ajeno preexistente (pid 128421, `runserver` en 127.0.0.1:8000, base `tesismcp_visual_smoke`): **no se tocó** |
+| Datos sintéticos R6 | Sembrados con servicios reales del backend (no peticiones HTTP artificiales) mediante `/tmp/opencode/seed_r6.py` y `/tmp/opencode/seed_r6_continuacion.py`: usuarios `lucia.r6@demo.local` (Tesista) y `roberto.r6@demo.local` (Asesor), contraseña `R6-aislado-2026`; proyecto «R6 Aislado · Plataformas metodológicas» (id `567caee1-b6b6-430c-9d61-85a590b87f23`); workflow publicado v1 con 32 tareas; P01–P20 `COMPLETED` vía `save_step` con payloads literales de `mcp_server/demo/case_data.py`; Capítulo 1 `DRAFT` con documento, Capítulo 2 `READY` con 2 observaciones `OPEN`, Capítulo 3 `CHANGES_REQUESTED` con 1 observación, Capítulo 4 `APPROVED`; fuente INT1 con 34 páginas físicas y 34 extractos |
+
+### 11.2 Fix mínimo backend — commit `d719f50`
+
+Con el estado heredado de `48a1ded`, `manage.py check` fallaba con `NameError` por importaciones faltantes. Corrección de 1 línea por archivo, commiteada por separado:
+
+- `backend/thesis/services/step_materializers/consistency.py`: `Project` añadido a la importación de la línea 3.
+- `backend/thesis/services/ai_job_context.py`: `AIGenerationJob` añadido a las importaciones.
+
+### 11.3 Fix mínimo shell — commit `108c269`
+
+Durante la primera pasada por la vista Revisión del tesista, al seleccionar el Capítulo 3 la app quedó en **pantalla en blanco**. Causa verificada en consola del navegador: `TypeError: Cannot read properties of undefined (reading 'slice')` en `VistaRevision.tsx` (módulo servido por Vite, línea 295). Causa raíz en código: las vistas del shell usaban `s.content_sha256` / `s.snapshot_id` / `s.status` sobre el contrato real de snapshots del backend, que devuelve `id`, `payload_sha256`, `state_version`, `format_version`, `workflow_version_no`, `document_revision_id` y `created_at` (`backend/thesis/services/chapter_serialization.py`, `_snapshot_summary` y `_snapshot_detail`; confirmado por `GET /chapters/3/snapshots`).
+
+Fix mínimo (4 archivos del shell; `src/features/` y `src/DemoApp.tsx` intactos):
+
+- `TesisMCP/src/api/types.ts`: añadidos `ChapterSnapshotSummaryApi` y `ChapterSnapshotDetailApi` con el contrato real (los tipos sin sufijo se conservan porque el módulo legacy de demo los usa).
+- `TesisMCP/src/app/VistaRevision.tsx`, `VistaEditor.tsx`, `VistaAsesor.tsx`: usos conmutados a los tipos reales (`key={s.id}`, `s.payload_sha256.slice(0, 12)`, `detalle.id`, y el rótulo truthful «Versión de estado {s.state_version}» en lugar del `status` inexistente).
+
+Tras el fix: `pnpm exec tsc --noEmit` exit 0 y `pnpm run build` exit 0 (490.29 kB, gzip 131.22 kB), y la pantalla Revisión renderizó el Capítulo 3 sin crash (observación anclada «El diseño registra decisiones de instrumento pendientes con el profesor (P26 y P27)» con badge «Pendiente» y panel «VERSIONES ENVIADAS · Versión de estado 22 · SHA 9066e1618873…»).
+
+### 11.4 R6.1 — recorrido probado en navegador (tab `tab_f33a4645-bf2a-4158-a8b6-7dddebad702c`)
+
+**Como Tesista (Lucía):**
+
+1. Login real (sesión + CSRF a través del proxy 8443→8010); pantalla «Mis proyectos» con rol Tesista.
+2. Shell de Figma con proyecto activo real y «Estado 24» (luego 26 y 27 conforme operó la sesión).
+3. Panel principal: saludo real, «20 de 32 pasos» calculado, capítulos con estados reales, próximo paso P21, aviso P26/P27, recorrido vigente v1.
+4. Editor de tres paneles con el documento real del Capítulo 1 (P01–P05 verdes); panel Versiones con estado vacío honesto («Este capítulo no tiene versiones enviadas…»).
+5. Edición de un bloque de texto + «Guardar versión»: `PUT /chapters/1/document` HTTP 200, `document_version: 2`, aviso «Confirmado por el servidor».
+6. **Conflicto 409 provocado** (segundo `PUT` concurrente con `expected_version` desactualizado): la UI lo mostró («El documento cambió en el servidor o ya no admite edición. Tu borrador se conserva; recarga solo si deseas descartarlo.»), el documento pasó a solo lectura y quedó «Intento pendiente de confirmar» con «Reintentar guardado». Recuperación verificada por las dos salidas: «Consultar versión vigente» → panel «Comparación de versiones» con el texto del servidor (versión 3) y botones deshabilitados mientras se consulta; «Recargar y descartar borrador» → diálogo `confirm` nativo («Se descartarán los cambios locales o el intento pendiente. ¿Recargar del servidor?») → recarga a la versión 3 del servidor, editable y «Sin cambios locales».
+7. «Descargar borrador (DOCX)»: `GET /projects/{id}/export/draft.docx` → archivo real descargado y verificado en disco (`Microsoft Word 2007+`, 39.117 bytes, contiene el título real del proyecto y los pasos P01–P05 sembrados).
+8. Fuentes: listado de INT1 con metadatos reales (DOI `10.48550/arXiv.2502.07960`, «PÁGINAS FÍSICAS 34», «EXTRACTOS INDEXADOS 34», extracto «Página física 1» con la portada literal del paper); filtro con coincidencia («Multi-LLM» → «1 fuente») y sin coincidencia («0 de 1 fuentes»); búsqueda de pasajes **antes de indexar** → estado honesto `NO_INDEXED_PASSAGES` («No hay pasajes indexados para esta consulta…») bajo la advertencia obligatoria de recuperación semántica.
+9. Subida de PDF por la UI (página 1 separada del PDF INT1 con `pdfseparate`, `r6_pag_1.pdf`, etiqueta «R6-aislado-pag1»): la fuente apareció como «USER_UPLOADED_FILE · Pendiente de extracción» con «Procesamiento: QUEUED (intentos 0)»; el worker ejecutó `PDF_EXTRACT SUCCEEDED` (parser Poppler, 1 página física, `verification_status: TEXT_CHECKED`) y la tarjeta pasó a «Texto completo disponible».
+10. Búsqueda de pasajes **después de indexar** (indexación disparada por API — brecha B4): `POST /passages/search` HTTP 200 con candidatos reales («Página física 1», SHA `09c02828ba9a…`, distancia coseno 0.3933, rótulo «candidato no evaluado semánticamente»).
+11. Revisión del tesista: Cap. 2 «2 total · 2 sin resolver», Cap. 3 «1 total · 1 sin resolver», versiones enviadas con SHA real (post-fix).
+12. Editor: plegado y restauración de ambos paneles («Plegar panel izquierdo/derecho» ↔ «Mostrar navegación/Mostrar asistencia»); aviso honesto de proyección legada («El documento se creó con un estado anterior del proyecto. Revisa su contenido antes de guardarlo.»).
+
+**Como Asesor (Roberto):**
+
+13. Login real; «Mis proyectos» con rol Asesor; Panel principal compartido (saludo real «Buenas noches, Roberto»; hallazgo menor B7: el CTA «Continuar redactando» no se adapta al rol).
+14. Panel asesor: métricas reales de `GET /projects/advisor/dashboard` («1 asignado», «1 en revisión», «1 con observaciones») y tarjeta del proyecto con «1 en revisión · 1 con observaciones · 1 aprobados».
+15. Cap. 1 (DRAFT): ambos botones de decisión deshabilitados honestos y «Sin versiones enviadas todavía.».
+16. Cap. 2 (READY): «Versión enviada disponible», «Solicitar cambios» habilitado, «Aprobar capítulo» bloqueado con el aviso «Resuelve o cierra las observaciones abiertas antes de aprobar (el backend lo exige)».
+17. Observación anclada por selección real del texto (selección con `Range` sobre el documento + `mouseup`): caja «Nueva observación sobre «protocolos de herramientas…»» → «Registrar observación» → contador «2 abiertos» exacto y observación visible como «Pendiente».
+18. «Marcar como atendida» sobre la observación sembrada: badge «Resuelta» y confirmación en BD (`status RESOLVED`).
+19. «Solicitar cambios»: aviso «Decisión registrada: Con observaciones.» y estado `CHANGES_REQUESTED` confirmado en BD.
+20. La aprobación quedó bloqueada correctamente tras el cambio de estado (el backend exige que el titular reenvíe). Al no existir el botón de envío en el shell (brecha B3), el reenvío se hizo por el contrato real documentado: `PUT /chapters/2/document` HTTP 200 (resincronización de `lock_version`; el primer intento de `POST /chapters/2/submit` devolvió **409 `CONTEXT_STALE`, evidencia de que la protección funciona**) y luego `POST /chapters/2/submit` HTTP 200 → `READY`.
+21. «Aprobar capítulo» (habilitado con 0 observaciones abiertas): aviso «Decisión registrada: Aprobado.» y `APPROVED` confirmado en BD para el Cap. 2.
+
+**Cierres transversales:**
+
+22. «Vista clásica del proyecto (respaldo)»: accesible y renderiza con datos del servidor.
+23. Modo demostración: `DemoApp` intacto; selector de rol demo, proyecto demo y banner «datos de ejemplo, no datos del backend» con la pill «MODO DEMOSTRACIÓN»; «Salir de demostración» funcional.
+24. Responsive: breakpoints inspeccionados en `index.css` (1280/1180/920/900/800/700/620 px) y plegado de paneles probado; **no** se probó viewport < 1280 px (brecha B8, el entorno no permite redimensionar la ventana).
+
+Capturas guardadas en `/tmp/opencode-browser-*/0/screenshot.jpeg` (7 tomas: panel principal, editor, conflicto 409, revisión del tesista post-fix, revisión del asesor con decisión, demo, editor con paneles plegados).
+
+### 11.5 Brechas honestas registradas (no resueltas en R6, con evidencia)
+
+1. **B3 — El shell no expone «Enviar a revisión»**: `submitChapter` (`TesisMCP/src/api/reviews.ts:16`) no se usa en `src/app/`; solo el módulo legacy (`src/features/advisor/AdvisorScreen.tsx:241`). El tesista no puede enviar un capítulo a revisión desde el shell de Figma.
+2. **B4 — El shell no expone «Indexar pasajes»**: el endpoint `POST /api/v1/projects/{id}/sources/{id}/index` existe (`backend/thesis/api/routes_evidence.py:64`, job `INDEX`) pero `VistaFuentes.tsx` no tiene acción que lo invoque; sin indexación, la búsqueda de pasajes siempre responde `NO_INDEXED_PASSAGES` (comportamiento honesto, pero sin camino desde la UI).
+3. **B5 — P18 inaccesible en `CONFIGURABLE_GRAPH`** (hallazgo del sembrado, no de la UI): la dependencia de plantilla exige `P17.patrones_metodologicos` y el contrato `P17Output` (con `extra="forbid"`) no admite ese campo; error literal «Dependencias no satisfechas para P18: completa P17.patrones_metodologicos». El sembrado usó `LEGACY_SEQUENTIAL`.
+4. **B6 — Markdown literal en bloques**: un encabezado escrito como «## 1.1 Problema» dentro de un bloque de párrafo se muestra como texto crudo (el editor muestra `content_md` sin resintaxis de markdown); el documento no se corrompe pero la vista no renderiza la jerarquía.
+5. **B7 — CTA del asesor no adaptado por rol**: el Panel principal del asesor muestra «Continúa con tu investigación desde el último avance guardado. / Continuar redactando», herencia de la vista del tesista.
+6. **B8 — Viewport angosto no probado en navegador**: sin herramienta de redimensionamiento en el entorno; verificado por inspección de breakpoints CSS y plegado de paneles.
+
+### 11.6 R6.3 — Puerta integral `python3 scripts/verify_project.py`
+
+Ejecutada **una sola vez** en el cierre, con entorno aislado (`DJANGO_DEBUG=1`, `DATABASE_URL=postgresql://tesismcp:tesismcp_local@127.0.0.1:5432/tesismcp_r6`; pytest creó su propia base de prueba derivada, la base activa `tesismcp` no fue usada):
+
+| Comprobación | Tiempo | Resultado literal del verificador |
+|---|---|---|
+| Auditoría Grounded (PDFs) | 6.91 s | 9/9 PDFs físicos validados (títulos y cifras literales) |
+| `manage.py check` | 2.38 s | 0 errores o advertencias en configuración Django |
+| `makemigrations --check --dry-run` | 2.23 s | 0 discrepancias entre modelos y archivos de migración |
+| `migrate --check --database default` | 2.15 s | Sin migraciones pendientes en DATABASE_URL; no se aplicaron cambios |
+| `pytest --reuse-db -q` | 507.23 s | Suite superada al 100 % (223 pruebas en verde) |
+| Higiene de repositorio | 4.81 s | Árbol limpio: sin archivos masivos, sin residuos y con `.gitignore` íntegro |
+| Consistencia doc-código | 2.06 s | 58 modelos, 44 migraciones, 32 pasos, 34 herramientas MCP, 35 prompts, 94 Markdowns con 0 enlaces rotos |
+| Auditoría adversaria | 0.00 s | Contratos Pydantic estrictos (`extra='forbid'`) y 0 mocks en servicios de producción |
+
+**Resultado: 8/8 comprobaciones exitosas · 527.77 s · veredicto del verificador `[APROBADO_CON_EVIDENCIA / EXIT_CODE_0]`.** El propio verificador aclara que esto no acredita validez científica, integraciones externas ni disponibilidad de despliegue.
+
+### 11.7 Estado final y alcances del cierre R6
+
+- **Commits del cierre:** `d719f50` (fix mínimo backend), `108c269` (fix mínimo shell), y el commit de esta documentación. Nada se subió a GitHub (decisión del usuario).
+- **Verificado en navegador de punta a punta** (tesista y asesor, con los datos R6 aislados de §11.1) y **puerta integral en verde**.
+- **No verificado / brechas abiertas:** B3 (sin botón «Enviar a revisión» en el shell), B4 (sin acción «Indexar pasajes» en el shell), B5 (P18 inaccesible en `CONFIGURABLE_GRAPH`), B6 (markdown literal en bloques), B7 (CTA del asesor heredado del rol tesista), B8 (viewport < 1280 px sin probar). Generación con IA, tablas/figuras, citas IEEE/evidencia, Zotero y discovery **no se probaron en navegador en R6** (fuera del alcance acordado para este cierre).
+- **Artefactos de verificación:** scripts de sembrado y logs en `/tmp/opencode/` (`seed_r6.py`, `seed_r6_continuacion.py`, `dev_r6_settings.py`, `django_r6.log`, `worker_r6.log`, `vite_r6.log`); la base `tesismcp_r6` y el servicio quedan documentados aquí y pueden eliminarse sin afectar la base activa.
