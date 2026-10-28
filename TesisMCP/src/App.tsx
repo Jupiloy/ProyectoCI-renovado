@@ -14,6 +14,7 @@ import { ResearchArtifactsScreen } from "./features/artifacts/ResearchArtifactsS
 import ProjectSelectionScreen from "./features/projects/ProjectSelectionScreen"
 import DemoApp from "./DemoApp"
 import { AppShellTesis, PanelPrincipal, type PantallaApp } from "./app/ShellWorkspace"
+import { VistaRevision } from "./app/VistaRevision"
 import { downloadDraftDocx } from "./api/exports"
 
 type AppView = "checking" | "access" | "projects" | "app" | "workspace" | "editor" | "workflow" | "library" | "advisor" | "ai" | "artifacts" | "demo"
@@ -222,6 +223,7 @@ export default function App() {
           if (destino === "fuentes") setView("library")
           if (destino === "asesor") setView("advisor")
         }}
+        alRevision={() => setPantallaApp("revision")}
         alRecorrido={() => {
           setPantallaApp("tesis")
           setVistaPantallas("app")
@@ -239,14 +241,18 @@ export default function App() {
         }}
         alCerrarSesion={handleLogoutSafe}
       >
-        <PanelPrincipal
-          usuario={sessionUser}
-          proyecto={selectedProject}
-          detalles={projectDetails}
-          alContinuar={() => abrirPantallaBloque("editor")}
-          alRecorrido={() => abrirPantallaBloque("workflow")}
-          alFuentes={() => abrirPantallaBloque("library")}
-        />
+        {pantallaApp === "revision" ? (
+          <VistaRevision proyecto={selectedProject} />
+        ) : (
+          <PanelPrincipal
+            usuario={sessionUser}
+            proyecto={selectedProject}
+            detalles={projectDetails}
+            alContinuar={() => abrirPantallaBloque("editor")}
+            alRecorrido={() => abrirPantallaBloque("workflow")}
+            alFuentes={() => abrirPantallaBloque("library")}
+          />
+        )}
       </AppShellTesis>
     )
   }

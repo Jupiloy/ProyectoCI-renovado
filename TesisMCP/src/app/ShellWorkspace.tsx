@@ -49,6 +49,7 @@ export function AppShellTesis({
   proyecto,
   detalles,
   alConmutar,
+  alRevision,
   alRecorrido,
   alVistaClasica,
   alDescargarBorrador,
@@ -60,6 +61,7 @@ export function AppShellTesis({
   proyecto: ProjectSummary
   detalles: ProjectState
   alConmutar: (pantalla: PantallaApp) => void
+  alRevision: () => void
   alRecorrido: () => void
   alVistaClasica: () => void
   alDescargarBorrador: () => void
@@ -94,8 +96,8 @@ export function AppShellTesis({
           <button
             className="nav-item"
             type="button"
-            disabled
-            title="Se integra con la revisión de capítulo en los siguientes bloques del re-fitting (R3/R5)"
+            onClick={alRevision}
+            title="Observaciones del asesor y versiones enviadas, con datos reales del backend"
           >
             <Icon name="comment" />
             <span>Revisión</span>
