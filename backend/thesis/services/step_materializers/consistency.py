@@ -1,6 +1,6 @@
 """Reglas de delimitación, consistencia y operacionalización."""
 
-from thesis.models import ConsistencyRow, ConsistencyRowVariable, Indicator, ResearchVariable, VariableDimension
+from thesis.models import ConsistencyRow, ConsistencyRowVariable, Indicator, Project, ResearchVariable, VariableDimension
 from thesis.services.errors import DomainError
 
 from .registry import StepExecutionContext, _get_completed_step_output, register_step_handler

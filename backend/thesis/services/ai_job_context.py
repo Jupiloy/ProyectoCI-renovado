@@ -2,7 +2,7 @@
 import hashlib
 import json
 from typing import Any
-from thesis.models import ProjectWorkflow, ResearchProfile, SourceExcerpt, StepProgress, WorkflowTaskExecution
+from thesis.models import AIGenerationJob, ProjectWorkflow, ResearchProfile, SourceExcerpt, StepProgress, WorkflowTaskExecution
 from thesis.services.errors import DomainError
 from thesis.services.step_contracts import CONTRACTS
 from thesis.services.workflow_template import calculate_workflow_hash, workflow_content_dump
