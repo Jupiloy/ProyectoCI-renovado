@@ -310,3 +310,26 @@ Ejecutada **una sola vez** en el cierre, con entorno aislado (`DJANGO_DEBUG=1`, 
 - **Verificado en navegador de punta a punta** (tesista y asesor, con los datos R6 aislados de §11.1) y **puerta integral en verde**.
 - **No verificado / brechas abiertas:** B3 (sin botón «Enviar a revisión» en el shell), B4 (sin acción «Indexar pasajes» en el shell), B5 (P18 inaccesible en `CONFIGURABLE_GRAPH`), B6 (markdown literal en bloques), B7 (CTA del asesor heredado del rol tesista), B8 (viewport < 1280 px sin probar). Generación con IA, tablas/figuras, citas IEEE/evidencia, Zotero y discovery **no se probaron en navegador en R6** (fuera del alcance acordado para este cierre).
 - **Artefactos de verificación:** scripts de sembrado y logs en `/tmp/opencode/` (`seed_r6.py`, `seed_r6_continuacion.py`, `dev_r6_settings.py`, `django_r6.log`, `worker_r6.log`, `vite_r6.log`); la base `tesismcp_r6` y el servicio quedan documentados aquí y pueden eliminarse sin afectar la base activa.
+
+---
+
+## 12. Evaluación de estructura del código del shell (27/10/2026, tras el cierre R6)
+
+A petición expresa del usuario («¿has estructurado el código del frontend como normalmente se haría? porque no es ético tener archivos con grandes cantidades de código abarrotados»), se midió físicamente el tamaño de los archivos del frontend con `wc -l`. Resultado literal (orden descendente; solo los relevantes):
+
+| Archivo | Líneas | Evaluación honesta |
+|---|---|---|
+| `src/DemoApp.tsx` | 1.617 | Diseño original de Figma, **congelado por decisión del usuario** (modo demostración). No se estructura: es el respaldo del diseño |
+| `src/app/VistaEditor.tsx` | 954 | **Sobredimensionado**: mezcla 7 responsabilidades (carga de documento, panel de estructura, bloques editables, guardado con `expected_version`/`Idempotency-Key`, conflicto 409, panel de versiones, observaciones) en un solo componente |
+| `src/api/types.ts` | 705 | Barrel de tipos: convención aceptada; sin queja |
+| `src/app/VistaAsesor.tsx` | 590 | Grande: dashboard + revisión + anclaje de observaciones con lógica de `Range` en un archivo |
+| `src/app/ShellWorkspace.tsx` | 474 | Moderado, aceptable |
+| `src/app/VistaFuentes.tsx` | 457 | Moderado, aceptable |
+| `src/App.tsx` | 417 | Moderado (máquina de vistas), aceptable |
+| `src/api/*` (resto) | 21–227 | Capa bien separada: 11 módulos pequeños por dominio; sin queja |
+
+**Origen de la deuda (registrado sin maquillar):** las vistas las construyeron los bloques R3–R5 (`fa9639d`, `ed21ef0`, `1103b68`, por otros chats) bajo la regla explícita del plan de re-fitting de «bloques cerrados sin refactorizaciones»: la prioridad era conectar datos reales conservando el diseño de Figma, no el orden interno. El cierre R6 solo aplicó fixes mínimos (`d719f50`, `108c269`). La deuda es deliberada, no accidental; la objeción del usuario es válida igualmente.
+
+**Decisión del usuario (27/10/2026): opción 1 — registrar y aplazar.** No se refactoriza ahora. Motivo aceptado: conviven todavía los respaldos de Antigravity en `src/features/` (`WorkflowScreen.tsx` ~53 KB, `ResearchArtifactsScreen.tsx` ~41.8 KB, `LibraryScreen.tsx` ~43 KB, `AdvisorScreen.tsx` ~40 KB); dividir hoy implicaría reorganizar archivos que el usuario podría retirar después, es decir, trabajo doble. La división se hará como bloque futuro (**R7**) cuando se decida el retiro de `src/features/`.
+
+**Alcance propuesto de R7 (para cuando se ejecute):** extraer de `VistaEditor.tsx` subcomponentes (panel de estructura, panel de documento, panel de versiones, panel de observaciones) y hooks de estado (carga/guardado/conflicto) apuntando a archivos de ~100–200 líneas, con idéntico comportamiento y apariencia; mismo tratamiento para `VistaAsesor.tsx`. Red de seguridad disponible: suite backend en verde (223 pruebas), tsc/build exit 0 y recorrido ya verificado en navegador (§11.4); tras la división se repetirán tsc, build, puerta integral y verificación visual focalizada.
