@@ -1,11 +1,15 @@
 import { StatusBadge } from "../base"
 import type { ChapterSnapshotSummaryApi, ReviewComment } from "../../api/types"
+import { PanelIeee } from "./PanelIeee"
 
 /** Panel derecho del editor ("asistencia"): pestaña de versiones (snapshots
- * con SHA del contrato real) y pestaña de observaciones del asesor. */
+ * con SHA del contrato real), pestaña de observaciones del asesor y pestaña
+ * de citas IEEE (vista preliminar real del backend, bajo demanda). */
 export function PanelAsistencia({
   tab,
   onTab,
+  projectId,
+  numeroCapitulo,
   snapshots,
   cargandoVersion,
   onAbrirVersion,
@@ -14,9 +18,12 @@ export function PanelAsistencia({
   resolviendoId,
   puedeResolver,
   onResolver,
+  onUnauthorized,
 }: {
-  tab: "versiones" | "observaciones"
-  onTab: (tab: "versiones" | "observaciones") => void
+  tab: "versiones" | "observaciones" | "citas"
+  onTab: (tab: "versiones" | "observaciones" | "citas") => void
+  projectId: string
+  numeroCapitulo: number | null
   snapshots: ChapterSnapshotSummaryApi[]
   cargandoVersion: boolean
   onAbrirVersion: (snapshotId: string) => void
@@ -25,6 +32,7 @@ export function PanelAsistencia({
   resolviendoId: number | null
   puedeResolver: boolean
   onResolver: (c: ReviewComment) => void
+  onUnauthorized: () => void
 }) {
   return (
     <aside className="editor-right">
@@ -41,8 +49,21 @@ export function PanelAsistencia({
         >
           Observaciones {comentarios.length > 0 && <span>{abiertas}</span>}
         </button>
+        <button
+          className={tab === "citas" ? "active" : ""}
+          onClick={() => onTab("citas")}
+        >
+          Citas IEEE
+        </button>
       </div>
-      {tab === "versiones" ? (
+      {tab === "citas" ? (
+        <PanelIeee
+          projectId={projectId}
+          numeroCapitulo={numeroCapitulo}
+          activa={tab === "citas"}
+          onUnauthorized={onUnauthorized}
+        />
+      ) : tab === "versiones" ? (
         <div className="sources-panel">
           {cargandoVersion ? (
             <p className="aviso" role="status">Cargando versión…</p>

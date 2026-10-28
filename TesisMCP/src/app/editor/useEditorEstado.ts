@@ -1,20 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import type {
-  ChapterCitation,
   ChapterContentTree,
   ChapterDocument,
   ChapterSnapshotDetailApi,
   ChapterSnapshotSummaryApi,
+  ChapterState,
   ProjectSummary,
   ReviewComment,
   SourceDocument,
 } from "../../api/types"
 import { listSources } from "../../api/sources"
+import { agregarCita, citasEfectivas, quitarCita } from "./citas"
 import { useCargaCapitulo } from "./carga"
 import { estadoGuardado, getWorkflowRecursos } from "./etiquetas"
 import { consultarVersionVigente, guardar } from "./guardado"
 import { cambiarCapitulo } from "./operaciones"
-import type { EditorCtx, Loaded, ModoDocumento, PendingSave } from "./tipos"
+import type { EditorCtx, Loaded, ModoDocumento, PendingSave, SaveCitation } from "./tipos"
 import { abrirModo, resolverObservacion } from "./versiones"
 
 /**
@@ -50,18 +51,22 @@ export function useEditorEstado(args: {
   const [comentarios, setComentarios] = useState<ReviewComment[]>([])
   const [resolviendoId, setResolviendoId] = useState<number | null>(null)
   const [fuentes, setFuentes] = useState<SourceDocument[] | null>(null)
+  const [citasLocales, setCitasLocales] = useState<SaveCitation[] | null>(null)
+  const [modalCita, setModalCita] = useState<{ blockId: string; indexUtf16: number | null } | null>(null)
   const [modoDocumento, setModoDocumento] = useState<ModoDocumento>("draft")
   const [leftOpen, setLeftOpen] = useState(true)
   const [rightOpen, setRightOpen] = useState(true)
   const [leftTab, setLeftTab] = useState<"estructura" | "fuentes">("estructura")
-  const [rightTab, setRightTab] = useState<"versiones" | "observaciones">("versiones")
+  const [rightTab, setRightTab] = useState<"versiones" | "observaciones" | "citas">("versiones")
   const loadSequence = useRef(0)
 
   const dirty =
     !!loaded && !!draft && JSON.stringify(draft) !== JSON.stringify(loaded.document.content_tree)
-  const hasLocalWork = dirty || pending !== null
+  const citasSucias = citasLocales !== null
+  const hasLocalWork = dirty || citasSucias || pending !== null
   const needsSave =
     dirty ||
+    citasSucias ||
     !!loaded?.document.is_stale ||
     (!!loaded && loaded.document.revision_id === null)
   const writable =
@@ -114,6 +119,15 @@ export function useEditorEstado(args: {
     }
   }, [projectId])
 
+  // Las citas locales son trabajo sobre el documento cargado: al aterrizar una
+  // nueva revisión (carga de capítulo o guardado confirmado) el conjunto local
+  // vuelve a null porque el manifiesto del servidor ya lo incluye.
+  const revisionClave = loaded?.document.revision_id ?? null
+  const versionClave = loaded?.document.document_version ?? null
+  useEffect(() => {
+    setCitasLocales(null)
+  }, [revisionClave, versionClave])
+
   const { cargarCapitulo } = useCargaCapitulo({
     projectId,
     onUnauthorized,
@@ -139,12 +153,12 @@ export function useEditorEstado(args: {
   }, [numeroCapitulo, cargarCapitulo])
 
   const citasPorBloque = useMemo(() => {
-    const map = new Map<string, ChapterCitation[]>()
-    for (const cita of loaded?.document.citations ?? []) {
+    const map = new Map<string, SaveCitation[]>()
+    for (const cita of citasEfectivas(loaded, citasLocales)) {
       map.set(cita.block_id, [...(map.get(cita.block_id) ?? []), cita])
     }
     return map
-  }, [loaded])
+  }, [loaded, citasLocales])
 
   // Contexto del render vigente: lo consumen las acciones al producirse el
   // evento, con los mismos valores que un cierre en línea del render actual.
@@ -155,6 +169,7 @@ export function useEditorEstado(args: {
     loaded,
     draft,
     pending,
+    citasLocales,
     busy,
     writable,
     needsSave,
@@ -182,6 +197,7 @@ export function useEditorEstado(args: {
     setResolviendoId,
     setModoDocumento,
     setNumeroCapitulo,
+    setCitasLocales,
   }
 
   const ejecutarGuardado = () => {
@@ -202,11 +218,34 @@ export function useEditorEstado(args: {
     }
   }
 
+  const insertarCita = (blockId: string, indexUtf16: number | null) => {
+    setModalCita({ blockId, indexUtf16 })
+  }
+  const confirmarCita = (sourceId: string, locator: string) => {
+    if (!modalCita) return
+    agregarCita({
+      loaded,
+      draft,
+      citasLocales,
+      blockId: modalCita.blockId,
+      indexUtf16: modalCita.indexUtf16,
+      sourceId,
+      locator,
+      setCitasLocales,
+      setPending,
+      setNotice,
+    })
+    setModalCita(null)
+  }
+  const retirarCita = (groupId: string) => {
+    quitarCita({ loaded, citasLocales, groupId, setCitasLocales, setPending, setNotice })
+  }
+
   const abiertas = comentarios.filter((c) => c.status === "OPEN").length
   const modoSoloLectura = modoDocumento !== "draft" || !writable
   const estadoGuardadoTexto = estadoGuardado({
     saving,
-    dirty,
+    dirty: dirty || citasSucias,
     pending,
     writeBlocked,
     serverChanged: servidorCambio,
@@ -232,6 +271,8 @@ export function useEditorEstado(args: {
     comentarios,
     resolviendoId,
     citasPorBloque,
+    citasSucias,
+    modalCita,
     abiertas,
     needsSave,
     writable,
@@ -256,5 +297,9 @@ export function useEditorEstado(args: {
     abrirVersion,
     resolver,
     recargarBorrador,
+    insertarCita,
+    confirmarCita,
+    retirarCita,
+    cerrarModalCita: () => setModalCita(null),
   }
 }

@@ -1,6 +1,7 @@
 import { ApiError } from "../../api/client"
 import { getChapterDocument, getChapterState, saveChapterDocument } from "../../api/chapters"
 import { unsupportedDocumentReason } from "../editorDocument"
+import { citasEfectivas } from "./citas"
 import { editableCitations } from "./etiquetas"
 import type { EditorCtx, PendingSave } from "./tipos"
 
@@ -19,6 +20,7 @@ export async function guardar(ctx: EditorCtx) {
     needsSave,
     numeroCapitulo,
     pending,
+    citasLocales,
     proyecto,
     csrfToken,
   } = ctx
@@ -26,7 +28,7 @@ export async function guardar(ctx: EditorCtx) {
   const intento: PendingSave =
     pending ?? {
       content_tree: structuredClone(draft),
-      citations: editableCitations(loaded.document.citations),
+      citations: citasEfectivas(loaded, citasLocales),
       expected_version: loaded.document.document_version,
       idempotency_key: crypto.randomUUID(),
     }
@@ -110,7 +112,7 @@ export async function guardar(ctx: EditorCtx) {
  * contenido coincide exactamente (árbol + citas).
  */
 export async function consultarVersionVigente(ctx: EditorCtx) {
-  const { loaded, draft, busy, numeroCapitulo, pending, proyecto } = ctx
+  const { loaded, draft, busy, numeroCapitulo, pending, citasLocales, proyecto } = ctx
   if (!loaded || !draft || busy || numeroCapitulo === null) return
   ctx.setLoading(true)
   try {
@@ -122,7 +124,7 @@ export async function consultarVersionVigente(ctx: EditorCtx) {
     const mismoArbol = JSON.stringify(current.content_tree) === JSON.stringify(draft)
     const mismasCitas =
       JSON.stringify(editableCitations(current.citations)) ===
-      JSON.stringify(editableCitations(loaded.document.citations))
+      JSON.stringify(citasEfectivas(loaded, citasLocales))
     const baseVigente =
       current.revision_id === loaded.document.revision_id &&
       current.document_version === loaded.document.document_version

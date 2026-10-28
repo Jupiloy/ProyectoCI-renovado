@@ -30,6 +30,8 @@ export interface EditorCtx {
   loaded: Loaded | null
   draft: ChapterContentTree | null
   pending: PendingSave | null
+  /** Citas agregadas o retiradas localmente; null = el manifiesto del documento cargado. */
+  citasLocales: SaveCitation[] | null
   busy: boolean
   writable: boolean
   needsSave: boolean
@@ -57,4 +59,5 @@ export interface EditorCtx {
   setResolviendoId: Dispatch<SetStateAction<number | null>>
   setModoDocumento: Dispatch<SetStateAction<ModoDocumento>>
   setNumeroCapitulo: Dispatch<SetStateAction<number | null>>
+  setCitasLocales: Dispatch<SetStateAction<SaveCitation[] | null>>
 }

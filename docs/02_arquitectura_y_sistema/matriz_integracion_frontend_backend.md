@@ -78,3 +78,12 @@ Los endpoints de la matriz no cambian; las rutas de archivo `app/VistaEditor.tsx
 ## Inventario de brechas demo ↔ shell ↔ backend (§14)
 
 La comparación completa del demo (`src/DemoApp.tsx`) contra el shell (`src/app/`) y los contratos del backend está en [§14 de la bitácora](continuidad_frontend_figma_refitting.md): funciones del demo sin sustento de contrato (formato en línea, exportación PDF), funciones reales del backend sin UI (Zotero, generación IA, citas IEEE, evidencia, indexar pasajes, discovery, research, manuscritos, submit) y clasificación de trabajo (solo UI / wrapper nuevo / cambio de contrato).
+
+## Cierre de brechas por bloques (R8, R9)
+
+| Bloque | Brechas cerradas | Contratos cableados | Evidencia |
+|---|---|---|---|
+| **R8** | B4 (indexar pasajes); Zotero (estado/conexión/búsqueda/importación); importación de bibliografía | `GET/POST integrations/zotero*`, `GET sources/zotero`, `POST sources/import-zotero`, `POST sources/{id}/index` + `GET jobs/{id}`, `POST sources/import-bibliography` | [§15 de la bitácora](continuidad_frontend_figma_refitting.md) |
+| **R9** | A2 (insertar cita real en el editor; ver vista preliminar IEEE) | `citations[]` en `PUT chapters/{n}/document` (reglas de `citation_occurrences.py`), `GET chapters/{n}/citations/ieee` | [§16 de la bitácora](continuidad_frontend_figma_refitting.md) |
+
+Sigue abierta tras R9 (con R11 en pausa por decisión del usuario): A3/A4 (asistente en el editor, → R10), A7 (exportar PDF: no existe en el backend), evidencia de citas y manuscritos (→ R10/R12), submit (B3).

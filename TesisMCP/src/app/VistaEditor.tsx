@@ -1,5 +1,6 @@
 import type { ProjectSummary } from "../api/types"
 import { BarraSuperior } from "./editor/BarraSuperior"
+import { ModalCita } from "./editor/ModalCita"
 import { PanelAsistencia } from "./editor/PanelAsistencia"
 import { PanelDocumento } from "./editor/PanelDocumento"
 import { PanelComparacion } from "./editor/PanelComparacion"
@@ -103,6 +104,8 @@ export function VistaEditor({
           onSetBloque={bloques.setBloque}
           onMoverBloque={bloques.moverBloque}
           onQuitarBloque={bloques.quitarBloque}
+          onInsertarCita={editor.insertarCita}
+          onRetirarCita={editor.retirarCita}
           onConsultarVigente={editor.ejecutarConsulta}
           onRecargar={editor.recargarBorrador}
         />
@@ -110,6 +113,8 @@ export function VistaEditor({
           <PanelAsistencia
             tab={editor.rightTab}
             onTab={editor.setRightTab}
+            projectId={proyecto.project_id}
+            numeroCapitulo={editor.numeroCapitulo}
             snapshots={editor.snapshots}
             cargandoVersion={editor.cargandoVersion}
             onAbrirVersion={(id) => editor.abrirVersion("snapshot", id)}
@@ -118,9 +123,25 @@ export function VistaEditor({
             resolviendoId={editor.resolviendoId}
             puedeResolver={proyecto.permissions.can_review_chapters}
             onResolver={editor.resolver}
+            onUnauthorized={onUnauthorized}
           />
         )}
       </div>
+      {editor.modalCita &&
+        editor.draft &&
+        (() => {
+          const bloque = editor.draft.blocks.find((b) => b.id === editor.modalCita!.blockId)
+          if (!bloque) return null
+          return (
+            <ModalCita
+              bloque={bloque}
+              indexUtf16={editor.modalCita.indexUtf16}
+              fuentes={editor.fuentes}
+              onCancelar={editor.cerrarModalCita}
+              onConfirmar={editor.confirmarCita}
+            />
+          )
+        })()}
     </main>
   )
 }

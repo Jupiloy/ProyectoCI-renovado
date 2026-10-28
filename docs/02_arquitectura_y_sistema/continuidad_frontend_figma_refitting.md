@@ -502,3 +502,43 @@ Reglas de acceso respetadas tal como las aplica el backend: indexar e importar (
 4. Cero errores de consola no provocados. Captura de evidencia tomada (Fuentes como asesor).
 
 Alcance no probado en R8: importación real de registros de Zotero (requiere OAuth configurado en el servidor) y OCR/GROBID/DOI-check (queda para bloque posterior).
+
+---
+
+## 16. Bloque R9: citas en el editor (27/10/2026)
+
+Cablea la capacidad de citas reales del backend (bloque A2 del inventario de §14) en el editor, conservando la arquitectura R7 (lógica en hooks/ts, JSX en componentes, techo ~200 líneas por archivo).
+
+### 16.1 Contratos del backend verificados (literales)
+
+- `services/citation_occurrences.py`: cada cita requiere exactamente `{group_id, block_id, position, sources}`; `position` es un **offset Unicode** (puntos de código, no unidades UTF-16) dentro del texto de un bloque **`paragraph`** («La cita debe anclarse a un bloque paragraph de la revisión»); cada fuente requiere `{source_id, locator}` con locator de texto ≤200; límites 500 grupos / 1000 ocurrencias / 20 fuentes por grupo (`MAX_CITATION_GROUPS`, `MAX_CITATION_OCCURRENCES`, `MAX_SOURCES_PER_GROUP`).
+- El PUT de documento reemplaza el manifiesto completo de citas (`routes_chapters.py`: `save_project_chapter_document` con `citations=[item.dict() for item in payload.citations]`); por eso quitar una cita = enviar el conjunto sin ella.
+- `GET /chapters/{n}/citations/ieee` (`routes_chapters.py:54`) → `get_current_ieee_citation_view` (`ieee_citations.py:101`): disponible para cualquier miembro del proyecto y exige revisión canónica; responde `style: "IEEE"`, `rendering_status: "PRELIMINARY_METADATA_FORMAT"`, `notice`, `marks` (citation_text, position, numbers) y `references` (ieee_text, status `METADATA_COMPLETE|INCOMPLETE_METADATA`, `missing_fields`).
+
+### 16.2 Implementación
+
+| Módulo | Líneas | Papel |
+|---|---|---|
+| `editor/citas.ts` (nuevo) | 85 | Lógica: `citasBase`/`citasEfectivas` (citasLocales ?? manifiesto del documento cargado), `utf16ACodePoints` (convierte `selectionStart` UTF-16 → puntos de código que exige el backend), `agregarCita` (solo párrafos, group_id nuevo, anula intento pendiente) y `quitarCita`. |
+| `editor/BloquePaper.tsx` (nuevo) | 165 | Render de un bloque (extraído de PanelDocumento) + captura del caret del párrafo (onSelect/onKeyUp/onClick), botón «Cita» solo en párrafos, y «Quitar» por cita anclada. |
+| `editor/ModalCita.tsx` (nuevo) | 118 | Modal con el patrón CSS existente (`workflow-modal-backdrop`/`workflow-modal-card`/`artifact-picker`): filtro de fuentes, fuente con su etiqueta real de verificación, locator ≤200 y avisos honestos (1 fuente por grupo; el backend admite 20; la cita queda local hasta guardar). |
+| `editor/PanelIeee.tsx` (nuevo) | 127 | Tercera pestaña «Citas IEEE» del panel derecho: carga on-demand la vista real, muestra `rendering_status` + `notice` literales, marcas [n] con posición y referencias con `missing_fields`. |
+| `useEditorEstado.ts` (260→305) | +45 | Estado `citasLocales` (null = sin cambios; se resetea al aterrizar una revisión nueva por efecto sobre `revision_id`/`document_version`), estado del modal, `citasSucias` integrada en `needsSave`/`hasLocalWork`/indicador de guardado, `citasPorBloque` sobre el conjunto efectivo. |
+| `guardado.ts` (162→164) | +2 | El intento y la comparación de «versión vigente» usan `citasEfectivas` (antes ignoraba citas locales nuevas al comparar, lo que las habría descartado en el flujo de conflicto). |
+| `PanelDocumento.tsx` (205→131) | −74 | Ahora compone `BloquePaper`; y `PanelAsistencia.tsx` (124→145) añade la pestaña «Citas IEEE». |
+| `tipos.ts` (60→63) | +3 | `EditorCtx` añade `citasLocales` y `setCitasLocales`. |
+
+Desviación del borrador de diseño, por decisión propia y documentada: no se puso el botón «Insertar cita» en la barra superior de `BarraSuperior.tsx` porque una cita necesita un párrafo ancla; el botón vive en cada párrafo (`BloquePaper`), que además ya conoce el cursor. BarraSuperior queda sin cambios.
+
+### 16.3 Verificación ejecutada (navegador, base `tesismcp_r6`)
+
+1. `npx tsc --noEmit` → exit 0; `npm run build` → exit 0.
+2. **Tesista (Lucía, OWNER), Cap 1 v5 DRAFT:** caret en el primer párrafo tras «La» (UTF-16 index 2 → 2 puntos de código); «Cita» abre el modal con «Posición de anclaje: carácter 2 del párrafo (offset Unicode; posición del cursor)»; fuentes listadas con su estado real («Metadatos sin verificar» para los registros R8 importados); «Preparar cita» deshabilitado sin fuente elegida. Confirmada la cita de «Estudio R8 de verificación de importación bibliográfica» con locator «p. 1»: aviso «Cita local preparada en el párrafo (posición 2)», bloque con «Cita anclada · posición 2 · 1 fuente · Quitar», texto del párrafo bloqueado, estado «Cambios sin guardar». **Guardar versión** → v6 y verificación contra el manifiesto real del servidor (`GET /chapters/1/document`): `citations` con `position: 2`, `locator: "p. 1"` y referencia congelada (`reference_sha256`, `verification_status: "UNVERIFIED_METADATA"`) — la conversión a puntos de código fue exacta.
+3. **Pestaña «Citas IEEE»:** vista real del backend con `PRELIMINARY_METADATA_FORMAT` + notice literal, marca `[1] · posición 2 · número 1` y referencia `[1], Campos, Lucía, "Estudio R8…", Revista de Prueba, 2026, doi: 10.9999/ris-r8-a` con estado «Completa».
+4. **Quitar cita:** botón «Quitar» → párrafo desbloqueado inmediatamente, «Cambios sin guardar» → guardar → v7 con `citations: []` en el servidor y pestaña IEEE con el estado honesto «Este capítulo no tiene citas confirmadas en el servidor.»
+5. **Asesor (Roberto, ADVISOR):** banner «El asesor puede consultar el documento, pero no editarlo.», 4/4 textareas deshabilitados, 0 botones de cita, «Guardar versión» deshabilitado; las 3 pestañas visibles.
+6. Cero errores de consola no provocados (los únicos errores registrados son CORS de un fetch de verificación ejecutado adrede contra :8010 fuera del proxy). Captura de evidencia del editor como asesor.
+
+**Nota sobre «Estado N» en la barra lateral (verificado, no un defecto):** el número es `state_version` del proyecto (`lock_version`), y `services/chapter_documents.py:345-346` lo incrementa en **cada guardado confirmado de capítulo**. Los dos guardados de R9 (v6 y v7) explican exactamente el paso 29→31 durante esta sesión.
+
+**Alcance no probado en R9:** grupos con varias fuentes por cita (la UI inserta de a una; el PUT ya maneja `sources[]` con N elementos) y citas sobre bloques ya anclados (se anclarían al final del texto; caminos cubiertos por la misma lógica pero no recorridos en navegador).
