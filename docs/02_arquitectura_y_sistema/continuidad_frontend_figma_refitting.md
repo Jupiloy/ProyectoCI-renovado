@@ -333,3 +333,71 @@ A petición expresa del usuario («¿has estructurado el código del frontend co
 **Decisión del usuario (27/10/2026): opción 1 — registrar y aplazar.** No se refactoriza ahora. Motivo aceptado: conviven todavía los respaldos de Antigravity en `src/features/` (`WorkflowScreen.tsx` ~53 KB, `ResearchArtifactsScreen.tsx` ~41.8 KB, `LibraryScreen.tsx` ~43 KB, `AdvisorScreen.tsx` ~40 KB); dividir hoy implicaría reorganizar archivos que el usuario podría retirar después, es decir, trabajo doble. La división se hará como bloque futuro (**R7**) cuando se decida el retiro de `src/features/`.
 
 **Alcance propuesto de R7 (para cuando se ejecute):** extraer de `VistaEditor.tsx` subcomponentes (panel de estructura, panel de documento, panel de versiones, panel de observaciones) y hooks de estado (carga/guardado/conflicto) apuntando a archivos de ~100–200 líneas, con idéntico comportamiento y apariencia; mismo tratamiento para `VistaAsesor.tsx`. Red de seguridad disponible: suite backend en verde (223 pruebas), tsc/build exit 0 y recorrido ya verificado en navegador (§11.4); tras la división se repetirán tsc, build, puerta integral y verificación visual focalizada.
+
+> **Nota posterior:** la división R7 se ejecutó ese mismo día (27/10/2026) a petición expresa del usuario, que cambió su decisión de aplazar. Ver §13.
+
+---
+
+## 13. Bloque R7: división del shell sobredimensionado (27/10/2026, noche)
+
+### 13.1 Decisión y alcance confirmados por el usuario
+
+Tras el registro de la deuda en §12 (opción 1: aplazar), el usuario cambió su decisión y pidió ejecutar la organización de inmediato: «de hecho prefiero que ya hagamos la organizacion segun la estructura, sin pasarse de muchas lineas codigo y cada una su funcion». Alcance confirmado en preguntas directas:
+
+- **Solo los sobredimensionados:** `src/app/VistaEditor.tsx` (954) y `src/app/VistaAsesor.tsx` (590). Los moderados (`ShellWorkspace.tsx` 474, `VistaFuentes.tsx` 457, `App.tsx` 417) no se tocan.
+- **Techo guía ~200 líneas por archivo nuevo.**
+- **Verificación completa estilo R6:** tsc + build, verificación visual focalizada en navegador y puerta integral `scripts/verify_project.py` con exit 0.
+
+### 13.2 Estructura resultante (medida con `wc -l` tras la división)
+
+**Editor del capítulo — `src/app/editor/` (11 módulos + orquestador):**
+
+| Archivo | Líneas | Responsabilidad única |
+|---|---|---|
+| `editor/PanelComparacion.tsx` | 34 | Comparación versión vigente vs borrador (conflicto) |
+| `editor/versiones.ts` | 61 | Acciones: abrir modo (draft/submitted/snapshot) y resolver observación |
+| `editor/etiquetas.ts` | 71 | Etiquetas de estado/verificación + helpers puros (`editableCitations`, `estadoGuardado`, `getWorkflowRecursos`) |
+| `editor/operaciones.ts` | 75 | Cambio de capítulo con confirmación + operaciones de bloques (actualizar/agregar/quitar/mover) |
+| `editor/BarraSuperior.tsx` | 121 | Barra de título y toolbar (modos del documento, guardado, inserción de bloques, plegado) |
+| `editor/PanelAsistencia.tsx` | 124 | Panel derecho: pestañas Versiones y Observaciones |
+| `editor/carga.ts` | 127 | Hook `useCargaCapitulo`: estado + documento + snapshots + comentarios con guardia de secuencia |
+| `editor/guardado.ts` | 162 | Acciones: guardar con `expected_version`/`Idempotency-Key` y consultar versión vigente (todas las ramas de error) |
+| `editor/PanelEstructura.tsx` | 98 | Panel izquierdo: estructura (capítulos y pasos) y fuentes |
+| `editor/PanelDocumento.tsx` | 205 | Área central: avisos, bloques editables con citas ancladas, banner de solo lectura |
+| `editor/tipos.ts` | 60 | Tipos compartidos + interfaz `EditorCtx` |
+| `src/app/VistaEditor.tsx` | 126 | Orquestador: consume `useEditorEstado` y compone la maqueta |
+
+Más `editor/useEditorEstado.ts` (260): estado del editor, efectos, contexto y acciones enlazadas (responsabilidad única: estado y acciones; el mayor archivo nuevo y se declara honestamente que excede la guía en 60 líneas).
+
+**Asesor — `src/app/asesor/` (8 módulos + orquestador):**
+
+| Archivo | Líneas | Responsabilidad única |
+|---|---|---|
+| `asesor/etiquetas.ts` | 10 | Etiquetas de estado de capítulo |
+| `asesor/PanelVersionesAsesor.tsx` | 42 | Historial de versiones enviadas (SHA real) |
+| `asesor/anclaje.ts` | 46 | Traducción Range → offsets Unicode (`calcularAnclaje`, función pura) |
+| `asesor/ComentariosMarginales.tsx` | 61 | Comentarios marginales con acción «Marcar como atendida» |
+| `asesor/DocumentoRevision.tsx` | 70 | Documento de solo lectura + caja de observación anclada |
+| `asesor/carga.ts` | 89 | Hook `useCargaRevision` con guardia de secuencia |
+| `asesor/RevisionHeader.tsx` | 93 | Cabecera: volver, estado real, decisiones con «Aprobar» bloqueado por observaciones abiertas |
+| `asesor/acciones.ts` | 125 | Acciones: abrir versión, registrar observación, decidir, resolver |
+| `src/app/VistaAsesor.tsx` | 162 | Dashboard (GET /projects/advisor/dashboard) + composición de la revisión |
+
+**Comportamiento idéntico garantizado por construcción:** el JSX se movió textual; la lógica de red se trasladó con los mismos cuerpos y dependencias; los estados derivados (`dirty`, `needsSave`, `writable`, `busy`) conservan sus expresiones. Los contextos `EditorCtx`/`RevisionCtx` pasan los valores del render vigente al momento del evento, con la misma semántica de cierre que la versión monolítica.
+
+**Compatibilidad sin cambios en consumidores:** `App.tsx` sigue importando `./app/VistaEditor` y `./app/VistaAsesor`; `VistaFuentes.tsx` sigue importando `etiquetaVerificacion` desde `./VistaEditor` (re-exportado); `etiquetaEstadoCapitulo` se re-exporta desde `VistaAsesor`. `src/features/` y `src/DemoApp.tsx` quedan intactos.
+
+### 13.3 Verificación ejecutada
+
+1. **tsc:** `npx tsc --noEmit` → exit 0 (se corrigieron en el camino: rutas relativas de subcarpetas, prop faltante `needsSave` en `BarraSuperior`, `isArtifact` reubicado en `etiquetas.ts`).
+2. **Build:** `npm run build` → exit 0 (62 módulos; bundle 497.55 kB).
+3. **Navegador (tab `tab_3caaaa0a-e6ec-4b42-806f-ec167ec81dd7`, entorno aislado R6 de §11.1):**
+   - Tesista (Lucía): carga del Editor con 7 capítulos y pasos P01–P05 reales; edición de bloque → «Cambios sin guardar» → «Guardar versión» → aviso «Cambios guardados y versión vigente comprobada.» con versión 3→4 del Cap 1; **conflicto 409 provocado por servicios Django** (script `/tmp/opencode/conflicto_r7.py`, sube el Cap 1 a lock_version 5 por detrás de la UI) → banner «El documento cambió en el servidor o ya no admite edición.» + «Consultar versión vigente» → error «La versión vigente difiere de tu borrador.» + panel de comparación con ambos textos → «Recargar y descartar borrador» → diálogo nativo aceptado → recarga editable de la v5 («Sin cambios locales»); plegado/desplegado de ambos paneles (`left-collapsed`/`right-collapsed`); pestaña Fuentes con 2 fuentes reales («Texto completo disponible»); pestaña Observaciones honesta («No hay observaciones registradas para este capítulo.»).
+   - Asesor (Roberto): dashboard real (1 asignado, 0 READY, 1 con observaciones, 2 aprobados — estados consistentes con los finales de R6 y con la edición posterior del Cap 1); revisión del Cap 3 (CHANGES_REQUESTED): cabecera «Con observaciones · Versión enviada disponible», versiones con SHA `9066e1618873…`, documento `content_md`, comentario con cita anclada «El diseño registra…», «Aprobar capítulo» deshabilitado (estado ≠ READY); anclaje por selección real → caja «Nueva observación sobre «logía El estudio adopta un enfoque cual…»» → Cancelar cierra sin crear; plegado del historial de versiones; vista Revisión (archivo no tocado) sin regresión; Editor como asesor con banner «El asesor puede consultar el documento, pero no editarlo.» y sin botones de inserción.
+   - **Cero errores de consola no provocados** (el único registro es el 409 deliberado de la prueba de conflicto). Captura de evidencia del editor como asesor tomada al cierre.
+   - No se re-ejecutó «Marcar como atendida» en Cap 3 para preservar el estado documentado de la base aislada (su lógica es mecánicamente idéntica a la verificada en R6 pre-división).
+
+### 13.4 Estado del bloque R7
+
+- Sin cambios de contrato, endpoints ni estilos. Nada subido a GitHub.
+- Puerta integral: ejecutada tras el commit de esta sección (ver resultado al final de esta bitácora).

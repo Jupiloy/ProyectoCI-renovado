@@ -65,3 +65,12 @@ Verificación visual real (navegador del entorno, tab de OpenCode) sobre Vite 84
 | Vista clásica (respaldo) | las mismas del hub de `features/` | Accesible desde el sidebar y renderiza con datos del servidor |
 | Modo demostración (`App.tsx` → `DemoApp.tsx`) | ninguno (datos de ejemplo) | `DemoApp` intacto; selector de rol demo, aviso «datos de ejemplo, no datos del backend» y «MODO DEMOSTRACIÓN» en la topbar |
 | Responsive mínimo | — | Breakpoints inspeccionados en `index.css` (1280, 1180, 920, 900, 800, 700 y 620 px); plegado de paneles del editor probado en navegador («Plegar panel izquierdo/derecho» ↔ «Mostrar navegación/Mostrar asistencia»). No se probó viewport < 1280 px: el entorno de verificación no ofrece redimensionamiento de ventana (brecha B8) |
+
+## División R7 del shell (27/10/2026, noche)
+
+A petición del usuario, los dos archivos sobredimensionados del shell se dividieron en módulos de responsabilidad única sin cambiar pantallas, contratos ni estilos:
+
+- `app/VistaEditor.tsx` (954 líneas) → vista orquestadora (126) + `app/editor/` (11 módulos: barra superior, panel de estructura, panel de documento, panel de comparación, panel de asistencia, carga, guardado, versiones, operaciones, etiquetas y tipos; más `useEditorEstado.ts` con el estado y las acciones).
+- `app/VistaAsesor.tsx` (590) → dashboard (162) + `app/asesor/` (8 módulos: cabecera de revisión, documento de revisión, versiones, comentarios marginales, anclaje, carga, acciones y etiquetas).
+
+Los endpoints de la matriz no cambian; las rutas de archivo `app/VistaEditor.tsx` y `app/VistaAsesor.tsx` se conservan (App.tsx y VistaFuentes.tsx sin cambios). Verificación en navegador posterior a la división (guardado real, conflicto 409 con ambas recuperaciones, anclaje del asesor, plegado y pestañas) en [§13 de la bitácora](continuidad_frontend_figma_refitting.md).
