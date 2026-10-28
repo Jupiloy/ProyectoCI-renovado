@@ -952,6 +952,21 @@ body { min-width: 360px; }
 }
 
 /* --- Re-fitting Figma (R3-R5): clases nuevas, no conflictivas con el demo --- */
+.library-summary { margin: 0 15px 14px; padding: 10px 14px; border: 1px solid var(--line-soft); border-radius: 8px; background: white; display: flex; flex-direction: column; gap: 3px; font-size: 11px; color: var(--ink); }
+.upload-box { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; margin: 0 15px 14px; padding: 11px 14px; border: 1px solid var(--line-soft); border-radius: 8px; background: white; }
+.upload-box label { display: flex; flex-direction: column; gap: 4px; font-size: 9px; font-weight: 600; color: var(--muted); }
+.upload-box input[type="text"] { height: 30px; border: 1px solid var(--line); border-radius: 5px; padding: 0 10px; font-size: 11px; }
+.source-detail { padding: 0 15px; overflow: auto; }
+.source-detail dl { display: grid; grid-template-columns: 1fr; gap: 6px; margin: 0 0 12px; padding: 0; }
+.source-detail dt { font-size: 8px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+.source-detail dd { margin: 1px 0 0; font-size: 11px; color: var(--ink); overflow-wrap: anywhere; }
+.passages-panel { margin: 18px 15px; }
+.passages-form { display: flex; gap: 10px; flex-wrap: wrap; margin: 10px 15px; }
+.passages-form input { flex: 1; min-width: 280px; height: 38px; padding: 0 14px; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
+.passages-form select { height: 38px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; font-size: 12px; }
+.passages-form .button { height: 38px; }
+.aviso blockquote, .passages-panel blockquote { margin: 6px 0; }
+
 .aviso { padding: 9px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); font-size: 11px; margin: 10px 15px; }
 .aviso-error { border-color: #f2c1bd; background: #fdf3f2; color: var(--red); }
 .version-sha { font-size: 9px; color: var(--muted); }
