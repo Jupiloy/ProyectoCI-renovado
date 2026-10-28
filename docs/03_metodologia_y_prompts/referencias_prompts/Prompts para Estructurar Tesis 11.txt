@@ -1,0 +1,80 @@
+🔥 Capítulo 11 · Análisis cuantitativo
+
+🔎 ¿De qué trata esta categoría?
+
+El análisis cuantitativo es el proceso de aplicar técnicas estadísticas para interpretar los
+datos recolectados. Aquí se busca:
+●​ Seleccionar la prueba estadística adecuada según el tipo de variables y diseño de
+investigación.​
+●​ Elaborar un plan claro que indique qué análisis se aplicarán y en qué orden.​
+●​ Redactar los resultados con el formato académico adecuado (ej. APA 7).​
+
+El objetivo es que al terminar este capítulo tengas un plan de análisis numérico estructurado
+y resultados listos para presentar.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Elige la prueba adecuada: según la escala de medida (nominal, ordinal, intervalo,
+razón), normalidad de los datos y número de grupos/variables.​
+2.​ Planifica los análisis: define cuáles son principales (para hipótesis) y cuáles son
+exploratorios.​
+3.​ Reporta con claridad: usa tablas, gráficos y formato APA para que tus resultados
+sean entendidos fácilmente.​
+4.​ No abuses de la estadística: la prueba más compleja no siempre es la más útil; la
+clave es coherencia con tus objetivos e hipótesis.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #41: Árbol de decisión estadístico
+
+👉 Objetivo: elegir la prueba estadística correcta.
+Prompt:
+
+Actúa como estadístico experto. Construye un árbol de decisión estadístico
+para mi investigación [TEMA].​
+Incluye:
+➔​ Tipo de variable (nominal, ordinal, intervalo, razón).​
+➔​ Número de grupos/comparaciones.​
+➔​ Supuestos de normalidad y homogeneidad.​
+➔​ Pruebas estadísticas recomendadas en cada caso (t de Student,
+ANOVA, regresión, χ², correlación, etc.).​
+
+🔹 Prompt 42: Plan de análisis
+
+👉 Objetivo: organizar las pruebas y pasos del análisis cuantitativo.
+Prompt:
+Elabora un plan de análisis cuantitativo para mi tesis [TEMA].​
+Incluye:
+➔​ Pruebas principales para las hipótesis.​
+➔​ Pruebas secundarias o exploratorias.​
+➔​ Estrategias para verificar supuestos (ej. normalidad, homocedasticidad).​
+➔​ Correcciones por comparaciones múltiples si aplica.​
+➔​ Análisis de sensibilidad en caso de datos incompletos.​
+
+🔹 Prompt 43: Reporte en estilo APA
+
+👉 Objetivo: presentar resultados listos para la tesis.
+Prompt:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Redacta un ejemplo de reporte de resultados para mi investigación [TEMA]
+siguiendo el formato APA 7.​
+Incluye:
+➔​ Texto narrativo con estadísticos (M, DE, t, F, p, IC95%).​
+➔​ Una tabla de resultados con título y nota.​
+➔​ Una figura (gráfico) sugerida.​
+➔​ Interpretación breve de los resultados en lenguaje no técnico.
+
+Resultado esperado del Capítulo 11
+Al finalizar esta sección tendrás:
+➔​ Un árbol de decisión estadístico que te guiará en la elección de pruebas.​
+➔​ Un plan de análisis completo, alineado con tus hipótesis y objetivos.​
+➔​ Ejemplos de reportes estadísticos en formato APA, listos para adaptarse a tus
+resultados reales.
+
+👉 Con esto ya tendrás la capacidad de analizar tus datos numéricos de manera rigurosa y
+presentarlos con formato académico.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

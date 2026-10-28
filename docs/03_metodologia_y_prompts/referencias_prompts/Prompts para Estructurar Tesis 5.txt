@@ -1,0 +1,132 @@
+🔥 Capítulo 5 · Marco teórico / conceptual
+
+🔎 ¿De qué trata esta categoría?
+
+El marco teórico es donde demuestras que tu trabajo no surge de la nada, sino que se
+apoya en teorías y conceptos ya existentes.​
+En esta sección deberás:
+➔​ Seleccionar las teorías o enfoques que mejor explican tu tema.​
+➔​ Definir claramente los conceptos clave que utilizarás.​
+➔​ Construir un modelo conceptual que muestre cómo se relacionan tus variables.​
+➔​ Formular proposiciones o supuestos que vinculen la teoría con tu problema de
+investigación.​
+
+El objetivo es que tu tesis tenga un fundamento sólido que oriente tanto el análisis de datos
+como la discusión de resultados.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Selecciona teorías relevantes: busca modelos reconocidos que expliquen tu tema.​
+2.​ Define constructos y conceptos: aclara qué entiendes por cada término clave (ej.
+“satisfacción”, “aprendizaje”, “rendimiento”).​
+3.​ Construye un modelo conceptual: usa diagramas o descripciones para mostrar
+relaciones entre variables.​
+4.​ Formula proposiciones: conecta teoría con lo que esperarás comprobar en tu tesis.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #21: Selección de teorías
+
+👉 Objetivo: identificar las bases teóricas que sustentan tu investigación.
+Prompt:
+Actúa como experto en teoría académica. Propón 3 teorías o modelos
+aplicables a mi tema [TEMA DE TESIS].​
+Para cada una, explica:
+➔​ Principales autores y origen.​
+➔​ Conceptos clave.​
+➔​ Fortalezas para aplicarla en mi investigación.​
+➔​ Limitaciones que debo considerar.​
+Concluye recomendando la más adecuada y justifica en 150 palabras.​
+
+Prompt #22: Definiciones y constructos
+
+👉 Objetivo: clarificar los conceptos que guiarán tu estudio.
+Prompt:
+Redacta definiciones operativas para los conceptos centrales de mi
+investigación [CONCEPTO 1], [CONCEPTO 2], [CONCEPTO 3].​
+Para cada uno, incluye:
+➔​ Definición clásica (autor seminal).​
+➔​ Definición contemporánea (últimos 5 años).​
+➔​ Comparación breve entre ambas.​
+➔​ Versión operativa adaptada a mi tesis.​
+
+Prompt #23: Modelo conceptual
+
+👉 Objetivo: representar visualmente las relaciones entre variables.
+Prompt:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Diseña un modelo conceptual para mi tema de tesis [TEMA].​
+Incluye:
+➔​ Variables dependientes e independientes.​
+➔​ Posibles variables mediadoras o moderadoras.​
+➔​ Tipo de relación (causal, correlacional, bidireccional).​
+➔​ Una descripción narrativa de 200 palabras que explique el modelo.​
+Presenta además un esquema textual en formato flechas (→).​
+
+Prompt #24: Proposiciones derivadas
+
+👉 Objetivo: Generar los conceptos definitivos
+Prompt:
+Eres un experto en metodología de la investigación jurídica y redacción de tesis
+universitarias.
+Siguiendo estrictamente la guía de la Universidad César Vallejo para el capítulo de
+Introducción (especialmente la parte de revisión de literatura, teorías relacionadas al
+tema y enfoques conceptuales vinculados a las variables o categorías), elabora la
+sección completa de **Conceptos Teóricos / Marco Conceptual** de una tesis.
+**Título de la tesis:** [INSERTE EL TÍTULO COMPLETO AQUÍ]
+**Categorías principales de la investigación:**
+- [Categoría 1]
+- [Categoría 2]
+- [Categoría 3]
+**Subcategorías principales:**
+- Para [Categoría 1]: [listar subcategorías]
+- Para [Categoría 2]: [listar subcategorías]
+
+**Teorías de sustento:**
+- [Teoría 1]: [breve descripción y autor]
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+- [Teoría 2]: [breve descripción y autor]
+- [Teoría 3]: [breve descripción y autor]
+
+**Conceptos clave adicionales:**
+- [Concepto 1]
+- [Concepto 2]
+- [Concepto 3]
+- [etc.]
+
+**Contexto adicional de la tesis (problema, enfoque y objetivos):**
+[Describe brevemente el problema de investigación, el enfoque metodológico y los
+objetivos principales]
+
+**Instrucciones de redacción:**
+- Redacta en prosa continua, tercera persona, lenguaje formal y académico.
+- Define cada categoría y subcategoría de forma conceptual clara y precisa.
+- Explica cada teoría y su relación directa con el objeto de estudio.
+- Define los conceptos clave y cómo se interrelacionan.
+- Vincula todo al problema de investigación y a la necesidad de regular los contenidos
+manipulados con IA como delito autónomo.
+- Mantén un tono objetivo y fundamentado.
+
+Genera el texto listo para copiar y pegar en el proyecto de tesis.
+
+Resultado esperado del Capítulo 5
+Al finalizar este capítulo tendrás:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+➔​ Teoría(s) seleccionada(s) con justificación académica.​
+➔​ Definiciones claras de todos los conceptos clave.​
+➔​ Un modelo conceptual visual y explicado, que muestre cómo se relacionan tus
+variables.​
+➔​ Proposiciones teóricas que servirán de puente entre tu marco teórico y tu
+metodología.
+
+👉 Con este capítulo habrás construido la columna vertebral conceptual de tu tesis, lo
+que le dará sustento académico y coherencia a todo lo que viene después.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

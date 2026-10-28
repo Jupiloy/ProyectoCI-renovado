@@ -1,0 +1,364 @@
+import os
+import subprocess
+import xml.etree.ElementTree as ET
+from PIL import Image
+
+OUT_DIR = "V1/docs/diagramas"
+os.makedirs(OUT_DIR, exist_ok=True)
+
+SLIDE2_SVG = os.path.join(OUT_DIR, "diapositiva_02_arquitectura_mvc.svg")
+SLIDE2_PNG = os.path.join(OUT_DIR, "diapositiva_02_arquitectura_mvc.png")
+SLIDE2_DRAWIO = os.path.join(OUT_DIR, "diapositiva_02_arquitectura_mvc.drawio")
+
+svg_content = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080">
+  <defs>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.08"/>
+    </filter>
+    <filter id="softShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.05"/>
+    </filter>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#1b5e20"/>
+    </marker>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrowDark" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#0f172a"/>
+    </marker>
+    <style>
+      .title-main { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size: 34px; font-weight: 900; fill: #ffffff; letter-spacing: 0.04em; }
+      .title-sub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 16px; fill: #94a3b8; font-weight: 500; }
+      .block-title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 26px; font-weight: 900; fill: #1b5e20; }
+      .block-sub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 13px; font-weight: 700; fill: #2e7d32; text-transform: uppercase; letter-spacing: 0.05em; }
+      .tool-card { fill: #ffffff; stroke: #c8e6c9; stroke-width: 1.2; rx: 8; }
+      .tool-name { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 13.5px; font-weight: 800; fill: #0f172a; }
+      .tool-desc { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 11.5px; fill: #475569; }
+      .flow-text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 14.5px; font-weight: 800; fill: #0f172a; }
+      .flow-sub { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 12px; font-weight: 600; fill: #475569; }
+      .badge-step { fill: #2e7d32; }
+      .badge-step-txt { font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; fill: #ffffff; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Fondo General Limpio -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#f8fafc"/>
+
+  <!-- ==================================================================== -->
+  <!-- 1. USUARIO (USER) — Izquierda Superior -->
+  <!-- ==================================================================== -->
+  <g transform="translate(100, 240)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="180" height="230" rx="16" fill="#ffffff" stroke="#c8e6c9" stroke-width="2"/>
+    <rect x="0" y="0" width="180" height="50" rx="16" fill="#e8f5e9"/>
+    <rect x="0" y="30" width="180" height="20" fill="#e8f5e9"/>
+    <text x="90" y="32" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#1b5e20" text-anchor="middle">ACTORES</text>
+
+    <!-- Avatar Usuario -->
+    <circle cx="90" cy="95" r="32" fill="#2e7d32"/>
+    <path d="M 72 145 C 72 125, 108 125, 108 145 Z" fill="#2e7d32"/>
+    <circle cx="90" cy="90" r="16" fill="#ffffff"/>
+
+    <text x="90" y="172" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#0f172a" text-anchor="middle">User</text>
+    <text x="90" y="193" font-family="Arial, sans-serif" font-size="12" font-weight="600" fill="#475569" text-anchor="middle">Tesista / Asesor</text>
+    <rect x="25" y="202" width="130" height="18" rx="4" fill="#f1f5f9"/>
+    <text x="90" y="215" font-family="monospace" font-size="10.5" fill="#334155" text-anchor="middle">Cliente Final</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- PASO 1: REQUEST (USER -> CONTROLLER) -->
+  <!-- ==================================================================== -->
+  <line x1="285" y1="355" x2="495" y2="355" stroke="#0f172a" stroke-width="3" marker-end="url(#arrowDark)"/>
+  <circle cx="365" cy="385" r="16" class="badge-step"/>
+  <text x="365" y="391" class="badge-step-txt">1</text>
+  <text x="390" y="375" class="flow-text">Request</text>
+  <text x="390" y="395" class="flow-sub">Petición JSON-RPC / REST</text>
+
+  <!-- ==================================================================== -->
+  <!-- 2. CONTROLLER (CONTROLADOR) — Centro Superior -->
+  <!-- ==================================================================== -->
+  <g transform="translate(500, 220)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="460" height="260" rx="16" fill="#e8f5e9" stroke="#81c784" stroke-width="2.5"/>
+    <text x="30" y="42" class="block-title">Controller</text>
+    <text x="30" y="65" class="block-sub">Capa de Orquestación y Despacho</text>
+
+    <!-- Herramienta C1: FastMCP Server -->
+    <rect x="25" y="80" width="410" height="50" class="tool-card"/>
+    <rect x="35" y="90" width="30" height="30" rx="6" fill="#f1f5f9"/>
+    <text x="50" y="111" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">⚙️</text>
+    <text x="75" y="102" class="tool-name">FastMCP Server (Python MCP SDK)</text>
+    <text x="75" y="120" class="tool-desc">17 herramientas y 15 prompts vía transporte stdio</text>
+
+    <!-- Herramienta C2: Django Ninja REST API -->
+    <rect x="25" y="136" width="410" height="50" class="tool-card"/>
+    <rect x="35" y="146" width="30" height="30" rx="6" fill="#fee2e2"/>
+    <text x="50" y="167" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">🚀</text>
+    <text x="75" y="158" class="tool-name">Django Ninja REST API</text>
+    <text x="75" y="176" class="tool-desc">Endpoints asíncronos bajo /api/v1/ con validación estricta</text>
+
+    <!-- Herramienta C3: Seguridad SHA-256 -->
+    <rect x="25" y="192" width="410" height="50" class="tool-card"/>
+    <rect x="35" y="202" width="30" height="30" rx="6" fill="#fef3c7"/>
+    <text x="50" y="223" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">🛡️</text>
+    <text x="75" y="214" class="tool-name">TokenResolver SHA-256</text>
+    <text x="75" y="232" class="tool-desc">Autenticación segura: valida rol antes de despachar</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- PASO 2: CONTACTS (CONTROLLER -> MODEL) -->
+  <!-- ==================================================================== -->
+  <path d="M 965 320 L 1400 320 L 1400 385" fill="none" stroke="#0f172a" stroke-width="3" marker-end="url(#arrowDark)"/>
+  <circle cx="1290" cy="305" r="16" class="badge-step"/>
+  <text x="1290" y="311" class="badge-step-txt">2</text>
+  <text x="1160" y="300" class="flow-text">Contacts</text>
+  <text x="1050" y="340" class="flow-sub">Invoca Lógica de Negocio y Reglas de Tesis</text>
+
+  <!-- ==================================================================== -->
+  <!-- 3. MODEL (MODELO) — Centro Derecha -->
+  <!-- ==================================================================== -->
+  <g transform="translate(1160, 390)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="470" height="260" rx="16" fill="#e8f5e9" stroke="#81c784" stroke-width="2.5"/>
+    <text x="30" y="42" class="block-title">Model</text>
+    <text x="30" y="65" class="block-sub">Capa de Dominio y Lógica de Negocio</text>
+
+    <!-- Herramienta M1: Pydantic v2 -->
+    <rect x="25" y="80" width="420" height="50" class="tool-card"/>
+    <rect x="35" y="90" width="30" height="30" rx="6" fill="#dcfce7"/>
+    <text x="50" y="111" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">🔬</text>
+    <text x="75" y="102" class="tool-name">Contratos Pydantic 2 (extra='forbid')</text>
+    <text x="75" y="120" class="tool-desc">Valida verbos Bloom, conteo de palabras y coherencia</text>
+
+    <!-- Herramienta M2: Servicios de Tesis & FSM -->
+    <rect x="25" y="136" width="420" height="50" class="tool-card"/>
+    <rect x="35" y="146" width="30" height="30" rx="6" fill="#eff6ff"/>
+    <text x="50" y="167" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">🧠</text>
+    <text x="75" y="158" class="tool-name">Servicios de Dominio (thesis.services)</text>
+    <text x="75" y="176" class="tool-desc">Máquina de estados FSM: Borrador ➔ Aprobado</text>
+
+    <!-- Herramienta M3: Django ORM / DAO -->
+    <rect x="25" y="192" width="420" height="50" class="tool-card"/>
+    <rect x="35" y="202" width="30" height="30" rx="6" fill="#f5f3ff"/>
+    <text x="50" y="223" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">🔄</text>
+    <text x="75" y="214" class="tool-name">Capa de Acceso a Datos (Patrón DAO)</text>
+    <text x="75" y="232" class="tool-desc">Aislamiento de persistencia y transacciones atómicas</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- ABSTRACTION LAYER & BASE DE DATOS (POSTGRESQL) -->
+  <!-- ==================================================================== -->
+  <path d="M 1480 655 L 1480 730 L 1700 730" fill="none" stroke="#0f172a" stroke-width="3" marker-end="url(#arrowDark)"/>
+  <rect x="1220" y="685" width="230" height="30" rx="6" fill="#ffffff" stroke="#c8e6c9" stroke-width="1.2"/>
+  <text x="1335" y="705" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#1b5e20" text-anchor="middle">(Abstraction Layer)</text>
+
+  <!-- Cilindro Base de Datos PostgreSQL -->
+  <g transform="translate(1710, 680)" filter="url(#cardShadow)">
+    <!-- Cilindro -->
+    <ellipse cx="60" cy="30" rx="55" ry="18" fill="#2e7d32"/>
+    <path d="M 5 30 v 70 a 55 18 0 0 0 110 0 v -70" fill="#2e7d32"/>
+    <ellipse cx="60" cy="30" rx="55" ry="18" fill="#4ade80"/>
+    <ellipse cx="60" cy="30" rx="50" ry="15" fill="#2e7d32"/>
+    <ellipse cx="60" cy="100" rx="55" ry="18" fill="#1b5e20"/>
+
+    <text x="60" y="55" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">🐘</text>
+    <text x="60" y="80" font-family="Arial, sans-serif" font-size="15" font-weight="900" fill="#ffffff" text-anchor="middle">DataBase</text>
+    <text x="60" y="140" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0f172a" text-anchor="middle">PostgreSQL 16</text>
+    <text x="60" y="158" font-family="Arial, sans-serif" font-size="11.5" fill="#475569" text-anchor="middle">17 Tablas Físicas ACID</text>
+    <text x="60" y="174" font-family="Arial, sans-serif" font-size="11" fill="#16a34a" font-weight="600" text-anchor="middle">Triggers Inmutables</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- PASO 3: RETURNS (MODEL -> CONTROLLER) -->
+  <!-- ==================================================================== -->
+  <path d="M 1155 580 L 800 580 L 800 485" fill="none" stroke="#0f172a" stroke-width="3" marker-end="url(#arrowDark)"/>
+  <circle cx="950" cy="555" r="16" class="badge-step"/>
+  <text x="950" y="561" class="badge-step-txt">3</text>
+  <text x="980" y="550" class="flow-text">Returns</text>
+  <text x="980" y="570" class="flow-sub">Retorna Entidades y Resultados Validados</text>
+
+  <!-- ==================================================================== -->
+  <!-- PASO 4: DELIVERS (CONTROLLER -> VIEW) -->
+  <!-- ==================================================================== -->
+  <path d="M 680 485 L 680 665" fill="none" stroke="#0f172a" stroke-width="3" marker-end="url(#arrowDark)"/>
+  <circle cx="630" cy="570" r="16" class="badge-step"/>
+  <text x="630" y="576" class="badge-step-txt">4</text>
+  <text x="540" y="565" class="flow-text">Delivers</text>
+  <text x="440" y="585" class="flow-sub">Envía datos listos para renderizar</text>
+
+  <!-- ==================================================================== -->
+  <!-- 4. VIEW (VISTA) — Izquierda Inferior -->
+  <!-- ==================================================================== -->
+  <g transform="translate(140, 670)" filter="url(#cardShadow)">
+    <rect x="0" y="0" width="510" height="235" rx="16" fill="#e8f5e9" stroke="#81c784" stroke-width="2.5"/>
+    <text x="30" y="38" class="block-title">View</text>
+    <text x="30" y="60" class="block-sub">Capa de Presentación e Interacción</text>
+
+    <!-- Herramienta V1: Claude Desktop / Antigravity -->
+    <rect x="25" y="75" width="460" height="46" class="tool-card"/>
+    <rect x="35" y="83" width="30" height="30" rx="6" fill="#e0f2fe"/>
+    <text x="50" y="104" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">💻</text>
+    <text x="75" y="95" class="tool-name">Claude Desktop / Antigravity IDE</text>
+    <text x="75" y="112" class="tool-desc">Chat MCP donde el estudiante interactúa con la tesis</text>
+
+    <!-- Herramienta V2: Django Admin Dashboard -->
+    <rect x="25" y="127" width="460" height="46" class="tool-card"/>
+    <rect x="35" y="135" width="30" height="30" rx="6" fill="#fef3c7"/>
+    <text x="50" y="156" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">📋</text>
+    <text x="75" y="147" class="tool-name">Django Admin Dashboard</text>
+    <text x="75" y="164" class="tool-desc">Panel de supervisión web para el docente asesor</text>
+
+    <!-- Herramienta V3: Swagger / Word Export -->
+    <rect x="25" y="179" width="460" height="46" class="tool-card"/>
+    <rect x="35" y="187" width="30" height="30" rx="6" fill="#dcfce7"/>
+    <text x="50" y="208" font-family="Arial, sans-serif" font-size="16" text-anchor="middle">📄</text>
+    <text x="75" y="199" class="tool-name">Swagger OpenAPI &amp; Exportador Word</text>
+    <text x="75" y="216" class="tool-desc">Descarga directa del informe editable en .docx</text>
+  </g>
+
+  <!-- ==================================================================== -->
+  <!-- PASO 5: SHOWS (VIEW -> USER) -->
+  <!-- ==================================================================== -->
+  <path d="M 190 665 L 190 475" fill="none" stroke="#0f172a" stroke-width="3" marker-end="url(#arrowDark)"/>
+  <circle cx="140" cy="565" r="16" class="badge-step"/>
+  <text x="140" y="571" class="badge-step-txt">5</text>
+  <text x="60" y="560" class="flow-text">Shows</text>
+  <text x="30" y="580" class="flow-sub">Muestra pantalla / respuesta al usuario</text>
+
+  <!-- ==================================================================== -->
+  <!-- DOCK INFERIOR MODERNO (PRINCIPIOS SEMANA 09) -->
+  <!-- ==================================================================== -->
+  <rect x="50" y="930" width="1820" height="115" rx="12" fill="#0f172a" filter="url(#cardShadow)"/>
+  <g transform="translate(75, 948)">
+    <text x="0" y="16" font-family="Arial, sans-serif" font-size="13.5" font-weight="bold" fill="#4ade80">PRINCIPIOS DE ARQUITECTURA APLICADOS EN TESISMCP (SEMANA 09 — UTP):</text>
+
+    <!-- Card 1 -->
+    <rect x="0" y="28" width="420" height="52" rx="6" fill="#1e293b" stroke="#334155"/>
+    <text x="15" y="50" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">1. Desacoplamiento MVC:</text>
+    <text x="15" y="68" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">El usuario nunca toca la base de datos; todo pasa por el ciclo 1 ➔ 2 ➔ 3 ➔ 4 ➔ 5.</text>
+
+    <!-- Card 2 -->
+    <rect x="450" y="28" width="420" height="52" rx="6" fill="#1e293b" stroke="#334155"/>
+    <text x="465" y="50" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">2. Patrón DAO (Data Access):</text>
+    <text x="465" y="68" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">El ORM de Django aísla el motor PostgreSQL de la lógica de redacción de tesis.</text>
+
+    <!-- Card 3 -->
+    <rect x="900" y="28" width="420" height="52" rx="6" fill="#1e293b" stroke="#334155"/>
+    <text x="915" y="50" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">3. TDD con Pytest (100% Verde):</text>
+    <text x="915" y="68" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">32 pruebas de integración garantizan cero regresiones en cada avance entregado.</text>
+
+    <!-- Card 4 -->
+    <rect x="1350" y="28" width="420" height="52" rx="6" fill="#1e293b" stroke="#334155"/>
+    <text x="1365" y="50" font-family="Arial, sans-serif" font-size="12.5" font-weight="bold" fill="#38bdf8">4. Principios SOLID &amp; Docker:</text>
+    <text x="1365" y="68" font-family="Arial, sans-serif" font-size="11" fill="#cbd5e1">Responsabilidad única, modularidad limpia y contenedores Docker reproducibles.</text>
+  </g>
+</svg>
+"""
+
+with open(SLIDE2_SVG, "w", encoding="utf-8") as f:
+    f.write(svg_content)
+print(f"SVG generado: {SLIDE2_SVG}")
+
+# Renderizar a PNG HD vía Chrome Headless
+TMP_HTML = "/tmp/mvc_cycle_render.html"
+with open(TMP_HTML, "w", encoding="utf-8") as f:
+    f.write(f"<!DOCTYPE html><html><body style='margin:0;background:#f8fafc;'>{svg_content}</body></html>")
+
+subprocess.run([
+    "google-chrome", "--headless", "--disable-gpu", "--force-device-scale-factor=1",
+    f"--screenshot={SLIDE2_PNG}", "--window-size=1920,1080", "--default-background-color=f8fafc",
+    f"file://{TMP_HTML}"
+], check=True)
+
+img = Image.open(SLIDE2_PNG)
+img.save(SLIDE2_PNG, optimize=True)
+print(f"PNG generado: {SLIDE2_PNG} ({os.path.getsize(SLIDE2_PNG)//1024} KB)")
+
+# Generar Draw.io XML para Diapositiva 2
+mxfile = ET.Element("mxfile", host="Electron", agent="Antigravity", version="21.6.8", type="device")
+diag = ET.SubElement(mxfile, "diagram", id="diag_mvc_cycle", name="Patron_MVC_TesisMCP")
+model = ET.SubElement(diag, "mxGraphModel", dx="1920", dy="1080", grid="1", gridSize="10",
+                      guides="1", tooltips="1", connect="1", arrows="1", fold="1", page="1",
+                      pageScale="1", pageWidth="1920", pageHeight="1080", math="0", shadow="0")
+root = ET.SubElement(model, "root")
+ET.SubElement(root, "mxCell", id="0")
+ET.SubElement(root, "mxCell", id="1", parent="0")
+
+
+# User
+user = ET.SubElement(root, "mxCell", id="user", parent="1",
+                     value="<b>User</b><br/>(Tesista / Asesor)", vertex="1",
+                     style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;fillColor=#2e7d32;strokeColor=#1b5e20;")
+ET.SubElement(user, "mxGeometry", x="150", y="280", width="60", height="100", as_="geometry")
+
+# Controller
+ctrl = ET.SubElement(root, "mxCell", id="ctrl", parent="1",
+                     value="<b>Controller</b><br/><br/>• FastMCP Server (Python SDK)<br/>• Django Ninja REST API<br/>• TokenResolver SHA-256",
+                     vertex="1",
+                     style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#81c784;fontColor=#0f172a;fontSize=14;align=left;spacingLeft=20;verticalAlign=top;spacingTop=15;")
+ET.SubElement(ctrl, "mxGeometry", x="500", y="220", width="460", height="260", as_="geometry")
+
+# Model
+mdl = ET.SubElement(root, "mxCell", id="mdl", parent="1",
+                    value="<b>Model</b><br/><br/>• Contratos Pydantic 2 (Bloom, variables)<br/>• Servicios de Tesis (FSM Máquina de Estados)<br/>• Capa de Acceso a Datos (Patrón DAO)",
+                    vertex="1",
+                    style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#81c784;fontColor=#0f172a;fontSize=14;align=left;spacingLeft=20;verticalAlign=top;spacingTop=15;")
+ET.SubElement(mdl, "mxGeometry", x="1160", y="390", width="470", height="260", as_="geometry")
+
+# Database
+db = ET.SubElement(root, "mxCell", id="db", parent="1",
+                   value="<b>DataBase</b><br/>PostgreSQL 16<br/>(17 Tablas Físicas ACID)",
+                   vertex="1",
+                   style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#2e7d32;strokeColor=#1b5e20;fontColor=#ffffff;fontSize=13;")
+ET.SubElement(db, "mxGeometry", x="1710", y="690", width="140", height="120", as_="geometry")
+
+# View
+vw = ET.SubElement(root, "mxCell", id="vw", parent="1",
+                   value="<b>View</b><br/><br/>• Claude Desktop / Antigravity (Chat MCP)<br/>• Django Admin Dashboard (Web Asesor)<br/>• Swagger UI / Exportador Word (.docx)",
+                   vertex="1",
+                   style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#81c784;fontColor=#0f172a;fontSize=14;align=left;spacingLeft=20;verticalAlign=top;spacingTop=15;")
+ET.SubElement(vw, "mxGeometry", x="140", y="670", width="510", height="235", as_="geometry")
+
+# Edges
+# 1. User -> Controller
+e1 = ET.SubElement(root, "mxCell", id="e1", parent="1", value="1. Request", edge="1",
+                   style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;")
+e1.set("source", "user")
+e1.set("target", "ctrl")
+
+# 2. Controller -> Model
+e2 = ET.SubElement(root, "mxCell", id="e2", parent="1", value="2. Contacts", edge="1",
+                   style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;")
+e2.set("source", "ctrl")
+e2.set("target", "mdl")
+
+# Model -> DB
+e_db = ET.SubElement(root, "mxCell", id="e_db", parent="1", value="(Abstraction Layer)", edge="1",
+                     style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#1b5e20;fontSize=12;fontStyle=1;")
+e_db.set("source", "mdl")
+e_db.set("target", "db")
+
+# 3. Model -> Controller
+e3 = ET.SubElement(root, "mxCell", id="e3", parent="1", value="3. Returns", edge="1",
+                   style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;")
+e3.set("source", "mdl")
+e3.set("target", "ctrl")
+
+# 4. Controller -> View
+e4 = ET.SubElement(root, "mxCell", id="e4", parent="1", value="4. Delivers", edge="1",
+                   style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;")
+e4.set("source", "ctrl")
+e4.set("target", "vw")
+
+# 5. View -> User
+e5 = ET.SubElement(root, "mxCell", id="e5", parent="1", value="5. Shows", edge="1",
+                   style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0f172a;strokeWidth=3;fontColor=#0f172a;fontSize=13;fontStyle=1;")
+e5.set("source", "vw")
+e5.set("target", "user")
+
+tree = ET.ElementTree(mxfile)
+ET.indent(tree, space="  ", level=0)
+tree.write(SLIDE2_DRAWIO, encoding="utf-8", xml_declaration=True)
+print(f"Draw.io generado: {SLIDE2_DRAWIO}")

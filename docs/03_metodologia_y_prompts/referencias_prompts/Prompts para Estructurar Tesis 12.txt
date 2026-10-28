@@ -1,0 +1,78 @@
+🔥 Capítulo 12 · Análisis cualitativo
+
+🔎 ¿De qué trata esta categoría?
+
+El análisis cualitativo busca interpretar la experiencia humana y generar comprensión
+profunda de fenómenos sociales, educativos, culturales o psicológicos.
+En este capítulo aprenderás a:
+➔​ Seleccionar una estrategia de codificación adecuada (temática, grounded theory,
+narrativa, etc.).​
+➔​ Crear un codebook o libro de códigos que guíe tu análisis.​
+➔​ Redactar los resultados en forma de narrativa interpretativa con citas textuales.​
+
+El objetivo es que al finalizar este capítulo logres organizar tu información cualitativa de
+manera sistemática y presentar resultados con sentido académico.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Define la estrategia de codificación: abierta, axial, selectiva o por temas.​
+2.​ Construye un codebook claro: asigna a cada código una definición, ejemplos y
+reglas de uso.​
+3.​ Aplica la codificación sistemática: analiza línea por línea y agrupa en categorías.​
+4.​ Redacta con evidencia: utiliza citas textuales de los participantes (anonimizadas)
+para respaldar tu interpretación.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #44: Estrategia de codificación
+
+👉 Objetivo: definir cómo organizarás y clasificarás los datos cualitativos.
+Prompt:
+Actúa como experto en investigación cualitativa. Propón una estrategia de
+codificación para mi investigación [TEMA].​
+Incluye:
+➔​ Tipo de enfoque recomendado (temático, grounded theory, narrativo,
+fenomenológico, etc.).​
+➔​ Etapas del proceso (ej. abierta, axial, selectiva).​
+➔​ Criterios de saturación de datos.​
+➔​ Riesgos o sesgos que debo evitar.​
+
+🔹 Prompt 45: Codebook o libro de códigos
+
+👉 Objetivo: establecer un sistema claro y ordenado de categorías.
+Prompt:
+Diseña un codebook para mi investigación cualitativa [TEMA].​
+Incluye en una tabla:
+➔​ Código​
+➔​ Definición breve​
+➔​ Inclusiones (qué cuenta como ejemplo válido)​
+➔​ Exclusiones (qué no debe considerarse)​
+➔​ Ejemplo textual ilustrativo​
+➔​ Notas para el investigador​
+
+🔹 Prompt 46: Narrativa de resultados cualitativos
+
+👉 Objetivo: redactar los hallazgos de manera académica y comprensible.
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt:
+Redacta un ejemplo de narrativa de resultados cualitativos para mi tema
+[TEMA].​
+Incluye:
+➔​ 2–3 subtemas principales identificados en el análisis.​
+➔​ Citas textuales anonimizadas de los participantes (ejemplo simulado).​
+➔​ Explicación interpretativa de cómo los hallazgos se conectan con el
+marco teórico.​
+➔​ Conclusión breve que resuma el aporte del análisis.
+
+Resultado esperado del Capítulo 12
+Al finalizar esta sección tendrás:
+➔​ Una estrategia de codificación clara para analizar tus datos.​
+➔​ Un codebook estructurado, que asegura consistencia y orden en el análisis.​
+➔​ Una narrativa interpretativa con citas que conecta teoría y resultados.
+
+👉 Con este capítulo estarás listo para dar forma a tus resultados cualitativos con rigor
+académico.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

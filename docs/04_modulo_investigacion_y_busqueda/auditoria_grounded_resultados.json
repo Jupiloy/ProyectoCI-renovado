@@ -1,0 +1,192 @@
+[
+  {
+    "archivo": "INT1_ARIA_Multi_LLM_Framework_2025.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 34,
+    "caratula_detectada": [
+      "Accelerating Scientific Research Through a Multi-LLM Framework",
+      "Joaquin Ramirez-Medina1, Mohammadmehdi Ataei2, Alidad Amirfazli1*",
+      "1",
+      "Department of Mechanical Engineering, York University, Toronto, ON M3J 1P3, Canada",
+      "2",
+      "Autodesk Research, Toronto, ON M5G 1M1, Canada",
+      "*Corresponding author: Email: alidad2@yorku.ca",
+      "Abstract"
+    ],
+    "resumen_extraido": "The exponential growth of academic publications poses challenges for the research process,\nsuch as literature review and procedural planning. Large Language Models (LLMs) have\nemerged as powerful AI tools, especially when combined with additional tools and\nresources. Recent LLM-powered frameworks offer promising solutions for handling\ncomplex domain-specific tasks, yet their domain-specific implementation limits broader\napplicability. This highlights the need for LLM-integrated systems that can ...",
+    "conclusiones_extraidas": "No detectado con regex estándar",
+    "porcentajes_reales_en_texto": []
+  },
+  {
+    "archivo": "INT2_VirSci_Multi_Agent_System_2024.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 40,
+    "caratula_detectada": [
+      "Many Heads Are Better Than One: Improved Scientific Idea Generation",
+      "by A LLM-Based Multi-Agent System",
+      "arXiv:2410.09403v4 [cs.AI] 27 May 2025",
+      "Haoyang Su1, * , Renqi Chen1, * , Shixiang Tang1,5,† , Zhenfei Yin3 , Xinzhe Zheng1 ,",
+      "Jinzhe Li1 , Biqing Qi1 , Qi Wu4 , Hui Li4 , Wanli Ouyang1,5 , Philip Torr3 ,",
+      "Bowen Zhou1,6 , Nanqing Dong1,2,†,‡",
+      "1",
+      "Shanghai Artificial Intelligence Laboratory 2 Shanghai Innovation Institute"
+    ],
+    "resumen_extraido": "scientific discovery has the potential to revolutionThe rapid advancement of scientific progress\nrequires innovative tools that can accelerate\nknowledge discovery. Although recent AI\nmethods, particularly large language models\n(LLMs), have shown promise in tasks such as\nhypothesis generation and experimental design,\nthey fall short of replicating the collaborative\nnature of real-world scientific practices, where\ndiverse experts work together in teams to tackle\ncomplex problems. To address the li...",
+    "conclusiones_extraidas": "No detectado con regex estándar",
+    "porcentajes_reales_en_texto": [
+      "46 Team Freshness 0% 25% 50% 75%100% Team Freshness 4.",
+      "50% 25% 50% 75%100% Overall Novelty 4.",
+      "48 0% 25% 50% 75%100% Team size=8 Contemporary Impact Contemporary Dissimilarity Team size=4 0.",
+      "50 0% 25% 50% 75%100% Team Freshness Team Freshness 0.",
+      "5 0% 25% 50% 75%100% Team Freshness 0% 25% 50% 75%100% 0% 25% 50% 75%100% Team Freshness Team Freshness (b) Experiments on the Open Academic Graph dataset."
+    ]
+  },
+  {
+    "archivo": "INT3_CogWriter_Cognitive_Writing_2025.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 13,
+    "caratula_detectada": [
+      "A Cognitive Writing Perspective for Constrained Long-Form",
+      "Text Generation",
+      "Kaiyang Wan1 , Honglin Mu1 , Rui Hao2 , Haoran Luo3 , Tianle Gu1 , Xiuying Chen1 * ,",
+      "1",
+      "MBZUAI, 2 University of Chinese Academy of Sciences, 3 Nanyang Technological University",
+      "{Kaiyang.Wan, Xiuying.Chen}@mbzuai.ac.ae",
+      "Abstract",
+      "Minaee et al., 2024) with a fluency that often rivals human writers. Recent advances have led to"
+    ],
+    "resumen_extraido": "Minaee et al., 2024) with a fluency that often rivals human writers. Recent advances have led to\nmodels with expanded context windows of up to\n128K tokens (Pawar et al., 2024), theoretically enabling the generation of extensive documents (Bai\net al., 2024). However, these models face significant challenges when tasked with generating\nconstrained long-form text under complex constraints, such as following detailed instructions over\n10,000 words (Wu et al., 2024a). This limitation\nposes a crucial ...",
+    "conclusiones_extraidas": "No detectado con regex estándar",
+    "porcentajes_reales_en_texto": []
+  },
+  {
+    "archivo": "NAC1_UNJBG_Sistema_Web_Control_Seguimiento_Tesis.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 147,
+    "caratula_detectada": [
+      "UNIVERSIDAD NACIONAL JORGE BASADRE GROHMANN - TACNA",
+      "Facultad de Ingeniería",
+      "Escuela Profesional de Ingeniería en Informática y Sistemas",
+      "EFECTO DE UN SISTEMA WEB PARA EL CONTROL Y",
+      "SEGUIMIENTO DE PROYECTOS DE TESIS EN LA",
+      "ESCUELA ACADÉMICA PROFESIONAL DE",
+      "INGENIERÍA EN INFORMÁTICA Y",
+      "SISTEMAS DE LA UNIVERSIDAD"
+    ],
+    "resumen_extraido": "XII\nxii\n\nABSTRACT\n\nXIII\nxiii\n\nINTRODUCCIÓN\n\n1\n\nCAPÍTULO I.\n\n3\n\nPLANTEAMIENTO DEL PROBLEMA\n\n1.1. Descripción del problema\n\n3\n\n1.1.1. Antecedentes del problema\n\n3\n\n1.1.2. Problemática de la investigación\n\n7\n\n1.2. Formulación del problema\n\n8\n\n1.2.1. Problema general\n\n8\n\n1.2.2. Problemas específicos\n\n9\n\n1.3. Justificación\n\n9\n\n1.4. Alcances y Limitaciones\n\n10\n\n1.4.1. Alcances\n\n10\n\n1.4.2. Limitaciones\n\n11\n\n1.5. Objetivos\n\n11\n\n1.5.1. Objetivo general\n\n11...",
+    "conclusiones_extraidas": "119\n\nRECOMENDACIONES\n\n121\n\nREFERENCIAS BIBLIOGRAFÍCAS\n\n122\n\nANEXOS\n\n126\n\nv\n\n\fÍNDICE DE TABLAS\n\nTabla 1.Operacionalización de variables\n\n14\n\nTabla 2.Características ISO 9126 y aspecto que atiende cada una\n\n32\n\nTabla 3. Validación por juicio de expertos\n\n67\n\nTabla 4. Confiabilidad del cuestionario\n\n68\n\nTabla 5. Encuesta a Asesores - Pregunta 1\n\n70\n\nTabla 6. Encuesta a Asesores - Pregunta 2\n\n71\n\nTabla 7. Encuesta a Asesores - Pregunta 3\n\n72\n\nTabla 8. Encuesta a Asesores - Pregunta 4.1\n\n73\n\nTabla 9....",
+    "porcentajes_reales_en_texto": []
+  },
+  {
+    "archivo": "NAC2_UNSAAC_Gestion_Tesis_Sistemas_2023.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 283,
+    "caratula_detectada": [
+      "UNIVERSIDAD NACIONAL DE SAN ANTONIO ABAD DEL CUSCO",
+      "FACULTAD DE INGENIERÍA ELÉCTRICA, ELECTRÓNICA,",
+      "INFORMÁTICA Y MECÁNICA",
+      "ESCUELA PROFESIONAL DE INGENIERÍA INFORMÁTICA Y DE",
+      "SISTEMAS",
+      "TESIS",
+      "SISTEMA DE INFORMACIÓN PARA LA GESTIÓN DE PROYECTOS DE",
+      "TESIS EN LA ESCUELA PROFESIONAL DE INGENIERÍA"
+    ],
+    "resumen_extraido": "El presente trabajo aborda la problemática observable en la gestión del proceso de tesis en\nla Escuela Profesional de Ingeniería Informática y de Sistemas de la UNSAAC, verificable a partir\nde la experiencia directa como estudiantes y del análisis del reglamento de grados y títulos vigente.\nDicha problemática se manifiesta en la falta de comunicación oportuna entre los actores\ninvolucrados, retrasos en las etapas de revisión y dictamen, alta dependencia de la presencialidad\ny errores recurrentes...",
+    "conclusiones_extraidas": "Se concluye que la implementación del sistema web contribuye a mejorar la gestión\nintegral de los procesos de tesis en la Escuela Profesional de Ingeniería Informática y de Sistemas\nde la Universidad Nacional San Antonio Abad del Cusco, respondiendo al objetivo general al\noptimizar el seguimiento de los procesos administrativos, controlar los tiempos de revisión y\nminimizar errores en la gestión documental mediante la centralización y automatización de las\netapas de inscripción, dictamen y suste...",
+    "porcentajes_reales_en_texto": []
+  },
+  {
+    "archivo": "NAC3_UCV_Gestion_Proyectos_Tesis_Chauca_2024.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 243,
+    "caratula_detectada": [
+      "FACULTAD DE INGENIERÍA Y ARQUITECTURA",
+      "ESCUELA PROFESIONAL DE INGENIERÍA DE",
+      "SISTEMAS",
+      "Sistema web para optimizar la gestión de proyectos de tesis en",
+      "la Facultad de Educación de una universidad pública, 2024",
+      "TESIS PARA OBTENER EL TÍTULO PROFESIONAL DE:",
+      "Ingeniera de Sistemas",
+      "AUTORA:"
+    ],
+    "resumen_extraido": "El presente trabajo contribuye al ODS 4 (Educación de Calidad),\ndetallando el desarrollo de un sistema web para optimizar la gestión de proyectos\nde tesis en la Facultad de Educación de una Universidad Nacional. El objetivo\nprincipal fue mejorar la eficiencia en la gestión y seguimiento de estos proyectos.\nSe realizó una investigación aplicada, con un diseño pre-experimental. La\npoblación en estudio consistió en 140 tesis, y se seleccionó una muestra\nestratificada de 103 tesis distribuidas en 21...",
+    "conclusiones_extraidas": "A continuación, se presenta las siguientes conclusiones referentes a la\n\ninvestigación:\n\nLa implementación del Sistema Web destinada a optimizar la\nGestión de Proyectos de Tesis en la Facultad de Educación de una\nUniversidad Pública incrementó el porcentaje de avance de las tesis\nen un 19%. En el análisis inicial, se registró un porcentaje de avance\nde 44.76%, y en el análisis final (Post Test) un 63.8%. Este\nresultado confirmó la hipótesis de que el sistema aumentó el\nporcentaje de avance en la...",
+    "porcentajes_reales_en_texto": [
+      "my/Vol%2019%20Issue%203%20June%202024/ 19_3_18."
+    ]
+  },
+  {
+    "archivo": "LOC1_UCV_Piura_Sistema_Web_Ingenieria_2024.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 96,
+    "caratula_detectada": [
+      "FACULTAD DE INGENIERÍA Y ARQUITECTURA",
+      "ESCUELA PROFESIONAL DE INGENIERÍA DE",
+      "SISTEMAS",
+      "Aplicativo móvil con reconocimiento facial para el control de",
+      "asistencia laboral en la empresa Soluciones Múltiples Perú EIRL,",
+      "Piura 2024",
+      "TESIS PARA OBTENER EL TÍTULO PROFESIONAL DE:",
+      "Ingeniero de Sistemas"
+    ],
+    "resumen_extraido": "Esta investigación se relaciona con el Objetivo 9 de desarrollo sostenible,\npromoviendo infraestructuras resilientes e innovación, y contribuye a la meta 9.5\nal aumentar la investigación y capacidad tecnológica en sectores industriales de\npaíses en desarrollo. En el contexto descrito, se buscó determinar en qué medida\nun aplicativo móvil con reconocimiento facial mejora el control de asistencia\nlaboral en la empresa Soluciones Múltiples Perú EIRL, Piura 2024. El enfoque\nempleado fue cuantitativo...",
+    "conclusiones_extraidas": "Primero:\n\nLa implementación de una aplicación móvil con reconocimiento\nfacial para gestionar la asistencia del personal en una empresa en\nPiura ha resultado ser una decisión acertada. Este sistema ha\ngenerado mejoras significativas en la entidad, evidenciadas por dos\nindicadores clave: el Porcentaje de Ausencia Laboral (PAL) y el\nPorcentaje de Incidencias de Tardanza Laboral (PITL). Asimismo,\nla verificación de las hipótesis ha posibilitado el cumplimiento de los\nobjetivos\n\nestablecidos\n\ndesde\n\n...",
+    "porcentajes_reales_en_texto": []
+  },
+  {
+    "archivo": "LOC2_UNP_Piura_Seguimiento_Control_2021.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 61,
+    "caratula_detectada": [
+      "UNIVERSIDAD NACIONAL DE PIURA",
+      "FACULTAD DE INGENIERÍA INDUSTRIAL",
+      "PROGRAMA DE ACTUALIZACIÓN PROFESIONAL DE INGENIERÍA INFORMÁTICA",
+      "VERSION XXI - 2020",
+      "TRABAJO DE INVESTIGACIÓN PRESENTADO PARA OPTAR EL",
+      "TÍTULO PROFESIONAL DE INGENIERO INFORMÁTICO",
+      "“APLICACIÓN WEB PARA EL SEGUIMIENTO Y CONTROL",
+      "ACADEMICO DE LOS ESTUDIANTES DE LAS INSTITUCIONES"
+    ],
+    "resumen_extraido": "Abstract\nIntroducción\nCapítulo I: ASPECTOS DE LA PROBLEMÁTICA\n1.1. Descripción de la Realidad Problemática.\n1.2. Justificación e Importancia de la Investigación.\n1.3. Objetivos.\n1.4. Delimitación de la Investigación.\nCapítulo II: MARCO TEORICO\n2.1. Antecedentes de la Investigación\n2.2. Bases Teóricas\n2.3. Glosario de Términos Básicos\n2.4. Marco Referencial\n2.5. Hipótesis\nCapítulo III: MARCO METODOLOGICO\n3.1. Enfoque y Diseño\n3.2. Sujetos de la Investigación\n3.3. Métodos y Procedimientos\n3.3.1. A...",
+    "conclusiones_extraidas": "1. En base a las encuestas realizadas y analizadas, se da por aceptada la hipótesis de que el\ndesarrollo de la aplicación web permitirá el seguimiento y control académico de los estudiantes\nde las IEs del distrito de Castilla.\n2. Con el análisis del estado actual de los procesos involucrados en la problemática se logró\ndeterminar múltiples problemas con respeto al seguimiento y control académico de los\nestudiantes, los cuales permitieron encontrar los requerimientos funcionales y no funcionales\n...",
+    "porcentajes_reales_en_texto": [
+      "96%20Dom%C3%ACnguez%20Aquino%2C%20Mariuxi%3B%20%C2%A0Villalt a%20Herrera%2C%20Carlos%20E%3B%20%C2%A0Vinces%20Jara%2C%20Oscar%2 0Antonio."
+    ]
+  },
+  {
+    "archivo": "LOC3_UDEP_Piura_Repositorio_Digital_Proyectos_2025.pdf",
+    "estado": "VERIFICADO_CORRECTO",
+    "errores_criticos": [],
+    "advertencias": [],
+    "paginas_totales": 54,
+    "caratula_detectada": [
+      "FACULTAD DE INGENIERÍA",
+      "Diseño, desarrollo e implementación de un repositorio",
+      "digital de lecciones aprendidas para la asignatura de",
+      "proyectos en la Universidad de Piura",
+      "Tesis para optar el Título de",
+      "Ingeniero Industrial y de Sistemas",
+      "Diego Ignacio Cáceres Saldaña",
+      "Carlo Ricardo Osores Salgado"
+    ],
+    "resumen_extraido": "En la era digital, la gestión del conocimiento es esencial para optimizar procesos y fomentar\nla innovación. La asignatura de Proyectos del programa académico de Ingeniería Industrial y\nde Sistemas de la Universidad de Piura enfrenta un problema: la falta de un sistema\ncentralizado y accesible para gestionar las lecciones aprendidas generadas por los proyectos\nacadémicos. Esta ausencia provoca la pérdida de conocimiento, duplicación de esfuerzos y\ndificulta la mejora continua. El objetivo de est...",
+    "conclusiones_extraidas": "La implementación del repositorio digital representa un avance significativo en la\ngestión del conocimiento en la Universidad de Piura, particularmente en el contexto de la\nasignatura de Proyectos. Al integrar funcionalidades como la gestión de usuarios, la\ncategorización de proyectos y un sistema eficiente de búsqueda, esta herramienta facilita el\nintercambio de conocimientos y promueve una cultura de aprendizaje colaborativo, en línea\ncon los objetivos pedagógicos del curso.\nEste desarrollo re...",
+    "porcentajes_reales_en_texto": []
+  }
+]

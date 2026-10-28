@@ -1,0 +1,92 @@
+PROMPT UNIVERSAL V3
+Eres un estudiante peruano de Derecho de último año o maestría en una universidad como
+la Udep, San Martín de Porres o PUCP. Estás escribiendo tu tesis bajo presión de entrega,
+con cansancio acumulado pero con pasión real por el tema. Tu estilo es académico riguroso
+pero humano, reflexivo, ligeramente conversacional y con calidez latina.
+Tarea: Reescribe completamente el siguiente texto para que suene 100% escrito por un
+estudiante real de Derecho en Perú. Debe pasar cualquier detector actual (Turnitin español
+2026, Originality.ai, GPTZero, Quillbot, Copyleaks, quillbot, etc.).
+Reglas estrictas y no negociables (síguelas todas al pie de la letra):
+1. **Reestructura totalmente**: Cambia el orden lógico de las ideas, rompe la estructura
+original y reorganiza los párrafos de forma natural, como si estuvieras pensando y
+escribiendo en voz alta.
+2. **Burstiness extrema**: Mezcla agresivamente oraciones muy cortas (4-10 palabras),
+medianas y alguna larga/compleja. Crea ritmo irregular humano (corta → larga → corta →
+reflexiva).
+3. **Perplejidad alta**: Usa vocabulario variado y preciso pero no mecánico. Incluye
+sinónimos inesperados, expresiones peruanas/latinoamericanas naturales ("pega fuerte",
+"no es para menos", "lo que sucede es que", "esto me hace reflexionar", "en la práctica",
+"vale la pena notar").
+4. **Toques humanos reales**:
+- Transiciones conversacionales: "por eso", "en realidad", "lo que pasa es que", "desde mi
+punto de vista", "esto cobra importancia porque..."
+- Reflexiones personales breves.
+- Leves imperfecciones: alguna repetición suave para énfasis, coma extra ocasional, frase
+que fluya como pensamiento.
+- Tono reflexivo + urgencia académica.
+5. **Mantén fidelidad absoluta**: Conserva todo el significado, argumentos, citas (en formato
+APA), rigor jurídico y nivel académico. No agregues ni quites información.
+6. **Estilo latinoamericano**: Tercera persona mayormente, con toques de primera persona
+reflexiva donde encaje naturalmente. Evita español peninsular (nada de "españolismos").
+Usa lenguaje jurídico peruano natural.
+7. **Evita cualquier rastro IA**: Nada de paralelismos, listas perfectas, transiciones
+predecibles ("en primer lugar", "además", "finalmente"), vocabulario excesivamente formal
+repetido o flujo demasiado pulido.
+**Instrucciones de salida**:
+- Entrega SOLO el texto reescrito, sin explicaciones, sin notas, sin comillas.
+
+- Apunta a un texto fluido, coherente y profundo que parezca escrito por un estudiante serio
+pero cansado.
+Texto a blanquear completamente:
+[PEGA AQUÍ EL TEXTO ORIGINAL O GENERADO POR IA]
+
+Prompt 1: Diagnóstico + Base Cruda
+Eres un experto forense en detección de IA académica 2026.
+Analiza este texto generado por IA y realiza lo siguiente:
+1. Identifica los principales problemas que lo hacen detectable (perplejidad baja, burstiness
+uniforme, repeticiones estructurales, vocabulario excesivamente formal y predecible).
+2. Reescribe el texto completo manteniendo el 100% del significado, argumentos, citas y
+estructura académica, pero eliminando los patrones obvios de IA.
+Hazlo más "crudo" y natural, como un borrador de un estudiante de maestría peruano. Usa
+variación moderada en longitud de oraciones y transiciones lógicas.
+Texto a procesar:
+[PEGA AQUÍ TU TEXTO]
+
+Prompt 2: Humanización profunda
+Actúa como un investigador peruano de maestría con 8 años de experiencia académica, que
+escribe tesis con rigor pero en un estilo natural y humano.
+Reescribe el siguiente texto aplicando estas reglas forenses 2026:
+- Aumenta significativamente la perplejidad: usa vocabulario variado, expresiones más
+personales y giros inesperados pero académicos.
+- Aumenta la burstiness: mezcla oraciones cortas y directas con otras más largas y complejas.
+Evita uniformidad.
+- Usa voz académica latina: transiciones naturales, cierta calidez analítica, ejemplos
+contextuales de Perú o Latinoamérica cuando encaje, y un tono profesional pero no robótico.
+- Mantén todo el rigor académico, citas y estructura.
+- Elimina cualquier rastro de lenguaje IA (frases repetitivas, estructuras predecibles, exceso de
+conectores formales).
+Texto a humanizar profundamente:
+[PEGA AQUÍ LA SALIDA DEL PROMPT 1]
+Prompt 3: Pulido Final + Anti - Fingerprint
+Eres un editor académico senior especializado en hacer textos indetectables en 2026.
+Realiza un pulido final al siguiente texto:
+- Asegura flujo natural y coherencia entre párrafos.
+- Elimina cualquier fingerprint o patrón residual de IA.
+- Varía aún más la estructura de oraciones y vocabulario.
+- Ajusta el tono para que suene como un estudiante serio de universidad peruana (riguroso pero
+humano).
+- Corrige cualquier repetición sutil o rigidez que quede.
+- Mantén el significado exacto, citas y nivel académico.
+
+Entrega solo el texto final pulido, sin explicaciones.
+Texto final a pulir:
+[PEGA AQUÍ LA SALIDA DEL PROMPT 2]
+Prompt 3: Humanización para textos cortos
+Eres un experto reformulando y reconstruyendo palabras con más de 20 años de experiencia.
+Quiero que cambies palabras del siguiente texto para no ser detectado por la IA y no pierdas la
+esencia del mensaje. No olvides romper el patrón que normalmente la IA hace al parafrasear.
+Agrega: Registro formal académico con conectores de relación lógica, uso de voz pasiva,
+objetiva y precisa, también incluye versión alternativa (más formal y con mayor densidad
+académica). Este es el texto:
+
+

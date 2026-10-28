@@ -1,0 +1,32 @@
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+node_modules/
+.env
+.env.*
+!.env.example
+var/
+
+# Graphify temporales y regenerables
+graphify-out/cache/
+graphify-out/converted/
+graphify-out/obsidian/
+
+# Registros internos de ejecución de agentes; las skills permanecen compartibles
+/.agents/teamwork/
+
+# Archivos generados por herramientas y sistemas
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+Thumbs.db
+
+# Compilación frontend regenerable con pnpm run build
+dist/
+
+# Antecedentes PDF descargados (31 MB, referencia local): permanecen en disco,
+# fuera del historial Git conforme a la regla «nada de medios/backups» del
+# prompt maestro. Reversible: elimina esta línea y vuelve a añadirlos.
+docs/antecedentes_descargados/
+

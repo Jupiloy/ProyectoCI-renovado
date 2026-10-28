@@ -1,0 +1,17 @@
+digraph G {
+      graph [bgcolor="white", fontname="Arial", nodesep=0.40, ranksep=0.60];
+      node [shape=box, style="rounded,filled", fillcolor="#F4F6F8", color="#8A9BAA", fontname="Arial", fontsize=10, margin="0.12,0.08"];
+      edge [color="#526477", arrowsize=0.65, fontname="Arial", fontsize=9];
+    
+          rankdir=TB;
+          p1 [label="1  Tesista → API/MCP\npreparar_paso(project_id, step_code)"];
+          p2 [label="2  StepService → DB\nPermiso, prerequisitos y state_version"];
+          p3 [label="3  Servicio → cliente\nPlantilla, fuentes y versión actual"];
+          p4 [label="4  Tesista → API/MCP\nTexto confirmado + expected_version"];
+          p5 [label="5  Servicio → DB\nValidación y transacción atómica"];
+          p6 [label="6  Servicio → cliente\nrevision_id + versión nueva"];
+          fail [label="Si falla: PASO_BLOQUEADO o VERSION_CONFLICT\nNo se modifica el proyecto",fillcolor="#FFF0F0"];
+          p1->p2->p3->p4->p5->p6;
+          p2->fail [style=dashed,label="Bloqueado"];
+          p5->fail [style=dashed,label="Conflicto"];
+        }

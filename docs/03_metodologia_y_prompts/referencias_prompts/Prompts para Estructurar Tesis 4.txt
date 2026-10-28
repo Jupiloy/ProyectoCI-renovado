@@ -1,0 +1,130 @@
+🔥 Capítulo 4 · Revisión de literatura
+
+🔎 ¿De qué trata esta categoría?
+
+La revisión de literatura es el fundamento académico de tu tesis. Su propósito es responder:
+➔​ ¿Qué se ha investigado antes sobre mi tema?​
+➔​ ¿Qué dicen las teorías y estudios recientes?​
+➔​ ¿Qué vacíos existen que mi tesis puede llenar?​
+
+Con una buena revisión, logras:
+➔​ Mostrar conocimiento profundo del área.​
+➔​ Detectar brechas en el conocimiento.​
+➔​ Justificar tu aporte original.​
+➔​ Evitar repetir investigaciones ya existentes.​
+
+En otras palabras: aquí demuestras que tu trabajo se sustenta en ciencia y no en opiniones.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Empieza con la búsqueda de información: usa bases confiables (Scopus,
+PubMed, ERIC, Google Scholar).​
+2.​ Define criterios claros: qué estudios incluirás y cuáles no.​
+3.​ Organiza con tablas y matrices: para visualizar autores, métodos y hallazgos.​
+4.​ Haz síntesis temática: agrupa resultados por temas, no solo por autores.​
+5.​ Detecta vacíos: identifica qué falta investigar y cómo tu tesis puede aportar.​
+6.​ Redacta con conexión: no hagas resúmenes aislados, crea un discurso fluido y
+comparativo.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #13: Ecuaciones de búsqueda
+
+👉 Objetivo: diseñar estrategias para encontrar literatura relevante.
+Prompt:
+Actúa como experto en investigación académica. Genera ecuaciones de
+búsqueda para mi tema [TEMA] en bases como Scopus, Web of Science y
+Google Scholar.​
+Incluye sinónimos clave, operadores booleanos (AND, OR, NOT), y filtros por
+idioma y año [RANGO DE AÑOS].
+
+Prompt #14: Criterios de inclusión y exclusión
+
+👉 Objetivo: establecer reglas claras para seleccionar estudios.
+Prompt:
+Define criterios de inclusión y exclusión para mi revisión de literatura sobre
+[TEMA].​
+Incluye aspectos como: idioma, tipo de estudio, diseño metodológico, fecha de
+publicación, población y contexto.​
+Justifica brevemente cada criterio.
+
+Prompt #15: Protocolo tipo PRISMA
+
+👉 Objetivo: organizar el proceso de búsqueda y filtrado.
+Prompt:
+Diseña un protocolo tipo PRISMA para mi revisión de literatura sobre [TEMA].​
+Incluye las fases: identificación, cribado, elegibilidad e inclusión.​
+Señala qué datos debo registrar en cada etapa y posibles riesgos de sesgo.
+
+Prompt #16: Matriz de literatura
+
+👉 Objetivo: organizar y comparar estudios de manera clara.
+Prompt:
+Construye una matriz de literatura para mi tema [TEMA].​
+Las columnas deben ser: Autor/Año, País, Muestra/Contexto, Método,
+Principales hallazgos, Limitaciones, Relevancia para mi investigación.​
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Llena la tabla con al menos 10 ejemplos simulados para visualizar la
+estructura.
+
+Prompt #17: Síntesis temática
+
+👉 Objetivo: agrupar estudios en temas o tendencias.
+Prompt:
+A partir de los hallazgos más comunes en investigaciones sobre [TEMA],
+elabora una síntesis temática en 3–5 bloques.​
+Para cada bloque, escribe:
+●​ Tesis central.​
+●​ Ejemplos de estudios que la respaldan.​
+●​ Contraejemplos o resultados opuestos.​
+●​ Nivel de evidencia (alto/medio/bajo).​
+
+Prompt #18: Brecha y agenda de investigación
+
+👉 Objetivo: identificar qué falta y cómo tu tesis puede aportar.
+Prompt:
+Identifica 3 brechas de conocimiento sobre el tema [TEMA].​
+Para cada brecha, propone una línea futura de investigación, señalando el
+diseño metodológico sugerido (experimental, descriptivo, mixto, etc.).
+
+Prompt #19: Redacción del marco de antecedentes
+
+👉 Objetivo: redactar el capítulo con conexión fluida.
+Prompt:
+
+Redacta un marco de antecedentes para mi tema [TEMA], integrando la
+información en un texto narrativo de 800–1,000 palabras.​
+Usa transiciones entre autores, conecta hallazgos y evita listas aisladas.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #20: Citas y referencias en estilo APA
+
+👉 Objetivo: dar formato correcto a citas y referencias.
+Prompt:
+
+Convierte las referencias que surjan en mi revisión de literatura sobre [TEMA] al
+formato APA 7.​
+Aclara dónde se requiere verificar las fuentes y advierte si alguna referencia
+parece inventada o incompleta.
+
+Resultado esperado del Capítulo 4
+Al terminar este capítulo tendrás:
+●​ Estrategias de búsqueda con ecuaciones claras.​
+●​ Criterios de inclusión/exclusión definidos.​
+●​ Un protocolo PRISMA para registrar tu búsqueda.​
+●​ Una matriz de literatura organizada.​
+●​ Una síntesis temática clara y comparativa.​
+●​ Identificación de brechas de conocimiento.​
+●​ Un marco de antecedentes redactado con rigor académico.​
+●​ Referencias en formato APA 7 listas para tu tesis.}
+
+👉 Con este capítulo habrás construido un soporte académico sólido para tu tesis,
+demostrando que conoces a fondo tu tema y que tu investigación tiene sentido.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

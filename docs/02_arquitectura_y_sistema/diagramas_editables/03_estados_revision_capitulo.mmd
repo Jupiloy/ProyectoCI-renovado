@@ -1,0 +1,7 @@
+stateDiagram-v2
+    [*] --> DRAFT: crear capítulo
+    DRAFT --> READY: tesista envía revisión vigente
+    READY --> CHANGES_REQUESTED: asesor registra observaciones
+    CHANGES_REQUESTED --> DRAFT: tesista crea nueva revisión
+    READY --> APPROVED: asesor aprueba sin comentarios abiertos
+    APPROVED --> DRAFT: asesor reabre con motivo

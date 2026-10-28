@@ -1,0 +1,23 @@
+digraph G {
+      graph [bgcolor="white", fontname="Arial", nodesep=0.40, ranksep=0.60];
+      node [shape=box, style="rounded,filled", fillcolor="#F4F6F8", color="#8A9BAA", fontname="Arial", fontsize=10, margin="0.12,0.08"];
+      edge [color="#526477", arrowsize=0.65, fontname="Arial", fontsize=9];
+    
+          rankdir=TB;
+          start [label="Crear proyecto"]; step [label="Elegir paso P01–P32"];
+          gate [shape=diamond,label="¿Prerequisitos?",fillcolor="#FFF5E8"];
+          blocked [label="Mostrar faltantes\nSin cambios"];
+          context [label="Preparar contexto\ny fuentes"];
+          edit [label="Tesista revisa\ny edita propuesta"];
+          valid [shape=diamond,label="¿Versión y reglas válidas?",fillcolor="#FFF5E8"];
+          error [label="Conflicto o errores\nSin guardar"];
+          rev [label="Crear revisión inmutable\ny actualizar estado"];
+          submit [label="Enviar capítulo"]; advisor [label="Asesor revisa"];
+          approve [shape=diamond,label="¿Aprueba?",fillcolor="#FFF5E8"];
+          comments [label="Comentarios\ny solicitud de cambios"];
+          done [label="Aprobar revisión\ny desbloquear siguiente"];
+          start->step->gate; gate->blocked[label="No"]; gate->context[label="Sí"];
+          context->edit->valid; valid->error[label="No"]; valid->rev[label="Sí"];
+          rev->submit->advisor->approve; approve->comments[label="No"];
+          approve->done[label="Sí"]; comments->edit;
+        }

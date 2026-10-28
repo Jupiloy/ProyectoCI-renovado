@@ -1,0 +1,135 @@
+🔥 Capítulo 2 · Problema y justificación
+
+🔎 ¿De qué trata esta categoría?
+
+Una tesis no se construye solo con un tema interesante: necesita un problema de
+investigación claramente definido. El problema es la pregunta central que tu tesis intentará
+responder.
+En este capítulo trabajarás en:
+●​ Identificar causas y efectos del problema principal.​
+●​ Formular el problema como pregunta de investigación clara y viable.​
+●​ Redactar una justificación sólida que demuestre relevancia.​
+●​ Explicar la originalidad y el aporte que hará tu investigación.​
+
+El objetivo de este capítulo es que logres presentar un problema real, relevante y justificado,
+que convenza a cualquier jurado de la necesidad de tu estudio.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Empieza con un mapa de causas y efectos: antes de escribir, visualiza de dónde
+surge el problema y qué consecuencias tiene.​
+2.​ Convierte el problema en una pregunta: redacta preguntas investigables (claras,
+delimitadas y medibles).​
+3.​ Justifica con impacto: explica no solo la importancia académica, sino también la
+utilidad práctica y social.​
+4.​ Muestra originalidad: señala qué aporta tu trabajo que aún no se haya hecho.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #5: Árbol del problema (causas y efectos)
+
+👉 Objetivo: visualizar el problema central, sus causas y consecuencias.
+Prompt:
+Actúa como experto en investigación. Construye un árbol del problema para el
+tema [TEMA DE TESIS].​
+Incluye:
+➔​ Problema central (1 frase).​
+➔​ 3 causas principales.​
+➔​ 3 efectos principales.​
+➔​ Supuestos que deben cumplirse.​
+Presenta la respuesta en un esquema textual y en una lista priorizada
+de causas.
+
+Prompt 6: Formulación del problema en formato pregunta
+
+👉 Objetivo: redactar el problema de forma investigable.
+Prompt:
+
+Actúa como un investigador científico experto en metodología de la investigación,
+redacción académica y elaboración de tesis según los lineamientos actualizados de
+universidades peruanas. (Coloque su guía universitaria)
+Tu tarea es redactar el PLANTEAMIENTO DEL PROBLEMA completo para una tesis
+de pregrado.
+
+Información de entrada:
+
+* Tema de investigación: [tu texto aquí]
+* Título tentativo: [tu texto aquí]
+* Carrera profesional: [tu texto aquí]
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+* Lugar de estudio: [tu texto aquí]
+* Año: [tu texto aquí]
+* ODS relacionado: [tu texto aquí]
+* Unidad de análisis: [tu texto aquí]
+
+Instrucciones obligatorias:
+
+1. Redacta primero la realidad problemática a nivel internacional.
+2. Continúa con la realidad problemática a nivel nacional (Perú).
+3. Finaliza con la realidad problemática a nivel local o contextual.
+4. Identifica y desarrolla:
+
+* Vacíos de conocimiento.
+* Inconsistencias teóricas.
+* Limitaciones metodológicas.
+* Falta de contextualización.
+* Escasa aplicabilidad práctica.
+5. Vincula claramente la problemática con el Objetivo de Desarrollo Sostenible (ODS)
+correspondiente.
+6. Justifica por qué el problema requiere ser investigado en el contexto actual.
+7. Utiliza lenguaje académico formal, objetivo y científico.
+8. Evita opiniones personales, lenguaje coloquial o afirmaciones sin sustento.
+9. Redacta entre 900 y 1500 palabras.
+10. Finaliza con la formulación del problema de investigación en forma interrogativa.
+
+Formato de salida:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+* Realidad problemática internacional.
+* Realidad problemática nacional.
+* Realidad problemática local/contextual.
+* Relación con el ODS.
+* Fundamentación del problema.
+* Formulación del problema general.
+
+Prompt 7: Justificación (teórica, práctica y social)
+
+👉 Objetivo: mostrar relevancia académica y utilidad del estudio.
+Prompt:
+Redacta la justificación de mi tema de tesis [TEMA] en tres planos:
+1.​ Teórica: cómo contribuye al conocimiento existente.​
+2.​ Práctica: beneficios concretos para profesionales, empresas o
+instituciones.​
+3.​ Metodológica: impacto en la sociedad o comunidad estudiada.​
+Para cada plano incluye 2 evidencias y 1 indicador de impacto
+esperado.
+
+Prompt 8: Originalidad y aporte del estudio
+
+👉 Objetivo: destacar el valor agregado de tu investigación.
+Prompt:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Identifica la brecha de conocimiento que aborda mi tema de tesis [TEMA].​
+Explica en qué consiste mi aporte original en máximo 200 palabras.​
+Incluye 3 ejemplos de cómo mi trabajo puede diferenciarse de otros estudios
+previos (nuevos datos, nueva población, nuevo enfoque, etc.).
+
+Resultado esperado del Capítulo 2
+Al finalizar esta sección tendrás:
+●​ Un árbol del problema claro y estructurado.​
+●​ Una pregunta central de investigación viable y coherente.​
+●​ Una justificación convincente en planos teórico, práctico y social.​
+●​ Un aporte original definido, que marcará la diferencia frente a investigaciones
+pasadas.
+
+👉 Con este capítulo ya tendrás un problema sólido y justificado.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

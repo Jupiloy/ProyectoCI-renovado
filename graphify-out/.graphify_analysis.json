@@ -1,0 +1,195 @@
+{
+  "communities": {
+    "0": [
+      "core_grounding_pdf_extractor_groundedpdfextractor",
+      "core_grounding_pdf_extractor_groundedpdfextractor_extract_cover_info",
+      "core_grounding_pdf_extractor_groundedpdfextractor_extract_pages",
+      "core_grounding_pdf_extractor_groundedpdfextractor_find_all_percentages",
+      "core_grounding_pdf_extractor_groundedpdfextractor_find_section",
+      "core_grounding_pdf_extractor_groundedpdfextractor_get_full_text",
+      "core_grounding_pdf_extractor_groundedpdfextractor_get_page_count",
+      "core_grounding_pdf_extractor_groundedpdfextractor_init",
+      "core_grounding_pdf_extractor_groundedpdfextractor_verify_claim",
+      "core_grounding_pdf_extractor_py_any",
+      "core_grounding_pdf_extractor_rationale_111",
+      "core_grounding_pdf_extractor_rationale_15",
+      "core_grounding_pdf_extractor_rationale_41",
+      "core_grounding_pdf_extractor_rationale_54",
+      "core_grounding_pdf_extractor_rationale_72",
+      "core_grounding_pdf_extractor_rationale_90",
+      "core_grounding_verifier_antecedenteauditor_auditar_documento",
+      "core_grounding_verifier_py_any"
+    ],
+    "1": [
+      "core_grounding_audit_cli",
+      "core_grounding_audit_cli_ejecutar_auditoria",
+      "core_grounding_audit_cli_rationale_2",
+      "core_grounding_pdf_extractor",
+      "core_grounding_pdf_extractor_rationale_1",
+      "core_grounding_verifier",
+      "core_grounding_verifier_antecedenteauditor",
+      "core_grounding_verifier_antecedenteauditor_init",
+      "core_grounding_verifier_rationale_1",
+      "core_grounding_verifier_rationale_14",
+      "json",
+      "os",
+      "pathlib",
+      "typing"
+    ],
+    "2": [
+      "mcp_server_init",
+      "mcp_server_init_rationale_1",
+      "mcp_server_mcpserver",
+      "mcp_server_server",
+      "mcp_server_server_consultar_detalle_paso",
+      "mcp_server_server_estado_servidor",
+      "mcp_server_server_listar_pasos_mvp",
+      "mcp_server_server_py_any",
+      "mcp_server_server_rationale_1",
+      "mcp_server_server_rationale_116",
+      "mcp_server_server_rationale_79",
+      "mcp_server_server_rationale_96",
+      "tool"
+    ],
+    "3": [
+      "docx",
+      "docx_enum_section",
+      "docx_enum_table",
+      "docx_enum_text",
+      "docx_oxml",
+      "docx_oxml_ns",
+      "docx_shared",
+      "html",
+      "pil",
+      "scripts_build_informe_ieee",
+      "scripts_build_informe_ieee_rationale_1"
+    ],
+    "4": [
+      "document",
+      "path",
+      "scripts_build_informe_ieee_add_diagram",
+      "scripts_build_informe_ieee_add_diagram_picture",
+      "scripts_build_informe_ieee_diagram_png",
+      "scripts_build_informe_ieee_er_diagram_png",
+      "scripts_build_informe_ieee_er_diagram_png_cardinality",
+      "scripts_build_informe_ieee_rationale_217",
+      "subprocess"
+    ],
+    "5": [
+      "re",
+      "scripts_build_informe_ieee_add_formatted",
+      "scripts_build_informe_ieee_build_docx",
+      "scripts_build_informe_ieee_clean_inline",
+      "scripts_build_informe_ieee_set_font",
+      "scripts_build_informe_ieee_set_section"
+    ],
+    "6": [
+      "asyncio",
+      "mcp_server_test_local",
+      "mcp_server_test_local_probar_servidor_mcp",
+      "mcp_server_test_local_rationale_1",
+      "sys"
+    ],
+    "7": [
+      "scripts_build_informe_ieee_add_table",
+      "scripts_build_informe_ieee_set_cell_border",
+      "scripts_build_informe_ieee_set_cell_margin",
+      "scripts_build_informe_ieee_set_cell_shading"
+    ],
+    "8": [
+      "scripts_build_informe_ieee_ieee_markdown",
+      "scripts_build_informe_ieee_rationale_31"
+    ]
+  },
+  "cohesion": {
+    "0": 0.1895424836601307,
+    "1": 0.2087912087912088,
+    "2": 0.20512820512820512,
+    "3": 0.18181818181818182,
+    "4": 0.3333333333333333,
+    "5": 0.4,
+    "6": 0.4,
+    "7": 0.5,
+    "8": 1.0
+  },
+  "gods": [
+    {
+      "id": "core_grounding_pdf_extractor_groundedpdfextractor",
+      "label": "GroundedPDFExtractor",
+      "degree": 13
+    },
+    {
+      "id": "scripts_build_informe_ieee_build_docx",
+      "label": "build_docx()",
+      "degree": 8
+    },
+    {
+      "id": "core_grounding_verifier_antecedenteauditor",
+      "label": "AntecedenteAuditor",
+      "degree": 7
+    },
+    {
+      "id": "scripts_build_informe_ieee_er_diagram_png",
+      "label": "er_diagram_png()",
+      "degree": 7
+    },
+    {
+      "id": "scripts_build_informe_ieee_add_table",
+      "label": "add_table()",
+      "degree": 7
+    },
+    {
+      "id": "scripts_build_informe_ieee_add_diagram",
+      "label": "add_diagram()",
+      "degree": 6
+    },
+    {
+      "id": "core_grounding_audit_cli_ejecutar_auditoria",
+      "label": "ejecutar_auditoria()",
+      "degree": 4
+    },
+    {
+      "id": "mcp_server_server_estado_servidor",
+      "label": "estado_servidor()",
+      "degree": 4
+    },
+    {
+      "id": "mcp_server_server_listar_pasos_mvp",
+      "label": "listar_pasos_mvp()",
+      "degree": 4
+    },
+    {
+      "id": "mcp_server_server_consultar_detalle_paso",
+      "label": "consultar_detalle_paso()",
+      "degree": 4
+    }
+  ],
+  "surprises": [
+    {
+      "source": "AntecedenteAuditor",
+      "target": "GroundedPDFExtractor",
+      "source_files": [
+        "core/grounding/verifier.py",
+        "core/grounding/pdf_extractor.py"
+      ],
+      "confidence": "INFERRED",
+      "relation": "uses",
+      "why": "inferred connection - not explicitly stated in source; bridges separate communities"
+    },
+    {
+      "source": "ejecutar_auditoria()",
+      "target": "AntecedenteAuditor",
+      "source_files": [
+        "core/grounding/audit_cli.py",
+        "core/grounding/verifier.py"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "tokens": {
+    "input": 0,
+    "output": 0
+  }
+}

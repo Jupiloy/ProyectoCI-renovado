@@ -1,0 +1,123 @@
+{
+  "caso_semilla_metadata": {
+    "institucion": "Universidad Tecnológica del Perú",
+    "sede": "Piura",
+    "carrera": "Ingeniería de Sistemas e Informática",
+    "curso": "Curso Integrador I: Sistemas - Software",
+    "ciclo": 7,
+    "año": 2026
+  },
+  "usuarios": [
+    {
+      "id": 1,
+      "email": "u202112345@utp.edu.pe",
+      "nombre": "Josué",
+      "apellidos": "Carrasco García",
+      "rol_sistema": "STUDENT"
+    },
+    {
+      "id": 2,
+      "email": "asesor.sistemas@utp.edu.pe",
+      "nombre": "Dr. Carlos",
+      "apellidos": "Ramos Mendoza",
+      "rol_sistema": "ADVISOR"
+    }
+  ],
+  "proyecto": {
+    "id": 1,
+    "name": "TesisMCP - Piura",
+    "title": "Sistema Web con Arquitectura Desacoplada y Protocolo MCP para la Asistencia Metodológica en la UTP Sede Piura, 2026",
+    "citation_style": "IEEE",
+    "state_version": 1
+  },
+  "pasos_mvp_ejecutados": {
+    "P01": {
+      "carrera": "Ingeniería de Sistemas e Informática",
+      "intereses": ["Inteligencia Artificial", "Arquitectura de Software", "Protocolo MCP"],
+      "area_investigacion": "Sistemas de Información y Gestión del Conocimiento",
+      "tema_seleccionado": "Plataforma asistida por IA para la formulación metodológica y supervisión de proyectos de titulación"
+    },
+    "P02": {
+      "temas_comparados": [
+        {
+          "id": 1,
+          "titulo": "Plataforma asistida por IA para proyectos de titulación",
+          "puntaje_total": 18,
+          "justificacion": "Alta viabilidad, acceso a tesistas de la UTP y clara brecha metodológica."
+        },
+        {
+          "id": 2,
+          "titulo": "Sistema de reconocimiento facial para asistencia",
+          "puntaje_total": 13,
+          "justificacion": "Tema saturado con alta resistencia de privacidad."
+        },
+        {
+          "id": 3,
+          "titulo": "Optimización de inventarios con IoT en almacenes",
+          "puntaje_total": 12,
+          "justificacion": "Dificultad de acceso a datos confidenciales empresariales."
+        }
+      ],
+      "tema_ganador_id": 1
+    },
+    "P03": {
+      "ods_principal_numero": 4,
+      "ods_principal_nombre": "Educación de Calidad",
+      "meta_ods_especifica": "4.4",
+      "argumento_alineacion": "Fortalece las competencias investigativas y la tasa de graduación universitaria mediante herramientas tecnológicas avanzadas.",
+      "linea_utp_vinculada": "Tecnologías Emergentes aplicadas a la Educación Superior"
+    },
+    "P04": {
+      "variable_independiente": "Plataforma Web con Protocolo MCP",
+      "variable_dependiente": "Formulación Metodológica de Tesis",
+      "unidad_analisis": "Estudiantes de Ingeniería de Sistemas",
+      "espacio_geografico": "UTP Sede Piura",
+      "periodo_temporal": 2026,
+      "titulo_oficial": "Sistema Web con Arquitectura Desacoplada y Protocolo MCP para la Asistencia Metodológica en la UTP Sede Piura, 2026",
+      "conteo_palabras": 18
+    },
+    "P06": {
+      "problema_central": "Alta tasa de observaciones metodológicas y demoras prolongadas en la formulación de los primeros capítulos de tesis en estudiantes universitarios.",
+      "causas": [
+        "Falta de retroalimentación inmediata en la formulación del problema y delimitación.",
+        "Uso de herramientas desarticuladas (procesadores de texto y hojas de cálculo sin validación).",
+        "Sobrecarga de trabajo de los asesores con revisiones de errores sintácticos repetitivos."
+      ],
+      "efectos": [
+        "Deserción o dilatación en la obtención del grado profesional.",
+        "Frustración académica y desmotivación del estudiante.",
+        "Baja productividad institucional en publicaciones y sustentaciones."
+      ],
+      "pregunta_general": "¿De qué manera un sistema web con arquitectura desacoplada y protocolo MCP optimiza la formulación metodológica de tesis en estudiantes de la UTP Sede Piura, 2026?",
+      "preguntas_especificas": [
+        "¿Cómo influye la estructuración por pasos desacoplados en el tiempo de formulación de los Capítulos 1 y 2?",
+        "¿En qué medida el módulo de revisión colaborativa reduce la tasa de observaciones del asesor?"
+      ]
+    },
+    "P07": {
+      "justificaciones": [
+        {
+          "dimension": "TEORICA",
+          "argumento": "Aporta a la literatura sobre arquitecturas agenticas aplicadas a la educación superior y la interacción humano-IA basada en el protocolo abierto MCP."
+        },
+        {
+          "dimension": "PRACTICA",
+          "argumento": "Resuelve directamente la fricción diaria entre tesistas y asesores, proporcionando una guía estructurada paso a paso que previene errores comunes."
+        },
+        {
+          "dimension": "METODOLOGICA",
+          "argumento": "Demuestra la viabilidad de integrar validadores deterministas con modelos de lenguaje para garantizar el rigor del método científico sin alucinaciones."
+        },
+        {
+          "dimension": "SOCIAL",
+          "argumento": "Democratiza el acceso a una asesoría metodológica de calidad para tesistas de pregrado, elevando el índice de titulación universitaria en la región Piura."
+        }
+      ]
+    },
+    "P08": {
+      "brecha_detectada": "Los asistentes de IA actuales generan texto largo desestructurado con alta tasa de alucinación y sin trazabilidad con la guía institucional ni supervisión del asesor.",
+      "aporte_propuesto": "Una arquitectura de validación en dos capas acoplada a un panel de control docente que impide la persistencia de texto no confirmado por el alumno ni respaldado por fuentes verificadas.",
+      "estado_evidencia": "VERIFIED"
+    }
+  }
+}

@@ -1,0 +1,95 @@
+erDiagram
+    RESEARCH_VARIABLE ||--o{ VARIABLE_DIMENSION : divide
+    VARIABLE_DIMENSION ||--o{ INDICATOR : mide
+    PROJECT ||--o{ INSTRUMENT : diseña
+    INSTRUMENT ||--o{ INSTRUMENT_ITEM : contiene
+    VARIABLE_DIMENSION o|--o{ INSTRUMENT_ITEM : operacionaliza
+    INSTRUMENT_ITEM ||--o{ INSTRUMENT_ITEM_INDICATOR : mide
+    INDICATOR ||--o{ INSTRUMENT_ITEM_INDICATOR : se_mide_con
+    USER o|--o{ INSTRUMENT : aprueba
+
+    PROJECT {
+        uuid id PK "! auto"
+    }
+    %% PROJECT: tabla de referencia (solo PK); status=ARCHIVED para retiro lógico
+
+    USER {
+        bigint id PK "! auto"
+    }
+    %% USER: tabla de referencia (solo PK); ON DELETE → PROTECT en toda FK
+
+    RESEARCH_VARIABLE {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+    }
+    %% RESEARCH_VARIABLE: tabla de referencia (PK, FK); ON DELETE → RESTRICT/PROTECT
+
+    VARIABLE_DIMENSION {
+        bigint id PK "! auto"
+        bigint variable_id FK "!"
+        smallint ordinal "! >=1"
+        varchar name "!(200)"
+        text definition "?"
+    }
+    %% VARIABLE_DIMENSION:
+    %%   CHECKs: ordinal >= 1
+    %%   Índices: UNIQUE(variable_id, ordinal), B-Tree(variable_id)
+    %%   ON DELETE: variable_id → RESTRICT/PROTECT
+
+    INDICATOR {
+        bigint id PK "! auto"
+        bigint dimension_id FK "!"
+        smallint ordinal "! >=1"
+        varchar name "!(200)"
+        varchar measurement_scale "?(30)"
+        varchar technique "?(120)"
+        text operational_rule "?"
+    }
+    %% INDICATOR:
+    %%   CHECKs: ordinal >= 1
+    %%   Índices: UNIQUE(dimension_id, ordinal), B-Tree(dimension_id)
+    %%   ON DELETE: dimension_id → RESTRICT/PROTECT
+
+    INSTRUMENT {
+        uuid id PK "! auto"
+        uuid project_id FK "!"
+        uuid lineage_key "!"
+        int version_no "! >=1"
+        varchar name "!(200)"
+        varchar kind "!(16) QUESTIONNAIRE|INTERVIEW|FOCUS_GROUP"
+        text target_population "?"
+        varchar status "!(12) DEFAULT DRAFT DRAFT|APPROVED"
+        bigint approved_by_id FK "?"
+        timestamptz approved_at "?"
+        timestamptz created_at "!"
+    }
+    %% INSTRUMENT:
+    %%   CHECKs: version_no > 0, (status='APPROVED') = (approved_by_id IS NOT NULL AND approved_at IS NOT NULL), kind IN ('QUESTIONNAIRE', 'INTERVIEW', 'FOCUS_GROUP'), status IN ('DRAFT', 'APPROVED')
+    %%   Índices: UNIQUE(project_id, lineage_key, version_no), B-Tree(approved_by_id)
+    %%   ON DELETE: versión aprobada inmutable; project_id, approved_by_id → PROTECT/RESTRICT
+
+    INSTRUMENT_ITEM {
+        bigint id PK "! auto"
+        uuid instrument_id FK "!"
+        bigint dimension_id FK "?"
+        smallint ordinal "! >=1"
+        text prompt_text "! length>0"
+        varchar response_scale "?(120)"
+        text probe_text "?"
+        timestamptz created_at "!"
+    }
+    %% INSTRUMENT_ITEM:
+    %%   CHECKs: ordinal >= 1 AND length(prompt_text) > 0
+    %%   Índices: UNIQUE(instrument_id, ordinal), B-Tree(dimension_id)
+    %%   ON DELETE: inmutable al aprobar instrumento; instrument_id, dimension_id → PROTECT/RESTRICT
+
+    INSTRUMENT_ITEM_INDICATOR {
+        bigint id PK "! auto"
+        bigint instrument_item_id FK "!"
+        bigint indicator_id FK "!"
+        timestamptz created_at "!"
+    }
+    %% INSTRUMENT_ITEM_INDICATOR:
+    %%   CHECKs: unicidad del par (instrument_item_id, indicator_id)
+    %%   Índices: UNIQUE(instrument_item_id, indicator_id), B-Tree(instrument_item_id), B-Tree(indicator_id)
+    %%   ON DELETE: inmutable al aprobar; instrument_item_id, indicator_id → PROTECT/RESTRICT

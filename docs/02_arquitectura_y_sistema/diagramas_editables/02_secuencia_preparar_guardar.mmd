@@ -1,0 +1,21 @@
+sequenceDiagram
+    actor Tesista
+    participant UI as Web o cliente MCP
+    participant Adaptador as API o FastMCP
+    participant Servicio as StepService
+    participant DB as Base de datos
+    Tesista->>UI: Elegir proyecto y paso
+    UI->>Adaptador: preparar_paso(project_id, step_code)
+    Adaptador->>Servicio: preparar(actor, proyecto, paso)
+    Servicio->>DB: Comprobar acceso, prerequisitos y version
+    alt Bloqueado
+        Servicio-->>UI: PASO_BLOQUEADO y campos faltantes
+    else Disponible
+        Servicio-->>UI: Plantilla, fuentes y state_version
+        UI-->>Tesista: Propuesta editable
+        Tesista->>UI: Confirmar texto
+        UI->>Adaptador: guardar_borrador(texto, expected_version)
+        Adaptador->>Servicio: validar y guardar
+        Servicio->>DB: Transaccion: nueva revision y version + 1
+        Servicio-->>UI: revision_id y version actual
+    end

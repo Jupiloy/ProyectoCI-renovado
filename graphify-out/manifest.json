@@ -1,0 +1,3104 @@
+{
+  "core/grounding/audit_cli.py": {
+    "mtime": 1792208913.469711,
+    "seen": 1792253433.140893,
+    "ast_hash": "0054076feaa8d8a55d576592763b6b1d",
+    "semantic_hash": "0054076feaa8d8a55d576592763b6b1d"
+  },
+  "core/grounding/pdf_extractor.py": {
+    "mtime": 1792203649.344965,
+    "seen": 1792253433.1409013,
+    "ast_hash": "77d6c015968eb23afbf9243ccc662b4f",
+    "semantic_hash": "77d6c015968eb23afbf9243ccc662b4f"
+  },
+  "core/grounding/verifier.py": {
+    "mtime": 1792208924.7358515,
+    "seen": 1792253433.140906,
+    "ast_hash": "bb5043656c55f490a5e7b4f6a15ab8ee",
+    "semantic_hash": "bb5043656c55f490a5e7b4f6a15ab8ee"
+  },
+  "docs/04_modulo_investigacion_y_busqueda/auditoria_grounded_resultados.json": {
+    "mtime": 1793131246.5248399,
+    "seen": 1793131745.7160506,
+    "ast_hash": "fe9b747ffc881569807723a5b681707b",
+    "semantic_hash": "fe9b747ffc881569807723a5b681707b"
+  },
+  "docs/07_desarrollo_prototipo/caso_prueba_semilla_piura.json": {
+    "mtime": 1792252711.886988,
+    "seen": 1792253433.140914,
+    "ast_hash": "a755a200bd132edae7b37305d1d45d30",
+    "semantic_hash": "a755a200bd132edae7b37305d1d45d30"
+  },
+  "mcp_server/__init__.py": {
+    "mtime": 1792249000.1191885,
+    "seen": 1792253433.1409175,
+    "ast_hash": "1c943cc04fac748a6c474fda98b19b08",
+    "semantic_hash": "1c943cc04fac748a6c474fda98b19b08"
+  },
+  "mcp_server/server.py": {
+    "mtime": 1792362709.6042814,
+    "seen": 1792364352.358053,
+    "ast_hash": "81b736690910fa920ddc22ebbbd3e055",
+    "semantic_hash": ""
+  },
+  "mcp_server/test_local.py": {
+    "mtime": 1792363052.1697712,
+    "seen": 1792364352.3580544,
+    "ast_hash": "f24df3d58ee3db58507f8133b137dfba",
+    "semantic_hash": ""
+  },
+  "scripts/build_informe_ieee.py": {
+    "mtime": 1792506553.649972,
+    "seen": 1792624637.082752,
+    "ast_hash": "e3b34cd0ac4e62ed4118f0fb6bb0ee69",
+    "semantic_hash": ""
+  },
+  ".agents/rules/verificacion_profunda_anti_alucinacion.md": {
+    "mtime": 1792209165.434852,
+    "seen": 1792273527.991137,
+    "ast_hash": "d974b127f22dace88a86112e9c743235",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1793075373.4036465,
+    "seen": 1793131745.7162929,
+    "ast_hash": "b9386126c3528a94a8173abb0e3b68d9",
+    "semantic_hash": ""
+  },
+  "GEMINI.md": {
+    "mtime": 1792366172.5385587,
+    "seen": 1792366487.346582,
+    "ast_hash": "6401c3be5b9474de2f3341275aa255a8",
+    "semantic_hash": ""
+  },
+  "docs/01_vision_y_alcance/criterios_de_redaccion_y_estilo.md": {
+    "mtime": 1792198663.3923006,
+    "seen": 1792273527.9911542,
+    "ast_hash": "9eb7319e915b42ded08ac16f70d6254b",
+    "semantic_hash": ""
+  },
+  "docs/01_vision_y_alcance/ecosistema_y_roles.md": {
+    "mtime": 1792364016.375594,
+    "seen": 1792364352.3580766,
+    "ast_hash": "b043b94cc23f0b4fb9cb95efe5080e5b",
+    "semantic_hash": ""
+  },
+  "docs/01_vision_y_alcance/ficha_tecnica_proyecto.md": {
+    "mtime": 1792364016.292593,
+    "seen": 1792364352.3580782,
+    "ast_hash": "208b42348763c44e61bbcfaf0749e051",
+    "semantic_hash": ""
+  },
+  "docs/01_vision_y_alcance/plan_emergencia_mvp_semana12.md": {
+    "mtime": 1792363886.915534,
+    "seen": 1792364352.3580797,
+    "ast_hash": "061fb50abc71b6adeec99f45e1f739b6",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/arquitectura_circuito_cerrado_zero_llm.md": {
+    "mtime": 1793116335.4007778,
+    "seen": 1793131745.7164433,
+    "ast_hash": "53426694304b120e98c1e530afa11f2e",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/arquitectura_detallada_componentes.md": {
+    "mtime": 1793050952.7765172,
+    "seen": 1793131745.7164476,
+    "ast_hash": "381689e556b3cea222ecf123dc37881d",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/arquitectura_global.md": {
+    "mtime": 1792363982.3872476,
+    "seen": 1792364352.3580842,
+    "ast_hash": "a60496ed60c21093c240880e12840c0f",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/modelo_datos_fisico.md": {
+    "mtime": 1793116335.3462794,
+    "seen": 1793131745.716533,
+    "ast_hash": "f680e551e2a7d27838ce8205f0229d6d",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/prototipo_interactivo.html": {
+    "mtime": 1792203911.9392366,
+    "seen": 1792273527.991185,
+    "ast_hash": "92ea2515d9fe9f99866087cf305621a5",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/restricciones_indices_referencia.md": {
+    "mtime": 1793116335.3466473,
+    "seen": 1793131745.7166407,
+    "ast_hash": "d8823f120bc785319e4ea3616f4c4350",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/secuencia_del_sistema.md": {
+    "mtime": 1792899028.0217195,
+    "seen": 1792982482.4193296,
+    "ast_hash": "15ee45353d5d52e0305f04bd5db94488",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/visor_diagramas_bd.html": {
+    "mtime": 1792899028.2757225,
+    "seen": 1792982482.4193335,
+    "ast_hash": "79d716f7edfa6d20c4dd07e424c571c5",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/contratos_pydantic_y_validadores_mvp.md": {
+    "mtime": 1793116309.2265706,
+    "seen": 1793131745.7166643,
+    "ast_hash": "a8a06a27ed1111d60cf10306e8c3b688",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/estructura_capitulos_1_a_7.md": {
+    "mtime": 1793118714.6044862,
+    "seen": 1793131745.7166686,
+    "ast_hash": "7949101ad5da11d022b799e9e1900b60",
+    "semantic_hash": ""
+  },
+  "docs/04_modulo_investigacion_y_busqueda/analisis_profundo_antecedentes.md": {
+    "mtime": 1792361522.4131608,
+    "seen": 1792361669.1415453,
+    "ast_hash": "d7085661419399057a8f10269df7aa03",
+    "semantic_hash": ""
+  },
+  "docs/04_modulo_investigacion_y_busqueda/estrategia_busqueda_antecedentes.md": {
+    "mtime": 1792355393.3677185,
+    "seen": 1792357655.4911122,
+    "ast_hash": "636d3bf6758688ff5c7d301d88ad0448",
+    "semantic_hash": ""
+  },
+  "docs/05_modulo_colaborativo_asesor/guion_y_diapositivas_apf2.md": {
+    "mtime": 1792364094.136386,
+    "seen": 1792364352.35814,
+    "ast_hash": "dd4c743a454a51bd1d80befbfbc369e8",
+    "semantic_hash": ""
+  },
+  "docs/05_modulo_colaborativo_asesor/sistema_comentarios_y_revision.md": {
+    "mtime": 1793116335.4022894,
+    "seen": 1793131745.7167988,
+    "ast_hash": "37c97caaa330cfaeeadb2d1a199a8463",
+    "semantic_hash": ""
+  },
+  "docs/06_informe_final_curso/informe_academico_curso_integrador.md": {
+    "mtime": 1792899042.736904,
+    "seen": 1792982482.4193845,
+    "ast_hash": "3d2f212a65bcb15fac3b0df96e9b2fae",
+    "semantic_hash": ""
+  },
+  "docs/06_informe_final_curso/informe_academico_curso_integrador_IEEE.md": {
+    "mtime": 1792899042.580902,
+    "seen": 1792982482.4193864,
+    "ast_hash": "208a1f8e7801b2f5384e99703a182394",
+    "semantic_hash": ""
+  },
+  "docs/07_desarrollo_prototipo/bitacora_desarrollo_y_evidencias.md": {
+    "mtime": 1792363908.2426956,
+    "seen": 1792364352.358146,
+    "ast_hash": "086c812c83efcdcdcf0deb68b018badf",
+    "semantic_hash": ""
+  },
+  "docs/07_desarrollo_prototipo/plan_trabajo_equipo_5_integrantes.md": {
+    "mtime": 1792363850.2001023,
+    "seen": 1792364352.358149,
+    "ast_hash": "fd846c177481db80d359a07f28e3b8a8",
+    "semantic_hash": ""
+  },
+  "docs/07_desarrollo_prototipo/protocolo_evaluacion_experimental.md": {
+    "mtime": 1792364016.4725947,
+    "seen": 1792364352.358151,
+    "ast_hash": "0f3f40fcc4a31cdf7709f726be6168a8",
+    "semantic_hash": ""
+  },
+  "docs/README.md": {
+    "mtime": 1793038621.5419464,
+    "seen": 1793131745.716832,
+    "ast_hash": "92a4b054b77bf08e4e5b211266c8214a",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT1_ARIA_Multi_LLM_Framework_2025_deep.txt": {
+    "mtime": 1792192830.5934162,
+    "seen": 1792273527.9912488,
+    "ast_hash": "889080c800076ad346674a71066ded59",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT1_ARIA_Multi_LLM_Framework_2025_extracted.txt": {
+    "mtime": 1792191901.7030692,
+    "seen": 1792273527.9912527,
+    "ast_hash": "4937eb1dc3268485293d2d1d54709b34",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/LOC1_UCV_Piura_Sistema_Web_Ingenieria_2024_extracted.txt": {
+    "mtime": 1792191902.0380316,
+    "seen": 1792273527.9912565,
+    "ast_hash": "fb75fc154f675009686c6e44a98f0203",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/LOC2_UNP_Piura_Seguimiento_Control_2021_deep.txt": {
+    "mtime": 1792192877.6680415,
+    "seen": 1792273527.9912608,
+    "ast_hash": "bfb37d34668e83309a7e503e114cdfbe",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/LOC2_UNP_Piura_Seguimiento_Control_2021_extracted.txt": {
+    "mtime": 1792191902.071028,
+    "seen": 1792273527.9912646,
+    "ast_hash": "b35a319844761bc044a0a4596e1413cf",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC1_UNJBG_Sistema_Web_Control_Seguimiento_Tesis_deep.txt": {
+    "mtime": 1792192877.5630403,
+    "seen": 1792273527.9912684,
+    "ast_hash": "54c3baf4b5bed5329ef07c99f47da41b",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC1_UNJBG_Sistema_Web_Control_Seguimiento_Tesis_extracted.txt": {
+    "mtime": 1792191902.1030242,
+    "seen": 1792273527.9912753,
+    "ast_hash": "a84da5e62695a40a8b3528a6c04624af",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC2_UNSAAC_Gestion_Tesis_Sistemas_2023_deep.txt": {
+    "mtime": 1792192877.6120408,
+    "seen": 1792273527.9912794,
+    "ast_hash": "0551c844b50e9d75196da4bfc4243033",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC2_UNSAAC_Gestion_Tesis_Sistemas_2023_extracted.txt": {
+    "mtime": 1792191902.1370206,
+    "seen": 1792273527.9912834,
+    "ast_hash": "6d052cff700f7971a515646003a67c81",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/README.md": {
+    "mtime": 1792361620.748168,
+    "seen": 1792361669.1415796,
+    "ast_hash": "3fcbfd4b85359b54fc5e89bcfd878776",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/unjbg_abstract.txt": {
+    "mtime": 1792193298.623892,
+    "seen": 1792273527.9912903,
+    "ast_hash": "4adde8b6753d6a6ae56ff38f59bf09a4",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/unjbg_resumen_text.txt": {
+    "mtime": 1792193308.8328273,
+    "seen": 1792273527.991294,
+    "ast_hash": "ed7072799600d37fbf7437aec503b312",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/unp_resumen_text.txt": {
+    "mtime": 1792193318.3787668,
+    "seen": 1792273527.9912977,
+    "ast_hash": "d9691b5453d05c5d4bfe5a5b165fd1d4",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/README.md": {
+    "mtime": 1792794897.1049275,
+    "seen": 1792982482.419422,
+    "ast_hash": "13d20818ae74737a92cdc6def93e7528",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/arquitectura_y_backend/2026-10-17_herramientas_opensource_tiptap_wordcraft_n8n.md": {
+    "mtime": 1793076306.3522,
+    "seen": 1793131745.7169058,
+    "ast_hash": "27920d8c28e443be7d1290c49d8114ed",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_alternativas_opensource_pensiv_so.md": {
+    "mtime": 1792363798.4709926,
+    "seen": 1792364352.3581793,
+    "ast_hash": "c1a78047371875bdc6047094fae81d75",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_conector_agente_panel_derecho.md": {
+    "mtime": 1793076306.3536294,
+    "seen": 1793131745.7169352,
+    "ast_hash": "932270351bb78eb41fccd04cbb48c500",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_evaluacion_imparcial_opciones_copilot_y_modelo_negocio.md": {
+    "mtime": 1793076306.3530884,
+    "seen": 1793131745.7169394,
+    "ast_hash": "1da2b21c911e794183042e16685dc81d",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_investigacion_novel_sh_vs_novel_so.md": {
+    "mtime": 1792363798.5093744,
+    "seen": 1792364352.3581836,
+    "ast_hash": "97899b136d11834a13c7990982831364",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_maqueta_interfaz_word_docx_tesismcp.md": {
+    "mtime": 1792910534.1710043,
+    "seen": 1792982482.4194388,
+    "ast_hash": "c4e93bed9dbcad713055c494a0ccbb99",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_paradigma_hibrido_jenni_ai_notebooklm_word.md": {
+    "mtime": 1793076306.3543358,
+    "seen": 1793131745.7169538,
+    "ast_hash": "e0313586cb182e1584a42a63e48d08f0",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_seleccion_tecnologica_y_diseno_frontend_tesismcp.md": {
+    "mtime": 1792363798.5111966,
+    "seen": 1792364352.358188,
+    "ast_hash": "180e166bfaf0311a44c1b4dce2cb4b7b",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/2026-10-17_viabilidad_frontend_wordcraft_vs_dom_tiptap.md": {
+    "mtime": 1793076306.3549018,
+    "seen": 1793131745.7169633,
+    "ast_hash": "7d5cde8be3f26d56c9687b12126f2db1",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/servidor_mcp_e_ia/2026-10-17_arquitectura_multi_mcp_vs_unificado.md": {
+    "mtime": 1793076306.3489277,
+    "seen": 1793131745.7169726,
+    "ast_hash": "3c31dff1fd338037c3e12461e0757136",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/servidor_mcp_e_ia/2026-10-17_guia_completa_aprendizaje_mcp.md": {
+    "mtime": 1793076306.350799,
+    "seen": 1793131745.716977,
+    "ast_hash": "07ab20e627ca20c66bcc57d2fc9d4130",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/servidor_mcp_e_ia/2026-10-17_stdio_vs_sse_despliegue_nube.md": {
+    "mtime": 1793076306.3506453,
+    "seen": 1793131745.7169812,
+    "ast_hash": "fedae76098609287a902417960f0986b",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/servidor_mcp_e_ia/2026-10-17_storytold_wordcraft_integracion_mcp.md": {
+    "mtime": 1793076306.3496335,
+    "seen": 1793131745.7169857,
+    "ast_hash": "2ed2b672f81c666dedd5e8be858471a3",
+    "semantic_hash": ""
+  },
+  "mcp_server/README.md": {
+    "mtime": 1793118714.604678,
+    "seen": 1793131745.7169938,
+    "ast_hash": "2f87ce29107369649902661337d9c38e",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/normativas_citacion.md": {
+    "mtime": 1793116309.2266617,
+    "seen": 1793131745.7166739,
+    "ast_hash": "e8736b9293b05249b0f8160d52edab85",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT1_ARIA_Multi_LLM_Framework_2025.pdf": {
+    "mtime": 1792183690.4557734,
+    "seen": 1792273527.9914474,
+    "ast_hash": "f5560ce3349320e9222a6661300ac882",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT2_VirSci_Multi_Agent_System_2024.pdf": {
+    "mtime": 1792183691.1727786,
+    "seen": 1792273527.9914525,
+    "ast_hash": "b5e3b79fef12338e4af5569f55770f0d",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT2_VirSci_Multi_Agent_System_2024_deep.txt": {
+    "mtime": 1792192830.711418,
+    "seen": 1792273527.991456,
+    "ast_hash": "8eb6ae3794dd0e5a1f39096cb030a60f",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT2_VirSci_Multi_Agent_System_2024_extracted.txt": {
+    "mtime": 1792191901.8260555,
+    "seen": 1792273527.991458,
+    "ast_hash": "93d3a95656db5406e02e82736d196380",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT3_CogWriter_Cognitive_Writing_2025.pdf": {
+    "mtime": 1792183691.5217812,
+    "seen": 1792273527.9914598,
+    "ast_hash": "7ad3e511c1f1713727fdadafe46e40fd",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT3_CogWriter_Cognitive_Writing_2025_deep.txt": {
+    "mtime": 1792192830.813419,
+    "seen": 1792273527.9914613,
+    "ast_hash": "1e92eb4c78a2c254deffe3ba1535a959",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/INT3_CogWriter_Cognitive_Writing_2025_extracted.txt": {
+    "mtime": 1792191901.955041,
+    "seen": 1792273527.991463,
+    "ast_hash": "5f41059a5151a28a9ca722a944902bb3",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/LOC1_UCV_Piura_Sistema_Web_Ingenieria_2024.pdf": {
+    "mtime": 1792184127.2319915,
+    "seen": 1792273527.9914646,
+    "ast_hash": "049a87890aa2e283ac147497fc561c94",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/LOC2_UNP_Piura_Seguimiento_Control_2021.pdf": {
+    "mtime": 1792183762.4504235,
+    "seen": 1792273527.9914663,
+    "ast_hash": "e00a5a790cae2fb40e5113faea708fb9",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/LOC3_UDEP_Piura_Repositorio_Digital_Proyectos_2025.pdf": {
+    "mtime": 1792208179.311986,
+    "seen": 1792273527.9914677,
+    "ast_hash": "de6088aa17114fbd7ff767f08162e71d",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC1_UNJBG_Sistema_Web_Control_Seguimiento_Tesis.pdf": {
+    "mtime": 1792184001.2300632,
+    "seen": 1792273527.9914699,
+    "ast_hash": "75748c8f7e632343741fee91669ee104",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC2_UNSAAC_Gestion_Tesis_Sistemas_2023.pdf": {
+    "mtime": 1792183847.406992,
+    "seen": 1792273527.9914715,
+    "ast_hash": "181deb959e612430052c95bf31fde59d",
+    "semantic_hash": ""
+  },
+  "docs/antecedentes_descargados/NAC3_UCV_Gestion_Proyectos_Tesis_Chauca_2024.pdf": {
+    "mtime": 1792208206.0333405,
+    "seen": 1792273527.9914734,
+    "ast_hash": "5bc4307432b919acd95097fb49d7abe0",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagrama_er_conceptual.png": {
+    "mtime": 1792236443.9856083,
+    "seen": 1792273527.9915078,
+    "ast_hash": "bd70da84a1b73f78e9fd1759819e0b6e",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagrama_er_conceptual.svg": {
+    "mtime": 1792236436.7691154,
+    "seen": 1792273527.9915094,
+    "ast_hash": "dfd3b93a7170eb87b5e859f5a2b943e4",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagrama_modelo_fisico_completo.png": {
+    "mtime": 1792212580.1209419,
+    "seen": 1792273527.991511,
+    "ast_hash": "7cdabd852f865a09af84b8393b66c6bd",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagrama_modelo_fisico_completo.svg": {
+    "mtime": 1792212580.1789427,
+    "seen": 1792273527.9915128,
+    "ast_hash": "e19317b4cc920ab2cd8e63adbbc70e61",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagrama_modelo_logico.png": {
+    "mtime": 1792236440.5952618,
+    "seen": 1792273527.9915147,
+    "ast_hash": "7d8e5995274b63cec7a7b45c47e6e09b",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagrama_modelo_logico.svg": {
+    "mtime": 1792236436.6391141,
+    "seen": 1792273527.9915164,
+    "ast_hash": "ae6b24329a14f29b448e6e4b9d4dbdad",
+    "semantic_hash": ""
+  },
+  "backend/config/__init__.py": {
+    "mtime": 1792277101.839976,
+    "seen": 1792277590.6970267,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/config/api.py": {
+    "mtime": 1793067745.1973808,
+    "seen": 1793131745.7150419,
+    "ast_hash": "a9bbf94b74301205883bb1c796d8ec70",
+    "semantic_hash": ""
+  },
+  "backend/config/settings.py": {
+    "mtime": 1793056785.3496912,
+    "seen": 1793131745.7150512,
+    "ast_hash": "5d8e95d39a08ff52aabf58dc2d864d5d",
+    "semantic_hash": ""
+  },
+  "backend/config/urls.py": {
+    "mtime": 1793116820.3280816,
+    "seen": 1793131745.7150562,
+    "ast_hash": "73134292829f74935e8110a64d82ed37",
+    "semantic_hash": ""
+  },
+  "backend/config/wsgi.py": {
+    "mtime": 1792277102.0329783,
+    "seen": 1792277590.6970415,
+    "ast_hash": "5622ea7ed58201979237b6dd5bbaf651",
+    "semantic_hash": ""
+  },
+  "backend/manage.py": {
+    "mtime": 1792277101.6039732,
+    "seen": 1792277590.6970432,
+    "ast_hash": "c31c15667752df8168e6f64aa1b03a22",
+    "semantic_hash": ""
+  },
+  "backend/thesis/__init__.py": {
+    "mtime": 1792277102.277981,
+    "seen": 1792277590.6970448,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/admin.py": {
+    "mtime": 1792300212.054317,
+    "seen": 1792300371.5275323,
+    "ast_hash": "fe0e9f261df109807bac52543e68a1b3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/__init__.py": {
+    "mtime": 1792277161.3326752,
+    "seen": 1792277590.6970477,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/projects.py": {
+    "mtime": 1793124125.1276643,
+    "seen": 1793131745.7150881,
+    "ast_hash": "47f2eff620a8d7ce3ea02b9a7dbabcf8",
+    "semantic_hash": ""
+  },
+  "backend/thesis/apps.py": {
+    "mtime": 1792624399.9488432,
+    "seen": 1792624637.0825503,
+    "ast_hash": "3c9c1532d776912d49d1df1de0a18626",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/__init__.py": {
+    "mtime": 1792277160.9566708,
+    "seen": 1792277590.6970525,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/openalex.py": {
+    "mtime": 1792278250.5045648,
+    "seen": 1792278352.065982,
+    "ast_hash": "cadd2b87ffe673a588f275fce65f94cd",
+    "semantic_hash": ""
+  },
+  "backend/thesis/management/__init__.py": {
+    "mtime": 1792277161.5896783,
+    "seen": 1792277590.6970558,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/management/commands/__init__.py": {
+    "mtime": 1792277161.7826805,
+    "seen": 1792277590.697057,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/management/commands/issue_mcp_token.py": {
+    "mtime": 1792277161.8446813,
+    "seen": 1792277590.6970587,
+    "ast_hash": "93a498e68eb2c7a75d39ee1b71334df8",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0001_initial.py": {
+    "mtime": 1792277205.356137,
+    "seen": 1792277590.6970599,
+    "ast_hash": "ead7994589c6728e8b7d0b4362dd2fad",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/__init__.py": {
+    "mtime": 1792277205.3521926,
+    "seen": 1792277590.6970613,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/__init__.py": {
+    "mtime": 1792277126.2762632,
+    "seen": 1792277590.6970642,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/access.py": {
+    "mtime": 1792277126.4032648,
+    "seen": 1792277590.697066,
+    "ast_hash": "823aa7b331388168b188fa87aeac826b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/errors.py": {
+    "mtime": 1792277126.340264,
+    "seen": 1792277590.6970675,
+    "ast_hash": "18b62ac72380ffa5a8c4335a460f5177",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/exploration.py": {
+    "mtime": 1792277161.0826724,
+    "seen": 1792277590.6970692,
+    "ast_hash": "6472032ffbd101dd1840937bc26a23f3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/mcp_auth.py": {
+    "mtime": 1792277161.1496732,
+    "seen": 1792277590.6970706,
+    "ast_hash": "5db528546255c352021ecafbc4dcc6a3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/projects.py": {
+    "mtime": 1793124125.1257849,
+    "seen": 1793131745.7157476,
+    "ast_hash": "896a6f78aa31c261eb33d1756975e775",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/__init__.py": {
+    "mtime": 1792277341.5747938,
+    "seen": 1792277590.6970735,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_first_slice.py": {
+    "mtime": 1792277621.7330978,
+    "seen": 1792277646.1961122,
+    "ast_hash": "e93127b838789f7cbae30f3ed7b41a05",
+    "semantic_hash": ""
+  },
+  "mcp_server/django_bridge.py": {
+    "mtime": 1792416355.015974,
+    "seen": 1792424195.3676667,
+    "ast_hash": "ece8762a584037e5781a1c592fee2701",
+    "semantic_hash": ""
+  },
+  "mcp_server/project_tools.py": {
+    "mtime": 1792362917.7894022,
+    "seen": 1792364352.3580325,
+    "ast_hash": "4fd344acff3464fe612a21a50adef8df",
+    "semantic_hash": ""
+  },
+  "backend/README.md": {
+    "mtime": 1793124382.6243975,
+    "seen": 1793131745.7163975,
+    "ast_hash": "3b00713a0032664471188837c9f4b736",
+    "semantic_hash": ""
+  },
+  "compose.yaml": {
+    "mtime": 1793118714.6031713,
+    "seen": 1793131745.7164018,
+    "ast_hash": "6e9e7a7460325f8c0e483aed5435465e",
+    "semantic_hash": ""
+  },
+  "requirements-backend.txt": {
+    "mtime": 1793067745.036379,
+    "seen": 1793131745.716998,
+    "ast_hash": "8841f97b96e3f9ca76d2b44bc25a2028",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/pdf.py": {
+    "mtime": 1792278382.5371325,
+    "seen": 1792278408.0136096,
+    "ast_hash": "9803726d7157412b70a68234826c113a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0002_sourcedocument_sourceexcerpt_and_more.py": {
+    "mtime": 1792278159.2214947,
+    "seen": 1792278352.0659955,
+    "ast_hash": "8dc58a176c17781b7e5a66a0a5d31a2d",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0003_sourcedocument_openalex_retracted_and_more.py": {
+    "mtime": 1792278273.2191725,
+    "seen": 1792278352.0659974,
+    "ast_hash": "1f862bae103e4e096dfda8dbe7300690",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/sources.py": {
+    "mtime": 1793103747.2786822,
+    "seen": 1793131745.7157893,
+    "ast_hash": "c03a413cc677f6220f0fe04b53a1438e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_sources.py": {
+    "mtime": 1793060137.9496903,
+    "seen": 1793131745.715998,
+    "ast_hash": "15548b38de056aef6fddf0e3f10a67fd",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0004_remove_sourcedocument_source_project_openalex_unique_and_more.py": {
+    "mtime": 1792284490.0423224,
+    "seen": 1792284718.5058665,
+    "ast_hash": "64aa6550be65c9490b9c122ffd9b4d13",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/crossref.py": {
+    "mtime": 1792294464.983285,
+    "seen": 1792299588.8388045,
+    "ast_hash": "dbde2ccce4033a416b2e963fe4e01e3c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/docx.py": {
+    "mtime": 1793061623.381879,
+    "seen": 1793131745.7151744,
+    "ast_hash": "9f3d7236325d97fb9ae4f5f80f099e55",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/embeddings.py": {
+    "mtime": 1792292399.4567742,
+    "seen": 1792299588.838808,
+    "ast_hash": "dd4b2748c59b0ee672daa9060e8b961c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/grobid.py": {
+    "mtime": 1792293151.6946826,
+    "seen": 1792299588.8388095,
+    "ast_hash": "ac7fd07393a7db30b1a2aedc4f3e0b31",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/ocr.py": {
+    "mtime": 1792288118.3671057,
+    "seen": 1792299588.8388112,
+    "ast_hash": "5fd26ffa3181c2b33234d9cdfd8f6723",
+    "semantic_hash": ""
+  },
+  "backend/thesis/management/commands/run_document_worker.py": {
+    "mtime": 1792293559.1905074,
+    "seen": 1792299588.8388233,
+    "ast_hash": "12aec1d17039a8322ef41b88cce706d2",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0005_source_ocr_provenance.py": {
+    "mtime": 1792285801.8865724,
+    "seen": 1792299588.8388333,
+    "ast_hash": "4ae23ebfb25589c0f3c95a911ef0a6a5",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0006_manuscriptdocument_manuscriptcitation_and_more.py": {
+    "mtime": 1792288938.485071,
+    "seen": 1792299588.8388348,
+    "ast_hash": "e89dcee3d391e8d1b4d696e23bc29155",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0007_sourcegrobidanalysis_sourcepassage.py": {
+    "mtime": 1792292360.839316,
+    "seen": 1792299588.8388395,
+    "ast_hash": "8555f2c9932986f92bab9d8dcdd80e3c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0008_documentjob.py": {
+    "mtime": 1792293569.7748146,
+    "seen": 1792299588.8388412,
+    "ast_hash": "5614ddb8c66b640a0a8f1fb81b081e64",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0009_chapter_chapterrevision_chapter_approved_revision_and_more.py": {
+    "mtime": 1792294502.2407281,
+    "seen": 1792299588.8388426,
+    "ast_hash": "5655aeab46ae52fa87374f41564d5722",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0010_alter_documentjob_kind.py": {
+    "mtime": 1792294549.361647,
+    "seen": 1792299588.8388438,
+    "ast_hash": "0f8f7c02c28dededbc0e503adb4ae595",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0011_alter_documentjob_kind.py": {
+    "mtime": 1792294614.962071,
+    "seen": 1792299588.8388455,
+    "ast_hash": "65a11a79ecd7bf2cc5e21a8842014bd8",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0012_remove_documentjob_document_job_one_active_source_kind_and_more.py": {
+    "mtime": 1792294779.5580366,
+    "seen": 1792299588.838847,
+    "ast_hash": "3544bf8d6acc49cb52fa679a889c9b18",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0013_evidencelink.py": {
+    "mtime": 1792294988.1935282,
+    "seen": 1792299588.8388486,
+    "ast_hash": "ae24cee13d4f2460c2733399b2f6a0b2",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0014_alter_documentjob_kind_and_more.py": {
+    "mtime": 1792295130.882192,
+    "seen": 1792299588.8388498,
+    "ast_hash": "11654af7b394103bc78fa008da413bbe",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0015_alter_documentjob_kind.py": {
+    "mtime": 1792295207.3821898,
+    "seen": 1792299588.8388512,
+    "ast_hash": "60eae024a1505c5dfbac3347e27ab1fd",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0016_consistency_and_variables.py": {
+    "mtime": 1792298923.807204,
+    "seen": 1792299588.838853,
+    "ast_hash": "78b2600a82e4c557475a8eb76b03a8c4",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/document_jobs.py": {
+    "mtime": 1793060121.0585284,
+    "seen": 1793131745.7156909,
+    "ast_hash": "5bf6072dd14524fd91497c110410695c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/evidence.py": {
+    "mtime": 1792294469.0143328,
+    "seen": 1792299588.8388655,
+    "ast_hash": "eb5f1d7c6e58d79d6551809b5a7fc805",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/evidence_links.py": {
+    "mtime": 1792294960.0831923,
+    "seen": 1792299588.8388674,
+    "ast_hash": "bf46b88acc43d11e307373a47bfd13cf",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/grobid.py": {
+    "mtime": 1792292384.4835966,
+    "seen": 1792299588.8388708,
+    "ast_hash": "2c3790e39e55e9d97dcb32a5828dd3c1",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/manuscripts.py": {
+    "mtime": 1792341476.6501462,
+    "seen": 1792348157.4044528,
+    "ast_hash": "9fa2b11c60fc93c4378ae49bd612b82f",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/reviews.py": {
+    "mtime": 1793033979.0088606,
+    "seen": 1793131745.7157638,
+    "ast_hash": "9e1ccae8be6c2a1f4c897392394393d2",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/search.py": {
+    "mtime": 1793060638.406487,
+    "seen": 1793131745.715768,
+    "ast_hash": "8931da3c75e530c29270633e4827062b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/step_contracts.py": {
+    "mtime": 1793116309.2169354,
+    "seen": 1793131745.7157936,
+    "ast_hash": "431836efc87eff30ff54d36473d024d0",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/steps.py": {
+    "mtime": 1793114709.7735276,
+    "seen": 1793131745.7158232,
+    "ast_hash": "772b3aa4a99c4d84ffbd192e2d1309b2",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_academic_flow.py": {
+    "mtime": 1793116309.2180662,
+    "seen": 1793131745.7158926,
+    "ast_hash": "3d6932875920d340fd922edac893af2f",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_document_jobs.py": {
+    "mtime": 1792294619.5891263,
+    "seen": 1792299588.8389013,
+    "ast_hash": "c5c4c5bf9ce6e572a18da63617b5b21b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_extended_steps.py": {
+    "mtime": 1792342588.7063494,
+    "seen": 1792348157.4044936,
+    "ast_hash": "8954226e87f61b0732618040e21a9ce6",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_grobid_search.py": {
+    "mtime": 1792293154.5497165,
+    "seen": 1792299588.8389142,
+    "ast_hash": "a48c54866199a59a97bb616511cf5a4b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_manuscripts.py": {
+    "mtime": 1793061552.984209,
+    "seen": 1793131745.7159724,
+    "ast_hash": "a8a3961db75864ae887cef3e966b9b8e",
+    "semantic_hash": ""
+  },
+  "GUIA_AGENTE.md": {
+    "mtime": 1793128118.117046,
+    "seen": 1793131745.716302,
+    "ast_hash": "f0845055ebc264d8f14e313ef54e984f",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/guia_arquitectura_con_manzanitas.md": {
+    "mtime": 1793076306.3454304,
+    "seen": 1793131745.7164984,
+    "ast_hash": "34305b71846c1a5095900a2da8da3eb6",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0017_instruments_and_items.py": {
+    "mtime": 1792300241.5649073,
+    "seen": 1792300371.527694,
+    "ast_hash": "1581dcfef8a970789db3e89f4ae1d3bf",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/diagramas_editables/README.md": {
+    "mtime": 1792343978.3238537,
+    "seen": 1792348157.4045587,
+    "ast_hash": "968187290aa52ca314ea8f80755245f2",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 1.txt": {
+    "mtime": 1792112403.4441519,
+    "seen": 1792301593.4637072,
+    "ast_hash": "f2bd40fbd96dba3a58482c611788dcb5",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 10.txt": {
+    "mtime": 1792112403.4781523,
+    "seen": 1792301593.4637089,
+    "ast_hash": "d5c3d2c71e357fb8a42ce981d0390b01",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 11.txt": {
+    "mtime": 1792112403.5141525,
+    "seen": 1792301593.4637105,
+    "ast_hash": "6935e007e800968e449e7bdb8c421bf4",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 12.txt": {
+    "mtime": 1792112403.5501528,
+    "seen": 1792301593.4637122,
+    "ast_hash": "5418c85d4e77cb67687cb28d60ab3b0a",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 13.txt": {
+    "mtime": 1792112403.585153,
+    "seen": 1792301593.4637136,
+    "ast_hash": "cacef1b72e76d794d7d25ef7c2be24f8",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 14.txt": {
+    "mtime": 1792112403.6161532,
+    "seen": 1792301593.463715,
+    "ast_hash": "b8cfff73d9b86ead79604bb80f149bc3",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 15.txt": {
+    "mtime": 1792112403.6541536,
+    "seen": 1792301593.4637167,
+    "ast_hash": "f2da52165d4c2a4262197dafceb050dc",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 16.txt": {
+    "mtime": 1792112403.6901538,
+    "seen": 1792301593.4637184,
+    "ast_hash": "de177047b0db6587ccf606680334897f",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 17.txt": {
+    "mtime": 1792112403.717154,
+    "seen": 1792301593.46372,
+    "ast_hash": "0c3b4a9272a2d82d86d0d2f49178ab2f",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 18.txt": {
+    "mtime": 1792112403.7891545,
+    "seen": 1792301593.4637222,
+    "ast_hash": "dd683946addf3d08a4e081b8bc6ea737",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 19.txt": {
+    "mtime": 1792112403.8191547,
+    "seen": 1792301593.4637241,
+    "ast_hash": "c03030a45774d518417b16f6d6ae2648",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 2.txt": {
+    "mtime": 1792112403.857155,
+    "seen": 1792301593.4637291,
+    "ast_hash": "7a5b1905c9c1c8d8bce8da35f051b0c9",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 3.txt": {
+    "mtime": 1792112403.8971553,
+    "seen": 1792301593.463731,
+    "ast_hash": "a3d23a25470548b2a2a535f60fa0c0f7",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 4.txt": {
+    "mtime": 1792112403.9331558,
+    "seen": 1792301593.4637325,
+    "ast_hash": "212add6d51b9cbf7983fc905b2115b83",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 5.txt": {
+    "mtime": 1792112403.969156,
+    "seen": 1792301593.4637344,
+    "ast_hash": "dfd27476571861515e2e0ecd1dbc4a64",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 6.txt": {
+    "mtime": 1792112404.0131562,
+    "seen": 1792301593.4637358,
+    "ast_hash": "41e2caf70bf4ac63d64f34e172a1ea5f",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 7.txt": {
+    "mtime": 1792112404.0461564,
+    "seen": 1792301593.4637372,
+    "ast_hash": "6704cd14bc254459aba8e986d9303f22",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 8.txt": {
+    "mtime": 1792112404.0781567,
+    "seen": 1792301593.463739,
+    "ast_hash": "d43884e6f5cd547f1a79fe70032555d5",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 9.txt": {
+    "mtime": 1792112404.110157,
+    "seen": 1792301593.4637403,
+    "ast_hash": "2389591dc6c56f7b7440da0c902d0595",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis.txt": {
+    "mtime": 1792112404.1501572,
+    "seen": 1792301593.463742,
+    "ast_hash": "ae3218b0c623ad849e4b8c7a790aadd6",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 1.pdf": {
+    "mtime": 1791301310.0,
+    "seen": 1792301593.4638188,
+    "ast_hash": "136a990c25ac6372501f2be1a0fb5f7a",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 10.pdf": {
+    "mtime": 1791301516.0,
+    "seen": 1792301593.4638205,
+    "ast_hash": "69cbd2d95bf0da77553bb6cb33385a65",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 11.pdf": {
+    "mtime": 1791301532.0,
+    "seen": 1792301593.4638221,
+    "ast_hash": "52a04fcf1bf3a46e229ffcc78f6a3355",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 12.pdf": {
+    "mtime": 1791301544.0,
+    "seen": 1792301593.4638236,
+    "ast_hash": "feada79bef65a05bbf7ecf1f65ec3c76",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 13.pdf": {
+    "mtime": 1791301555.0,
+    "seen": 1792301593.4638255,
+    "ast_hash": "fe57d78eced6a045cb32d3e1c346bf04",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 14.pdf": {
+    "mtime": 1791301567.0,
+    "seen": 1792301593.4638267,
+    "ast_hash": "e20b8b7defafbe28f899ad9f192c6664",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 15.pdf": {
+    "mtime": 1791301578.0,
+    "seen": 1792301593.4638283,
+    "ast_hash": "7800532f251673e37fc29fd8908bd269",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 16.pdf": {
+    "mtime": 1791301591.0,
+    "seen": 1792301593.4638298,
+    "ast_hash": "4d8548c3450cf487f2bae290be0d3b1b",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 17.pdf": {
+    "mtime": 1791301603.0,
+    "seen": 1792301593.4638317,
+    "ast_hash": "ec580b224cca3e0a00fe4addf576d00c",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 18.pdf": {
+    "mtime": 1791301616.0,
+    "seen": 1792301593.463833,
+    "ast_hash": "f75c9d4aaa110b66ae274a1633621e98",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 19.pdf": {
+    "mtime": 1791301626.0,
+    "seen": 1792301593.4638345,
+    "ast_hash": "20c9b8075ef4ab55d2daf4fa88214fc0",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 2.pdf": {
+    "mtime": 1791301384.0,
+    "seen": 1792301593.463836,
+    "ast_hash": "ff303f0ce385f631164b5f73c8ca9acf",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 3.pdf": {
+    "mtime": 1791301409.0,
+    "seen": 1792301593.4638376,
+    "ast_hash": "058bf8a1b0fb006642a2aecffcdeb2e4",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 4.pdf": {
+    "mtime": 1791301421.0,
+    "seen": 1792301593.4638393,
+    "ast_hash": "a2b630276c4af6a5dcc7ec13433101f2",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 5.pdf": {
+    "mtime": 1791301446.0,
+    "seen": 1792301593.4638407,
+    "ast_hash": "888a566582c8394fc2a423dfb91bbbd4",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 6.pdf": {
+    "mtime": 1791301459.0,
+    "seen": 1792301593.4638426,
+    "ast_hash": "1c25e5697cb1c625bf809baeba6f579c",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 7.pdf": {
+    "mtime": 1791301472.0,
+    "seen": 1792301593.463844,
+    "ast_hash": "5230d973801d4bfaf1a819c77d754e7d",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 8.pdf": {
+    "mtime": 1791301485.0,
+    "seen": 1792301593.4638457,
+    "ast_hash": "1607d333e011de059ab7d2b0e77c781d",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis 9.pdf": {
+    "mtime": 1791301498.0,
+    "seen": 1792301593.4638472,
+    "ast_hash": "8407fc3e6caf5cc406a60f75c5b114f1",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/referencias_prompts/Prompts para Estructurar Tesis.pdf": {
+    "mtime": 1791301272.0,
+    "seen": 1792301593.4638486,
+    "ast_hash": "1888c66c6c070ff6db3f58ddc06cb365",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1793126535.2685885,
+    "seen": 1793131745.716306,
+    "ast_hash": "39082471c51c867f6e695206fc47dbcc",
+    "semantic_hash": ""
+  },
+  ".agents/rules/ingenieria_agente_cerrado.md": {
+    "mtime": 1792340519.4698389,
+    "seen": 1792340536.5918314,
+    "ast_hash": "4ed5eba6919514c777a41295749068fb",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/semantic_scholar.py": {
+    "mtime": 1792343883.0789912,
+    "seen": 1792348157.4043589,
+    "ast_hash": "af7bc9f91bf997fd98db4db8970d1f26",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/__init__.py": {
+    "mtime": 1793067412.0132673,
+    "seen": 1793131745.7155294,
+    "ast_hash": "281ad5ae3b1d3eb7aa0549135edb968f",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/accounts.py": {
+    "mtime": 1792342495.007583,
+    "seen": 1792348157.4044056,
+    "ast_hash": "9344524cf98b50d1c6cb9894b7f84d47",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/chapters.py": {
+    "mtime": 1793067695.1639132,
+    "seen": 1793131745.7155483,
+    "ast_hash": "37d886d4ebae8f9863b622958297964a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/documents.py": {
+    "mtime": 1793059905.9224663,
+    "seen": 1793131745.7155566,
+    "ast_hash": "55e65cfd89993c64f0eca6ef2c5cf572",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/instruments.py": {
+    "mtime": 1792342495.0086405,
+    "seen": 1792348157.4044106,
+    "ast_hash": "c509997151685826e8ea5180bfd640e3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/projects.py": {
+    "mtime": 1792342495.008304,
+    "seen": 1792348157.4044125,
+    "ast_hash": "644dcd2e0e38f971eb70cee4aeff13bf",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/research.py": {
+    "mtime": 1792981024.5698261,
+    "seen": 1792982482.4186854,
+    "ast_hash": "7acbc8d071521f690bf7d7e88b530525",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/sources.py": {
+    "mtime": 1793060333.02356,
+    "seen": 1793131745.7155926,
+    "ast_hash": "8fc6e920976d4a17e5391f6588a08b3a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/discovery.py": {
+    "mtime": 1792343597.862414,
+    "seen": 1792348157.404421,
+    "ast_hash": "62ab1a2eb1080595896220125d85f5e3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/exports.py": {
+    "mtime": 1793068704.9043124,
+    "seen": 1793131745.715715,
+    "ast_hash": "dacc7114f1fa593352642d0ad6ac9130",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/step_materializers/__init__.py": {
+    "mtime": 1792342833.7338483,
+    "seen": 1792348157.4044664,
+    "ast_hash": "d3aaff06d9625eb88114484624586f66",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/step_materializers/consistency.py": {
+    "mtime": 1792342527.1546135,
+    "seen": 1792348157.4044683,
+    "ast_hash": "085178c3b1aa01248afb14fd38381306",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/step_materializers/instruments.py": {
+    "mtime": 1792342535.1573153,
+    "seen": 1792348157.4044697,
+    "ast_hash": "88cd73a3b58e515605ced9580b5e73ef",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/step_materializers/literature.py": {
+    "mtime": 1792362637.4655464,
+    "seen": 1792364352.3579786,
+    "ast_hash": "0548ad35e2e11539d38bb2073251619e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/step_materializers/registry.py": {
+    "mtime": 1792984666.6569388,
+    "seen": 1792987660.0130866,
+    "ast_hash": "cbc5756359aa33afb7d220cba418746f",
+    "semantic_hash": ""
+  },
+  "backend/thesis/step_catalogue.py": {
+    "mtime": 1792341532.2703643,
+    "seen": 1792348157.404476,
+    "ast_hash": "4719d1e8f4c03217531b8a11816c1425",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/extended_steps/__init__.py": {
+    "mtime": 1792342588.704292,
+    "seen": 1792348157.40448,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/extended_steps/conftest.py": {
+    "mtime": 1792342588.7058985,
+    "seen": 1792348157.4044816,
+    "ast_hash": "2738913048ff95d8465d5f91e6229ed3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/extended_steps/test_chapter3.py": {
+    "mtime": 1792342588.7059872,
+    "seen": 1792348157.404483,
+    "ast_hash": "88e284466a562f71ab9764c445fbc255",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/extended_steps/test_chapter7.py": {
+    "mtime": 1792342588.706155,
+    "seen": 1792348157.4044847,
+    "ast_hash": "2c157789b81560e6191e79cb693624b1",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/extended_steps/test_chapters456.py": {
+    "mtime": 1792362917.7084014,
+    "seen": 1792364352.3579943,
+    "ast_hash": "c6fdada6fc2cc5d08be3ea66cad5e870",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_discovery.py": {
+    "mtime": 1792343614.646742,
+    "seen": 1792348157.4044898,
+    "ast_hash": "5c46ccda804ab5186e77eb96f65dae1a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_health.py": {
+    "mtime": 1792344400.1179473,
+    "seen": 1792348157.4044995,
+    "ast_hash": "a02a39274e3eeed8f82eeda9c704f1c7",
+    "semantic_hash": ""
+  },
+  "mcp_server/demo/__init__.py": {
+    "mtime": 1792342558.0763521,
+    "seen": 1792348157.4045165,
+    "ast_hash": "3ba161f0471e41ae61119bb7a0309999",
+    "semantic_hash": ""
+  },
+  "mcp_server/demo/case_data.py": {
+    "mtime": 1792362637.6005478,
+    "seen": 1792364352.3580277,
+    "ast_hash": "d27c115bb70c98205b4c409a6ce4c020",
+    "semantic_hash": ""
+  },
+  "mcp_server/demo/support.py": {
+    "mtime": 1792362637.5415473,
+    "seen": 1792364352.3580294,
+    "ast_hash": "a91aefd60eee25fe85762b2580c2b256",
+    "semantic_hash": ""
+  },
+  "docs/07_desarrollo_prototipo/estado_version_producto.md": {
+    "mtime": 1793131160.8972812,
+    "seen": 1793131745.716818,
+    "ast_hash": "d76d3b59691ddff01916ca4c8ef284da",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/alicia.py": {
+    "mtime": 1792362841.401624,
+    "seen": 1792364352.3578649,
+    "ast_hash": "351c5b114ca98747a2f3437b4112a5a6",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/peru_articles.py": {
+    "mtime": 1792362709.7192826,
+    "seen": 1792364352.3578813,
+    "ast_hash": "31f339f03026e73cf96bc24c4d1658b9",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/discovery_peru.py": {
+    "mtime": 1792362709.782283,
+    "seen": 1792364352.357946,
+    "ast_hash": "da0aa3a73272f12f7e2f134d67e19017",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/geography.py": {
+    "mtime": 1792362615.2863204,
+    "seen": 1792364352.357958,
+    "ast_hash": "4716a6a153a33c997f3d712e53dd48fc",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_discovery_peru.py": {
+    "mtime": 1792362841.4636247,
+    "seen": 1792364352.3579996,
+    "ast_hash": "682a9f04f2465ca96ba57dfb057525f5",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_mcp_prompts.py": {
+    "mtime": 1792362709.8392837,
+    "seen": 1792364352.3580115,
+    "ast_hash": "69e1459febc9ec08bcbf44ba00a86bc9",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/__init__.py": {
+    "mtime": 1792362709.5462809,
+    "seen": 1792364352.358034,
+    "ast_hash": "e8554201eb86b6198e16fb5983959d48",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/catalog.py": {
+    "mtime": 1792362709.663282,
+    "seen": 1792364352.3580356,
+    "ast_hash": "32541765e28ab466876f4e9a1a4d363d",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/hydration.py": {
+    "mtime": 1792362615.22832,
+    "seen": 1792364352.358037,
+    "ast_hash": "4f099b8223b579978d452ca2f9d734b6",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/roles.py": {
+    "mtime": 1792362709.46828,
+    "seen": 1792364352.3580384,
+    "ast_hash": "4bef5a991cd6c29866770520aae4d538",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/__init__.py": {
+    "mtime": 1792357002.7708392,
+    "seen": 1792357655.4910147,
+    "ast_hash": "cd970cb9d733c307e240a88070688321",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_1.py": {
+    "mtime": 1792362650.966684,
+    "seen": 1792364352.3580415,
+    "ast_hash": "1a9dc7ae1a339ed46e174406928a791c",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_2.py": {
+    "mtime": 1792356866.2154343,
+    "seen": 1792357655.491017,
+    "ast_hash": "1e45faf4df82930856c01199de2fb3ce",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_3.py": {
+    "mtime": 1792356888.5296638,
+    "seen": 1792357655.4910185,
+    "ast_hash": "0aa88d73663b5ade312ce7f530a2c812",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_4.py": {
+    "mtime": 1793116335.3451464,
+    "seen": 1793131745.71613,
+    "ast_hash": "5ec7c1c492e33b1c562e5240d4ca4164",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_5.py": {
+    "mtime": 1792356954.5553432,
+    "seen": 1792357655.4910212,
+    "ast_hash": "dfb99567fc209a6b6c02c06b6b7882f2",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_6.py": {
+    "mtime": 1792363019.3214366,
+    "seen": 1792364352.3580496,
+    "ast_hash": "2f75e567c3ad82d98a57b90b904375bb",
+    "semantic_hash": ""
+  },
+  "mcp_server/prompts/templates/chapter_7.py": {
+    "mtime": 1792356993.7637465,
+    "seen": 1792357655.4910238,
+    "ast_hash": "a18e5191ef5ad5fd7db1a2165f23c3ba",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0018_relabel_legacy_p16_verification.py": {
+    "mtime": 1792363117.7584393,
+    "seen": 1792364352.3579228,
+    "ast_hash": "cec7857fa43e6400b133a339565bf744",
+    "semantic_hash": ""
+  },
+  ".agents/skills/adversarial-code-auditor/SKILL.md": {
+    "mtime": 1792366095.633776,
+    "seen": 1792366487.3465643,
+    "ast_hash": "0087eabbef74e3b4d62a7e95ca7dd46d",
+    "semantic_hash": ""
+  },
+  "scripts/verify_project.py": {
+    "mtime": 1793075373.0540125,
+    "seen": 1793131745.7162488,
+    "ast_hash": "088a74119ccb833a640a724cd0c2ae3a",
+    "semantic_hash": ""
+  },
+  ".agents/rules/definition_of_done_gate.md": {
+    "mtime": 1792366134.5431721,
+    "seen": 1792366487.3465424,
+    "ast_hash": "53d98699fa2738a94a518097018ee377",
+    "semantic_hash": ""
+  },
+  ".agents/skills/definition-of-done-verifier/SKILL.md": {
+    "mtime": 1793034047.372354,
+    "seen": 1793131745.716273,
+    "ast_hash": "79b8754b9ac0bd039b12e4abad9e45ba",
+    "semantic_hash": ""
+  },
+  ".agents/skills/repository-hygiene-auditor/SKILL.md": {
+    "mtime": 1792366106.1768832,
+    "seen": 1792366487.3465734,
+    "ast_hash": "91f864f2725026e6ab32cc20c1b19bd2",
+    "semantic_hash": ""
+  },
+  ".agents/skills/docx-report-builder/SKILL.md": {
+    "mtime": 1792367960.2667413,
+    "seen": 1792368082.6402507,
+    "ast_hash": "748a0a5ee76c0c5109e9c0379f2f91f1",
+    "semantic_hash": ""
+  },
+  "docs/06_informe_final_curso/informe_academico_curso_integrador_IEEE.pdf": {
+    "mtime": 1792371986.4393833,
+    "seen": 1792424195.368321,
+    "ast_hash": "ac670623f50dfb6a6002b93286806f64",
+    "semantic_hash": ""
+  },
+  "scripts/build_informe_reducido_docx.py": {
+    "mtime": 1792506553.587741,
+    "seen": 1792624637.0827541,
+    "ast_hash": "fa0bd92a18e823211f9d9450b0e4f709",
+    "semantic_hash": ""
+  },
+  "scripts/generate_architecture_diagram.py": {
+    "mtime": 1792506553.5887866,
+    "seen": 1792624637.0827558,
+    "ast_hash": "7a176dfc261b7180d6f4515591088bc3",
+    "semantic_hash": ""
+  },
+  "scripts/generate_conceptual_and_logical.py": {
+    "mtime": 1792506553.6636825,
+    "seen": 1792624637.082758,
+    "ast_hash": "736eee7f9c8a6655a0cdbb7530702a8c",
+    "semantic_hash": ""
+  },
+  "scripts/generate_connected_der.py": {
+    "mtime": 1792506553.6640134,
+    "seen": 1792624637.0827594,
+    "ast_hash": "17b2b6942367d20190c9857c040a5142",
+    "semantic_hash": ""
+  },
+  "scripts/generate_drawio_xml.py": {
+    "mtime": 1792506553.6263504,
+    "seen": 1792624637.0827608,
+    "ast_hash": "7945e10399283a51259ac081df920a01",
+    "semantic_hash": ""
+  },
+  "scripts/generate_fixed_usecases.py": {
+    "mtime": 1792506553.6256065,
+    "seen": 1792624637.0827625,
+    "ast_hash": "6e7cb5b739022cd73a413c79012033c7",
+    "semantic_hash": ""
+  },
+  "scripts/generate_official_der.py": {
+    "mtime": 1792506553.6496022,
+    "seen": 1792624637.082766,
+    "ast_hash": "b300926729075188cec7b31616b78e25",
+    "semantic_hash": ""
+  },
+  "scripts/generate_pure_diagrams.py": {
+    "mtime": 1792506553.5890946,
+    "seen": 1792624637.0827677,
+    "ast_hash": "d2e6ca76ae15e67da4dfaa34b9ac083c",
+    "semantic_hash": ""
+  },
+  "scripts/generate_pure_drawio_xml.py": {
+    "mtime": 1792506553.6251597,
+    "seen": 1792624637.0827694,
+    "ast_hash": "938b8bcb7fe8cee465a2b3453e19c029",
+    "semantic_hash": ""
+  },
+  "scripts/generate_report_diagrams.py": {
+    "mtime": 1792506553.664322,
+    "seen": 1792624637.082771,
+    "ast_hash": "03d412f0001c995ed97d53d84f170806",
+    "semantic_hash": ""
+  },
+  "scripts/generate_sequence_and_state_diagrams.py": {
+    "mtime": 1792506553.6259437,
+    "seen": 1792624637.0827725,
+    "ast_hash": "80d98a1e796925abf9cec01602bb5c84",
+    "semantic_hash": ""
+  },
+  "scripts/reorganize_diagrams_01_to_07.py": {
+    "mtime": 1792506553.613982,
+    "seen": 1792624637.0827758,
+    "ast_hash": "37f224a5c8c687143028940cef865149",
+    "semantic_hash": ""
+  },
+  "scripts/generate_slide_diagrams.py": {
+    "mtime": 1792506553.624532,
+    "seen": 1792624637.0827742,
+    "ast_hash": "3a3d0a076b17741a6f14b1533fbf80e2",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/.figma/make/site.json": {
+    "mtime": 1792551433.025013,
+    "seen": 1792624637.0822728,
+    "ast_hash": "4e61390bf9ab315c9a0cd895bbea5e7c",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/package.json": {
+    "mtime": 1792617508.3045273,
+    "seen": 1792624637.082281,
+    "ast_hash": "acd88f4828fdb6508f87d15043cecc44",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/App.tsx": {
+    "mtime": 1792617430.219555,
+    "seen": 1792624637.0822842,
+    "ast_hash": "179872897ac8f4becd5150644e663d49",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/components/comunes/BadgeEstadoPaso.tsx": {
+    "mtime": 1792603143.994702,
+    "seen": 1792624637.0822864,
+    "ast_hash": "96ad4c7fa2913dbff3bcddbce3a0811a",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/components/comunes/CampoTextoConContador.tsx": {
+    "mtime": 1792617752.3874083,
+    "seen": 1792624637.0822883,
+    "ast_hash": "fdfccfa73ef26f9f1544f51278487fc8",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/components/comunes/ErrorBoundary.tsx": {
+    "mtime": 1792605903.286046,
+    "seen": 1792624637.08229,
+    "ast_hash": "d3074094efee02f88bc9690f6b6334e9",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/components/comunes/ListaDinamicaItems.tsx": {
+    "mtime": 1792603164.3267403,
+    "seen": 1792624637.0822914,
+    "ast_hash": "cc0558597a98cec8cf430a5c1c3118bc",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/RecorridoCapitulo1.tsx": {
+    "mtime": 1792598706.0589347,
+    "seen": 1792624637.0822935,
+    "ast_hash": "7454cf545a3a098ede63f05423a9625b",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/RecorridoCapitulos.tsx": {
+    "mtime": 1792618180.385441,
+    "seen": 1792624637.082295,
+    "ast_hash": "00c281e53b955348431efef30cdb0f2b",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/RecorridoP01.tsx": {
+    "mtime": 1792596247.4818904,
+    "seen": 1792624637.0822968,
+    "ast_hash": "f055089e7dc1f7416c1795bb990768fb",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/AvisosEstado.tsx": {
+    "mtime": 1792598566.7610452,
+    "seen": 1792624637.0822983,
+    "ast_hash": "d8aca291e3c8e9a4f8b8512af6095156",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/CabeceraPaso.tsx": {
+    "mtime": 1792600444.4528534,
+    "seen": 1792624637.0823002,
+    "ast_hash": "e5e7cefab824bd00b6adb304d11fbbf5",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/EditorContenidoNarrativo.tsx": {
+    "mtime": 1792598560.9869661,
+    "seen": 1792624637.0823019,
+    "ast_hash": "dcb12ba69e1de2ff5089522145cf61a2",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/EspacioTrabajoPaso.tsx": {
+    "mtime": 1792618446.307577,
+    "seen": 1792624637.0823035,
+    "ast_hash": "c49a8549ac05e05424c6f08e91409ea4",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP01.tsx": {
+    "mtime": 1792605965.2860212,
+    "seen": 1792624637.0823047,
+    "ast_hash": "8802ba44170ea943c0af9c59802cce90",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP02.tsx": {
+    "mtime": 1792617752.3834083,
+    "seen": 1792624637.0823064,
+    "ast_hash": "7d5b83dafff9d23aaaad20aa38ffdaae",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP03.tsx": {
+    "mtime": 1792617752.3864083,
+    "seen": 1792624637.0823085,
+    "ast_hash": "a33cd87cb4a1a5198a66e55b36d6096e",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP04.tsx": {
+    "mtime": 1792606149.053912,
+    "seen": 1792624637.0823102,
+    "ast_hash": "aea17ca3ac5455a3171fc6b427831202",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP05.tsx": {
+    "mtime": 1792606209.0208552,
+    "seen": 1792624637.0823116,
+    "ast_hash": "3f7d68bf05a1777139345a203588be6b",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP06.tsx": {
+    "mtime": 1792617752.3854082,
+    "seen": 1792624637.0823133,
+    "ast_hash": "2f38ce899608f7761ce6274f1139bf0a",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP07.tsx": {
+    "mtime": 1792599637.6670005,
+    "seen": 1792624637.0823147,
+    "ast_hash": "cfa78e5e88a7439fe37d756070ec2e7d",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP08.tsx": {
+    "mtime": 1792599653.5712066,
+    "seen": 1792624637.0823164,
+    "ast_hash": "5b4074c8360a2d7f4d68ff824e53fb2f",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP09.tsx": {
+    "mtime": 1792617752.3864083,
+    "seen": 1792624637.0823178,
+    "ast_hash": "91d7437739eba77efb00799337ca2f99",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP10.tsx": {
+    "mtime": 1792617752.3804083,
+    "seen": 1792624637.0823193,
+    "ast_hash": "74293bfd48b326f601e9c8d24236dc8c",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP11.tsx": {
+    "mtime": 1792617752.3854082,
+    "seen": 1792624637.082321,
+    "ast_hash": "9c07ab3ad7be9a1f749a01158f7d5971",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/FormularioP12.tsx": {
+    "mtime": 1792617752.3874083,
+    "seen": 1792624637.0823224,
+    "ast_hash": "b22ae9ddd4e1c8617aeeb2556e1ae907",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/NavegacionMetodologia.tsx": {
+    "mtime": 1792618446.307577,
+    "seen": 1792624637.082324,
+    "ast_hash": "8bbeb1abff0e2cd25612bf3f84ca5891",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/features/metodologia/componentes/PanelAsistenteProximamente.tsx": {
+    "mtime": 1792598572.9651303,
+    "seen": 1792624637.0823255,
+    "ast_hash": "a68ab707817235696e4e91ab808c0c5e",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/lib/api/cliente.ts": {
+    "mtime": 1792617752.3844082,
+    "seen": 1792624637.0823271,
+    "ast_hash": "f55ac6d9b2f58a416c8b643ca64c447a",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/lib/api/contrato.d.mts": {
+    "mtime": 1792598897.0094078,
+    "seen": 1792624637.0823288,
+    "ast_hash": "cbe1838579ff94d39aa37db6435629f5",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/lib/api/contrato.mjs": {
+    "mtime": 1792598519.8274026,
+    "seen": 1792624637.0823302,
+    "ast_hash": "3f24f4a8d7f8b305267abb963fba4021",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/lib/utils.ts": {
+    "mtime": 1792603097.4783268,
+    "seen": 1792624637.0823317,
+    "ast_hash": "824bcae89abb14a68e275f1e1425e1f1",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/main.tsx": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0823328,
+    "ast_hash": "547ead13ed28a3cd5501f5741c824a2d",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/src/vite-env.d.ts": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0823345,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/tests/cliente-api.test.mjs": {
+    "mtime": 1792598763.9986851,
+    "seen": 1792624637.082336,
+    "ast_hash": "c309bf70b6c4f65285f7b734b784b049",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/tests/recorrido-capitulo1.test.mjs": {
+    "mtime": 1792598808.4932613,
+    "seen": 1792624637.0823376,
+    "ast_hash": "499b560692e163c0992728d21a67e156",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/tests/recorrido-capitulo2.test.mjs": {
+    "mtime": 1792617752.3814082,
+    "seen": 1792624637.0823388,
+    "ast_hash": "88af60da287f70a8f95a2fa7a2d25d90",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/tests/recorrido-capitulo3.test.mjs": {
+    "mtime": 1792617752.3834083,
+    "seen": 1792624637.08234,
+    "ast_hash": "e4f14cd42a4652ed6e24c1b39713e18b",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/tsconfig.json": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0823417,
+    "ast_hash": "f67af494aefeae8b9d2d0dc4021ce32d",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/vite.config.ts": {
+    "mtime": 1792596120.1485448,
+    "seen": 1792624637.082343,
+    "ast_hash": "dfe42e9227f61612b7bd340703252246",
+    "semantic_hash": ""
+  },
+  "scripts/generate_mvc_cycle_diagram.py": {
+    "mtime": 1792506553.6232986,
+    "seen": 1792624637.0827644,
+    "ast_hash": "343604266ef367254234e80002680cb4",
+    "semantic_hash": ""
+  },
+  ".agents/skills/presentation-architect/SKILL.md": {
+    "mtime": 1792466954.5104938,
+    "seen": 1792624637.083027,
+    "ast_hash": "ea6b966705adb1c4c62ff6e7d0d19959",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/AGENTS.md": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0830462,
+    "ast_hash": "704403927d5803613a0aefe03b8fb477",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/CHATGPT_REVIEW.md": {
+    "mtime": 1792567710.0,
+    "seen": 1792624637.0830476,
+    "ast_hash": "788f9ae94937df88863bc767e5385dde",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/CLAUDE.md": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0830493,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/00_INDICE_GUIA_FRONTEND.md": {
+    "mtime": 1792618853.539379,
+    "seen": 1792624637.083051,
+    "ast_hash": "92d65700f9a9e442cd00b814cc39b1e0",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/01_ARQUITECTURA_Y_FLUJO.md": {
+    "mtime": 1792618853.6483803,
+    "seen": 1792624637.0830526,
+    "ast_hash": "201b3874869bde3ba33e1b94247795ef",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/02_ARRANQUE_CONFIGURACION_Y_HERRAMIENTAS.md": {
+    "mtime": 1792618853.7213812,
+    "seen": 1792624637.0830657,
+    "ast_hash": "811e0ba0d27b4b2a16686df57e2a6ff4",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/03_CLIENTE_HTTP_CONTRATOS_Y_SEGURIDAD.md": {
+    "mtime": 1792618853.797382,
+    "seen": 1792624637.0830674,
+    "ast_hash": "e56bf53bbe11603e64a3044ebd620041",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/04_ESTADO_NAVEGACION_Y_PERSISTENCIA.md": {
+    "mtime": 1792618853.871383,
+    "seen": 1792624637.0830688,
+    "ast_hash": "978dbc525b1ddff93d50a1e4cf4f01f6",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/05_COMPONENTES_Y_FORMULARIOS.md": {
+    "mtime": 1792618853.950384,
+    "seen": 1792624637.0830705,
+    "ast_hash": "452149aed7214dcceea995d24af9b9eb",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/06_DISENO_VISUAL_Y_ESTILOS.md": {
+    "mtime": 1792618854.0313847,
+    "seen": 1792624637.083072,
+    "ast_hash": "8e7e5b858dfd4dfab78d130b96c9f17a",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/07_PRUEBAS_DIAGNOSTICO_Y_VERIFICACION.md": {
+    "mtime": 1792618854.126386,
+    "seen": 1792624637.0830734,
+    "ast_hash": "6af6c09cab4ad6ba6db73406c84ba819",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/docs/08_MAPA_DE_ARCHIVOS.md": {
+    "mtime": 1792618854.208387,
+    "seen": 1792624637.0830748,
+    "ast_hash": "8d0583456d6170413c2b8c89b25f12bd",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/index.html": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0830762,
+    "ast_hash": "02d04d4321f068edfa562d42ad5d0e02",
+    "semantic_hash": ""
+  },
+  "TesisMCP_Frontend/public/favicon.svg": {
+    "mtime": 1792567632.0,
+    "seen": 1792624637.0839274,
+    "ast_hash": "41eaaffbfd91dd864ca21d6e2f5a70c1",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0019_configurable_workflows_and_prompts.py": {
+    "mtime": 1792981072.296351,
+    "seen": 1792982482.4186714,
+    "ast_hash": "ccaec4ee5368fa036f9894df6d044ff4",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/workflows.py": {
+    "mtime": 1792986786.0426934,
+    "seen": 1792987660.0130415,
+    "ast_hash": "61dd73b5cab9714def861cd49fb0814d",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/workflow_template.py": {
+    "mtime": 1792988749.6244981,
+    "seen": 1793021268.6820621,
+    "ast_hash": "ca7cc3fe0cdb7bfcdbf4adf5cae01971",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/workflows.py": {
+    "mtime": 1793104549.434743,
+    "seen": 1793131745.715849,
+    "ast_hash": "442f9406612c055ad720289ad4f4f95c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_flexible_execution.py": {
+    "mtime": 1792985169.8754447,
+    "seen": 1792987660.0131195,
+    "ast_hash": "ee272d438d4c88fda1aabdd9a5445a23",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_workflow_api.py": {
+    "mtime": 1792981492.4420462,
+    "seen": 1792982482.4187682,
+    "ast_hash": "7a6324648d9c19cc0d501701e8b7adc1",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_workflow_models.py": {
+    "mtime": 1792980943.7442698,
+    "seen": 1792982482.4187696,
+    "ast_hash": "1c7238a0ee67f49afe3bc59f91ab2b8c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_workflow_template.py": {
+    "mtime": 1793116335.3454196,
+    "seen": 1793131745.716021,
+    "ast_hash": "853f57494c068565cfa3ccf9ad0d4793",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_workflows_service.py": {
+    "mtime": 1792985164.1044044,
+    "seen": 1792987660.0131369,
+    "ast_hash": "647d38e5a5a61d2b8aac22654f023174",
+    "semantic_hash": ""
+  },
+  "scripts/verify_podman.sh": {
+    "mtime": 1792910272.8898704,
+    "seen": 1792982482.4188445,
+    "ast_hash": "cb57ed68ef0c5b3e69eeaeb656677828",
+    "semantic_hash": ""
+  },
+  "docs/01_vision_y_alcance/propuesta_integral_tesismcp_y_decisiones_de_diseno.md": {
+    "mtime": 1792970310.510575,
+    "seen": 1792982482.4192967,
+    "ast_hash": "732bfba78e79f12872eafb8285d73d81",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/contrato_recorrido_y_prompts_configurables.md": {
+    "mtime": 1793116335.4030278,
+    "seen": 1793131745.7164617,
+    "ast_hash": "f2b541cdfcb244da3a23e56bb9876b3c",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/contratos_api_backend.md": {
+    "mtime": 1793069330.5901268,
+    "seen": 1793131745.7164657,
+    "ast_hash": "0ab5ebf6a14a51181c6ca0e07472cb89",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/contratos_dominio_backend.md": {
+    "mtime": 1793022656.3422914,
+    "seen": 1793031364.7806861,
+    "ast_hash": "bb2de633720fccdffea0a0481ae9d711",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/criterio_backend_listo_para_frontend.md": {
+    "mtime": 1793022636.686152,
+    "seen": 1793031364.7806878,
+    "ast_hash": "7cdd56c3a06b0644289f3a71daa4c424",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/especificacion_busqueda_y_revision_de_evidencia.md": {
+    "mtime": 1793062162.791976,
+    "seen": 1793131745.7164853,
+    "ast_hash": "69e3e60e6755f4362ec1f1f547143794",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/especificacion_integral_backend.md": {
+    "mtime": 1793118714.6052008,
+    "seen": 1793131745.716494,
+    "ast_hash": "41f5ed430510ac6da56c57f1bdd3483d",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/guia_backend_version_completa_para_agentes.md": {
+    "mtime": 1793118466.177512,
+    "seen": 1793131745.7165024,
+    "ast_hash": "912e7bfcf77bbb5fb757f642df96d810",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/inventario_brechas_backend.md": {
+    "mtime": 1793118714.6042612,
+    "seen": 1793131745.7165203,
+    "ast_hash": "34446f39c5e10af90b852317ce7496fa",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/matriz_permisos_y_cuentas_backend.md": {
+    "mtime": 1793118714.6036413,
+    "seen": 1793131745.7165287,
+    "ast_hash": "c55d196f96f1c568d08225faac82f88f",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/plan_ejecucion_backend_argon.md": {
+    "mtime": 1793116335.4028337,
+    "seen": 1793131745.7166142,
+    "ast_hash": "eea7cb85b0d3c6e3f9923793c62a211c",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/plan_entregas_backend.md": {
+    "mtime": 1793116335.4021277,
+    "seen": 1793131745.7166188,
+    "ast_hash": "ea3677fd5d62d307d3297e007c03ea85",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/registro_decisiones_backend.md": {
+    "mtime": 1793070359.1317384,
+    "seen": 1793131745.7166364,
+    "ast_hash": "95ac185cf00f6f47ddaa68a30f74baa1",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/seguridad_datos_operacion_backend.md": {
+    "mtime": 1793076306.3562117,
+    "seen": 1793131745.71665,
+    "ast_hash": "702a15539291c7356abca0012bf5e758",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/catalogo_p01_p32_para_notebook.md": {
+    "mtime": 1792966329.4791915,
+    "seen": 1792982482.4193347,
+    "ast_hash": "7700483b5deb8f8d6b5602e66014f639",
+    "semantic_hash": ""
+  },
+  "docs/03_metodologia_y_prompts/propuesta_orden_metodologico_revisado.md": {
+    "mtime": 1793118714.604678,
+    "seen": 1793131745.716678,
+    "ast_hash": "4ce4f44f692702939b26f27832bdc607",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/general/2026-10-22_analisis_demostracion_producto_esperado.md": {
+    "mtime": 1792794923.9792478,
+    "seen": 1792982482.4194252,
+    "ast_hash": "5ab5af7f7d9d7a9bd2f2b71604c5fb76",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/general/2026-10-22_analisis_profesor_invitado_y_ruta_metodologica.md": {
+    "mtime": 1792796395.5517855,
+    "seen": 1792982482.4194272,
+    "ast_hash": "5aff08599638469afc85ac89032b6f46",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/general/2026-10-22_analisis_reunion_asesor_a.md": {
+    "mtime": 1792794896.805924,
+    "seen": 1792982482.4194283,
+    "ast_hash": "175c44618d0909442ee8ae461b6a1d33",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/general/2026-10-22_sintesis_consolidada_reuniones_tesismcp.md": {
+    "mtime": 1792796961.7265992,
+    "seen": 1792982482.4194298,
+    "ast_hash": "811e7876e4e6df036e97fab21ff49f0f",
+    "semantic_hash": ""
+  },
+  "docs/dudas_y_consultas/modulo_asesor_y_ui/maqueta_frontend_word_tesismcp.html": {
+    "mtime": 1792910530.6099617,
+    "seen": 1792982482.4194455,
+    "ast_hash": "a9fbf2d7f1354201b57d5d2d30f60bf6",
+    "semantic_hash": ""
+  },
+  "docs/superpowers/plans/2026-10-25-b5-recorrido-prompts-configurables.md": {
+    "mtime": 1793076306.3477077,
+    "seen": 1793131745.7169898,
+    "ast_hash": "167a3e9ff409cdcd7dd9b17fa0363b11",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/llm/__init__.py": {
+    "mtime": 1793020719.7286193,
+    "seen": 1793021268.6819263,
+    "ast_hash": "ffbe484b6d7b1f092612539d7e6e6ad3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/llm/base.py": {
+    "mtime": 1792986911.1255622,
+    "seen": 1792987660.0128546,
+    "ast_hash": "f1daeaf09064d6c19b52733d621c53da",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/llm/development.py": {
+    "mtime": 1792988749.7794993,
+    "seen": 1793021268.68193,
+    "ast_hash": "41d6d80cf4842ebc9ad17c333ee39ae8",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/llm/factory.py": {
+    "mtime": 1793022363.7812166,
+    "seen": 1793031364.7799444,
+    "ast_hash": "77d5e75a46b5a42747800c58f9e92c2e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/management/commands/run_ai_worker.py": {
+    "mtime": 1793058941.075079,
+    "seen": 1793131745.7152998,
+    "ast_hash": "485b7a19897d6f7c87aac97912de0804",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0020_custom_workflow_task_executions.py": {
+    "mtime": 1792984676.6980088,
+    "seen": 1792987660.0130198,
+    "ast_hash": "db830106f37d0ce932daeb02f94bd3f7",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0021_ai_generation_job_and_task_output_schema.py": {
+    "mtime": 1792989191.4487448,
+    "seen": 1793021268.68199,
+    "ast_hash": "6262601565f7f86dd2f8270ad9049bdb",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/ai_jobs.py": {
+    "mtime": 1793038496.2955503,
+    "seen": 1793131745.7155437,
+    "ast_hash": "986baa8a94e19892157a6277b638e1b1",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/ai_jobs.py": {
+    "mtime": 1793114680.8488066,
+    "seen": 1793131745.715629,
+    "ast_hash": "4755b488af956773eaaaff5d6432dfc9",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_ai_generation.py": {
+    "mtime": 1793057332.3181233,
+    "seen": 1793131745.7159014,
+    "ast_hash": "3b305a28d5f8d859073377a4824df409",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/especificacion_generacion_ia_y_resultados.md": {
+    "mtime": 1793118466.1778955,
+    "seen": 1793131745.7164896,
+    "ast_hash": "b10d4d8d44d39adcf00a2fc999eec3af",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/llm/gemini.py": {
+    "mtime": 1793022533.772422,
+    "seen": 1793031364.7799463,
+    "ast_hash": "cc9026e5c77586747a76acbed6c4763d",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0022_aigenerationjob_decision_key_and_more.py": {
+    "mtime": 1792989210.0408814,
+    "seen": 1793021268.6819913,
+    "ast_hash": "0ed480200216e913525a208397167831",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/output_schemas.py": {
+    "mtime": 1792988743.737455,
+    "seen": 1793021268.68204,
+    "ast_hash": "a9846da4901f9e633d64849a10d19e75",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_gemini_adapter.py": {
+    "mtime": 1793022533.8434227,
+    "seen": 1793031364.7801085,
+    "ast_hash": "5d8d2921872b37d6125644262f379de8",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/implementacion_adaptador_gemini_b5_1.md": {
+    "mtime": 1793027708.9101074,
+    "seen": 1793031364.7807007,
+    "ast_hash": "0b5bfe21514af4409be215b4a5e36881",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0023_chaptersnapshot_and_submitted_snapshot.py": {
+    "mtime": 1793030349.6797879,
+    "seen": 1793031364.7800062,
+    "ast_hash": "e4844ba7b01c67d19b9b41a90eddf0e7",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_chapter_snapshots.py": {
+    "mtime": 1793067691.825882,
+    "seen": 1793131745.71591,
+    "ast_hash": "82807989434f43c24e19257da15784dd",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_1_auditoria_instantanea_capitulo.md": {
+    "mtime": 1793029260.7236638,
+    "seen": 1793031364.7807074,
+    "ast_hash": "e8c101dc32b2e73e18ce07763b36f7a8",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_1_implementacion_snapshot.md": {
+    "mtime": 1793046971.092468,
+    "seen": 1793131745.7165463,
+    "ast_hash": "fdbe6f418d29169f10d9d08558244f51",
+    "semantic_hash": ""
+  },
+  "TesisMCP/package.json": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.714697,
+    "ast_hash": "6a75f3785307085242c90f51b1d2bf1c",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/App.tsx": {
+    "mtime": 1793131015.2163217,
+    "seen": 1793131745.7147076,
+    "ast_hash": "3a8de8dad5fbce65a37b7662694a45b2",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/DemoApp.tsx": {
+    "mtime": 1793124656.5804489,
+    "seen": 1793131745.714713,
+    "ast_hash": "0a854e27eac1d9e9dd7b1066dbf04b54",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/auth.ts": {
+    "mtime": 1793124594.8831384,
+    "seen": 1793131745.7147174,
+    "ast_hash": "0e7f01e43ae60d8e40ba4252be3eba26",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/chapters.ts": {
+    "mtime": 1793130761.4285963,
+    "seen": 1793131745.7147222,
+    "ast_hash": "b833c598d0de015f066fd18b5fc5e798",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/client.ts": {
+    "mtime": 1793130556.9323328,
+    "seen": 1793131745.7147267,
+    "ast_hash": "4cb0e118e63b21af039b1815a5e1902a",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/exports.ts": {
+    "mtime": 1793130767.7506282,
+    "seen": 1793131745.7147307,
+    "ast_hash": "862eee611dc86ce1341e96286e571d66",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/generation.ts": {
+    "mtime": 1793130594.1726062,
+    "seen": 1793131745.7147348,
+    "ast_hash": "156a1fad380770980da427201cb34a93",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/projects.ts": {
+    "mtime": 1793124594.884218,
+    "seen": 1793131745.7147388,
+    "ast_hash": "9619af57a0ccc97bb59295e20acc943f",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/research.ts": {
+    "mtime": 1793130738.769481,
+    "seen": 1793131745.7147431,
+    "ast_hash": "0af83562df12ca0610bee6c5c8c0bcb3",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/reviews.ts": {
+    "mtime": 1793130046.5288708,
+    "seen": 1793131745.7147474,
+    "ast_hash": "fb0af4e31eee92c7faf9b4b1c8212efb",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/sources.ts": {
+    "mtime": 1793129705.8849792,
+    "seen": 1793131745.7147517,
+    "ast_hash": "b89b19c01dd691ce8e3c6b8b496d5828",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/types.ts": {
+    "mtime": 1793130576.727478,
+    "seen": 1793131745.7147558,
+    "ast_hash": "b529345c419c6fe02a294625d1dafa46",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/api/workflows.ts": {
+    "mtime": 1793129013.025768,
+    "seen": 1793131745.7147596,
+    "ast_hash": "ea69a9ace5d4586e538b97cfd90ab667",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/advisor/AdvisorScreen.tsx": {
+    "mtime": 1793130127.8343918,
+    "seen": 1793131745.714764,
+    "ast_hash": "d096afc0b33114b19f3fef2454412fe2",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/ai/AIAssistantScreen.tsx": {
+    "mtime": 1793130701.4602914,
+    "seen": 1793131745.7147682,
+    "ast_hash": "1bb831c8d2ab7661413d98e47ed77f23",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/artifacts/ResearchArtifactsScreen.tsx": {
+    "mtime": 1793130836.6510816,
+    "seen": 1793131745.7147722,
+    "ast_hash": "162bf895b338ba8f727a2fcd37f03c26",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/auth/AccessScreen.tsx": {
+    "mtime": 1793125075.2463446,
+    "seen": 1793131745.7147765,
+    "ast_hash": "937cad0fc940b1d616ad4d97070723e5",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/editor/ChapterEditorScreen.tsx": {
+    "mtime": 1793130904.7135644,
+    "seen": 1793131745.7147803,
+    "ast_hash": "134e4c7e945e0aa1915cb0ad3079c04c",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/editor/editorDocument.ts": {
+    "mtime": 1793126456.2320874,
+    "seen": 1793131745.7147846,
+    "ast_hash": "1172b836c59fe567bc009324529acf25",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/library/LibraryScreen.tsx": {
+    "mtime": 1793129796.205838,
+    "seen": 1793131745.7147884,
+    "ast_hash": "6a9efcbd6bebbd6a79744ba88bfb6d35",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/projects/ConnectedProjectScreen.tsx": {
+    "mtime": 1793130982.7521,
+    "seen": 1793131745.7147932,
+    "ast_hash": "6c5db14600afab83c7cf3ae9745c0006",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/projects/ProjectSelectionScreen.tsx": {
+    "mtime": 1793125296.83839,
+    "seen": 1793131745.7147973,
+    "ast_hash": "fd08674f8f8a43f8a6fb939e68573ebb",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/features/workflow/WorkflowScreen.tsx": {
+    "mtime": 1793129140.156149,
+    "seen": 1793131745.7148027,
+    "ast_hash": "c91d08fd71794af2f4a1edea7a99e738",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/main.tsx": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.714809,
+    "ast_hash": "547ead13ed28a3cd5501f5741c824a2d",
+    "semantic_hash": ""
+  },
+  "TesisMCP/src/vite-env.d.ts": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.7148132,
+    "ast_hash": "0352474ba2918efe13895edbc3780d94",
+    "semantic_hash": ""
+  },
+  "TesisMCP/tsconfig.json": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.7148175,
+    "ast_hash": "f67af494aefeae8b9d2d0dc4021ce32d",
+    "semantic_hash": ""
+  },
+  "TesisMCP/vite.config.ts": {
+    "mtime": 1793124752.8253484,
+    "seen": 1793131745.7148213,
+    "ast_hash": "0b2748d9712853a2b44eeedc926e7953",
+    "semantic_hash": ""
+  },
+  "backend/config/auth_views.py": {
+    "mtime": 1793116838.6290574,
+    "seen": 1793131745.7150462,
+    "ast_hash": "f47f3184c51b0b70c3983ff4cbb5ec2a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routers.py": {
+    "mtime": 1793103683.7155702,
+    "seen": 1793131745.715093,
+    "ast_hash": "43bfeb681b91d4ad08c6d145b20e91e5",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_chapters.py": {
+    "mtime": 1793103683.7174993,
+    "seen": 1793131745.7150974,
+    "ast_hash": "1e08f5c6a6fe60f8a755002c3475d1e9",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_evidence.py": {
+    "mtime": 1793103683.7196388,
+    "seen": 1793131745.7151015,
+    "ast_hash": "179afa8b00b40417e9344778c744b89b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_generation.py": {
+    "mtime": 1793103683.7205863,
+    "seen": 1793131745.7151058,
+    "ast_hash": "6c52c2964f559f9885e7eeeac3407da0",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_generation_decisions.py": {
+    "mtime": 1793103683.721222,
+    "seen": 1793131745.7151105,
+    "ast_hash": "1cd516c1bf8b8dc3beb1c0beced626af",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_integrations.py": {
+    "mtime": 1793103683.7165902,
+    "seen": 1793131745.7151155,
+    "ast_hash": "4ed72400f991ad1571f1760176e01814",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_overview.py": {
+    "mtime": 1793124125.1271386,
+    "seen": 1793131745.7151206,
+    "ast_hash": "7fff7c1d0d6a3e5136d0da60b9798981",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_research.py": {
+    "mtime": 1793103683.7189531,
+    "seen": 1793131745.7151248,
+    "ast_hash": "8c556e9efffcba0f0cc0177675ab2459",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_sources.py": {
+    "mtime": 1793103683.718126,
+    "seen": 1793131745.7151294,
+    "ast_hash": "a979671fb4a7fa677721393d159dcc98",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_support.py": {
+    "mtime": 1793103683.7209713,
+    "seen": 1793131745.7151337,
+    "ast_hash": "9263668cbfc5cc5f416b06a06388e363",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/routes_workflows.py": {
+    "mtime": 1793103683.7200208,
+    "seen": 1793131745.7151377,
+    "ast_hash": "44d568c36825e990d3553f7794a3bdbd",
+    "semantic_hash": ""
+  },
+  "backend/thesis/api/schemas.py": {
+    "mtime": 1793124125.1264389,
+    "seen": 1793131745.7151418,
+    "ast_hash": "c6333b0844e6e2060de9a98b417d0a58",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/bibliography_import.py": {
+    "mtime": 1793046913.7428613,
+    "seen": 1793131745.7151623,
+    "ast_hash": "e31adc186520da8ea864a3a034564837",
+    "semantic_hash": ""
+  },
+  "backend/thesis/integrations/multiformat.py": {
+    "mtime": 1793060120.9865277,
+    "seen": 1793131745.7152467,
+    "ast_hash": "8d65d14e1f2fa62f3a6bfe41f8a814be",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0024_chapter_approved_snapshot_reviewcomment_snapshot_and_more.py": {
+    "mtime": 1793033919.2326803,
+    "seen": 1793131745.715428,
+    "ast_hash": "baba68c5b06057e758e2d00cefcd25e3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0025_canonical_chapter_documents.py": {
+    "mtime": 1793037461.1592152,
+    "seen": 1793131745.7154398,
+    "ast_hash": "8443f3bfa3d9e3baa2d4f251e227c1bc",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0026_aigenerationjob_result_document_revision_and_more.py": {
+    "mtime": 1793038541.4600537,
+    "seen": 1793131745.7154453,
+    "ast_hash": "bb8970c4525f092d61442612b0484f81",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0027_remove_sourcedocument_source_kind_payload_and_more.py": {
+    "mtime": 1793046867.8524039,
+    "seen": 1793131745.7154493,
+    "ast_hash": "d1d44b0888baa8fc34947a1429deb19d",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0028_searchstrategy_searchexecution_and_more.py": {
+    "mtime": 1793048591.2291515,
+    "seen": 1793131745.7154534,
+    "ast_hash": "c3173bff49bfc6f1274ef16240e39c62",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0029_sourcedocument_metadata_origin_searchexecutionsource.py": {
+    "mtime": 1793050224.3064375,
+    "seen": 1793131745.7154577,
+    "ast_hash": "6cf4cca769893e610b7a62b7dce5804b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0030_source_duplicate_decisions.py": {
+    "mtime": 1793050966.4386492,
+    "seen": 1793131745.7154624,
+    "ast_hash": "5d93ca1b16105cc8d3ef5c9fbe7b411b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0031_chapter_citation_occurrences.py": {
+    "mtime": 1793052338.0830154,
+    "seen": 1793131745.715467,
+    "ast_hash": "d27a910a7e0c03d560d12a57f7cb0595",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0032_citationevidencereview.py": {
+    "mtime": 1793052688.9264534,
+    "seen": 1793131745.715471,
+    "ast_hash": "dff9ca81051737eb9085cd1eb3bdc84e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0033_citationreplacementproposal_and_more.py": {
+    "mtime": 1793053017.3266714,
+    "seen": 1793131745.715475,
+    "ast_hash": "bff502c1a428b52a992de8f58a22ecc9",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0034_alter_sourcedocument_record_provider_and_more.py": {
+    "mtime": 1793053403.2684143,
+    "seen": 1793131745.7154791,
+    "ast_hash": "92d9240401b2e713d598d2bf034884c2",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0035_remove_chaptercitationoccurrence_chapter_cit_revision_order_uq_and_more.py": {
+    "mtime": 1793053553.4299245,
+    "seen": 1793131745.7154832,
+    "ast_hash": "5efdc42bdffc2bf3f680c1076f08a3d1",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0036_aigenerationbatch_and_items.py": {
+    "mtime": 1793054800.0861402,
+    "seen": 1793131745.715487,
+    "ast_hash": "c8e13f14e021ab8cd8d16b5723f7a9c0",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0037_projectsupportinvitation_supportcontribution_and_more.py": {
+    "mtime": 1793059123.0138502,
+    "seen": 1793131745.7154908,
+    "ast_hash": "13032bf14aa5a62e0ed76fa67ecc9baf",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0038_multiformat_source_segments.py": {
+    "mtime": 1793060008.3964486,
+    "seen": 1793131745.7154953,
+    "ast_hash": "c8b34433149d6b35750b11c6f2daa654",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0039_multiformat_extraction_states.py": {
+    "mtime": 1793060155.2874362,
+    "seen": 1793131745.7154994,
+    "ast_hash": "62e27ca2f7d98b6b01ce0a668820f105",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0040_source_original_filename.py": {
+    "mtime": 1793060395.8973758,
+    "seen": 1793131745.7155037,
+    "ast_hash": "a33d7f245cea03652de80099ab22755a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0041_researchdataset_researchdatasetversion_and_more.py": {
+    "mtime": 1793062886.1467385,
+    "seen": 1793131745.7155075,
+    "ast_hash": "d75ef1c30f301cb933d2bad67bec5631",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0042_researchtablerecipe_researchtablerecipeversion_and_more.py": {
+    "mtime": 1793064208.9621403,
+    "seen": 1793131745.7155118,
+    "ast_hash": "cc9612482c5fa1cf67557a8800d1f11a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0043_researchfigure_versions.py": {
+    "mtime": 1793067498.7430778,
+    "seen": 1793131745.715516,
+    "ast_hash": "4f4a628f4ab0653ac01dd7f291b3b9ab",
+    "semantic_hash": ""
+  },
+  "backend/thesis/migrations/0044_chapter_artifact_manifest.py": {
+    "mtime": 1793067695.3209145,
+    "seen": 1793131745.71552,
+    "ast_hash": "f8ac6de04b9c2e33050a76bb1b80d73f",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/ai_batches.py": {
+    "mtime": 1793058304.5917792,
+    "seen": 1793131745.7155385,
+    "ast_hash": "ba54d7d7fefb94086f425e955257d8cb",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/citations.py": {
+    "mtime": 1793053542.3338156,
+    "seen": 1793131745.7155523,
+    "ast_hash": "71053b3a272caabc90c127214fb3c3da",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/integrations.py": {
+    "mtime": 1793053095.1504338,
+    "seen": 1793131745.7155657,
+    "ast_hash": "4b786c8a095b99c45b495ed60622c0cb",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/research_data.py": {
+    "mtime": 1793067359.1147728,
+    "seen": 1793131745.7155802,
+    "ast_hash": "549b3c26f567fea269ae5295fbb4ee78",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/searches.py": {
+    "mtime": 1793049766.6529236,
+    "seen": 1793131745.7155845,
+    "ast_hash": "246a578964fe053fdb424f28224d015a",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/source_duplicates.py": {
+    "mtime": 1793050966.2816477,
+    "seen": 1793131745.7155883,
+    "ast_hash": "087c128b64f8a6584554dce1f27ae55c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/models/support.py": {
+    "mtime": 1793058292.7766619,
+    "seen": 1793131745.7155964,
+    "ast_hash": "c94b823ea7158972c8911c2fea7af5ff",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/ai_batches.py": {
+    "mtime": 1793054836.7384994,
+    "seen": 1793131745.7156157,
+    "ast_hash": "5d02b3774a37b9bcb927834637acb110",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/ai_job_context.py": {
+    "mtime": 1793114680.848342,
+    "seen": 1793131745.7156198,
+    "ast_hash": "af1c459632bcc7463b692b19a43926b8",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/ai_job_serialization.py": {
+    "mtime": 1793103747.2614124,
+    "seen": 1793131745.7156239,
+    "ast_hash": "09c8d858d112daae1d0928b3dfb71700",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/ai_proposal_decisions.py": {
+    "mtime": 1793114680.8485048,
+    "seen": 1793131745.7156334,
+    "ast_hash": "569a7bd4b4c9e93a41b12ceea8a4b1e9",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/batch_synthesis.py": {
+    "mtime": 1793058565.8053734,
+    "seen": 1793131745.7156372,
+    "ast_hash": "6c3973fde293fbc512ef5a77ed5c4d39",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/bibliography.py": {
+    "mtime": 1793050216.090357,
+    "seen": 1793131745.715641,
+    "ast_hash": "5b1f7ff93da8780f1e51e772e42cbf2b",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/chapter_documents.py": {
+    "mtime": 1793127011.8224568,
+    "seen": 1793131745.7156448,
+    "ast_hash": "6859305d7fd9354dc2e97dc261d024c8",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/chapter_queries.py": {
+    "mtime": 1793114709.7731366,
+    "seen": 1793131745.7156487,
+    "ast_hash": "f2be55234edd3623a034225cac2a56ce",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/chapter_serialization.py": {
+    "mtime": 1793103747.2108889,
+    "seen": 1793131745.715653,
+    "ast_hash": "7fb79eac03138ed2ef21ddf73aa227db",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/chapter_submission.py": {
+    "mtime": 1793114709.7732682,
+    "seen": 1793131745.715657,
+    "ast_hash": "825d3ffe8c0ec3334d1e7317d8fd2302",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/citation_evidence.py": {
+    "mtime": 1793053683.508199,
+    "seen": 1793131745.7156608,
+    "ast_hash": "0bb76182cedf275479fe67a7dfd51515",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/citation_occurrences.py": {
+    "mtime": 1793052823.1757689,
+    "seen": 1793131745.7156646,
+    "ast_hash": "b30e92c52b6f418bc167f21f221b9fe6",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/citation_replacements.py": {
+    "mtime": 1793053683.5871997,
+    "seen": 1793131745.7156684,
+    "ast_hash": "c79dabe39d8d86d9677743e03edbc470",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/discovery_sources.py": {
+    "mtime": 1793050216.2703588,
+    "seen": 1793131745.7156825,
+    "ast_hash": "10ba00f68154bfc06760eb2b2a2d9195",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/document_artifacts.py": {
+    "mtime": 1793067686.7418344,
+    "seen": 1793131745.7156863,
+    "ast_hash": "fad59a7e8542245d76aacd28ceacf91e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/ieee_citations.py": {
+    "mtime": 1793052483.4794402,
+    "seen": 1793131745.7157283,
+    "ast_hash": "98598d2c4cf9c295d6f610a409c41312",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/research_data.py": {
+    "mtime": 1793063264.0112793,
+    "seen": 1793131745.7157516,
+    "ast_hash": "f0a0f39b8d7539bef791e7fc56be96e7",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/research_figures.py": {
+    "mtime": 1793067799.4438877,
+    "seen": 1793131745.7157555,
+    "ast_hash": "2b3eda294745770640092109b93615e3",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/research_tables.py": {
+    "mtime": 1793064435.9812694,
+    "seen": 1793131745.7157595,
+    "ast_hash": "def3bcbab76326236cfde6e3c5b93138",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/search_strategies.py": {
+    "mtime": 1793048536.1075735,
+    "seen": 1793131745.7157722,
+    "ast_hash": "5b96993ca08c151e7f16a800e6bff179",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/source_duplicate_decisions.py": {
+    "mtime": 1793050966.3566484,
+    "seen": 1793131745.7157767,
+    "ast_hash": "f28eec4f2c0061a03b1bb0b45dbf6f69",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/source_duplicates.py": {
+    "mtime": 1793050599.5340993,
+    "seen": 1793131745.7157805,
+    "ast_hash": "3a57b99c110a516e7b2604aeb8b0ed20",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/source_serialization.py": {
+    "mtime": 1793103747.2740867,
+    "seen": 1793131745.7157848,
+    "ast_hash": "0e99150e487ad47cd04516e2575261ae",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/support_invitations.py": {
+    "mtime": 1793059023.757884,
+    "seen": 1793131745.7158272,
+    "ast_hash": "c4e04ea6a4099d38dad5eeb84c1cd3dc",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/workflow_execution.py": {
+    "mtime": 1793104549.4277816,
+    "seen": 1793131745.7158313,
+    "ast_hash": "3320b315e9b2f88b3fcfe8ea1d493967",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/workflow_serialization.py": {
+    "mtime": 1793103747.2464807,
+    "seen": 1793131745.7158353,
+    "ast_hash": "44dc65754e7cdaca0cec25325268138c",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/workflow_validation.py": {
+    "mtime": 1793104549.427663,
+    "seen": 1793131745.7158446,
+    "ast_hash": "a02db37771b6b8ab60c39b55ae339256",
+    "semantic_hash": ""
+  },
+  "backend/thesis/services/zotero.py": {
+    "mtime": 1793053848.2558134,
+    "seen": 1793131745.715853,
+    "ast_hash": "913d58a3feea3347ca5a470b31ea6936",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_ai_batches.py": {
+    "mtime": 1793059137.2239888,
+    "seen": 1793131745.715897,
+    "ast_hash": "48e589b4619e29aaa63378330a3299fb",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_bibliography_import.py": {
+    "mtime": 1793050216.4483604,
+    "seen": 1793131745.7159054,
+    "ast_hash": "1d3fe1282e61ce457af5c5ba61e832ee",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_citation_occurrences.py": {
+    "mtime": 1793127029.1915545,
+    "seen": 1793131745.715914,
+    "ast_hash": "96a82453366ff04eae677f038d9a743d",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_discovery_sources.py": {
+    "mtime": 1793050216.592362,
+    "seen": 1793131745.7159288,
+    "ast_hash": "7188731eb89e24b997e1dabd2f830307",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_local_recovery.py": {
+    "mtime": 1793074573.2275536,
+    "seen": 1793131745.7159677,
+    "ast_hash": "630d9d531ff2a97db78c97fc987163a0",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_multiformat_sources.py": {
+    "mtime": 1793060752.3615792,
+    "seen": 1793131745.7159812,
+    "ast_hash": "f101d5cf57ef142e3b642a2851d989e6",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_research_datasets.py": {
+    "mtime": 1793068705.095314,
+    "seen": 1793131745.715985,
+    "ast_hash": "338ffa7e639d79e1dd7ed27f6271916e",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_search_strategies.py": {
+    "mtime": 1793048793.803236,
+    "seen": 1793131745.7159896,
+    "ast_hash": "de75a9cf1bd825599fcc3f5560c9ade6",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_source_duplicate_decisions.py": {
+    "mtime": 1793050817.3432066,
+    "seen": 1793131745.7159936,
+    "ast_hash": "3f93b84586da3f0e16b10a90d643f5e5",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_support_invitations.py": {
+    "mtime": 1793059139.817014,
+    "seen": 1793131745.716002,
+    "ast_hash": "42963ca6d3852ca6590efac460fb227d",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_web_access.py": {
+    "mtime": 1793124193.248179,
+    "seen": 1793131745.716006,
+    "ast_hash": "38c15e7ebb16c9a80378b8d90035c087",
+    "semantic_hash": ""
+  },
+  "backend/thesis/tests/test_zotero_integration.py": {
+    "mtime": 1793053908.8714073,
+    "seen": 1793131745.7160296,
+    "ast_hash": "3a9cd17fb41d847cf54b9c75227c17ba",
+    "semantic_hash": ""
+  },
+  "scripts/benchmark_multiformat.py": {
+    "mtime": 1793060178.2580767,
+    "seen": 1793131745.7161598,
+    "ast_hash": "46c6865778b07c4259bbc1a8c876e101",
+    "semantic_hash": ""
+  },
+  "scripts/local_recovery.py": {
+    "mtime": 1793074740.2861116,
+    "seen": 1793131745.7162342,
+    "ast_hash": "00487290dab5c75c1bceebf4684e6b81",
+    "semantic_hash": ""
+  },
+  "TesisMCP/AGENTS.md": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.7163103,
+    "ast_hash": "704403927d5803613a0aefe03b8fb477",
+    "semantic_hash": ""
+  },
+  "TesisMCP/BACKEND_CONTRACTS.md": {
+    "mtime": 1793125262.4591424,
+    "seen": 1793131745.7163146,
+    "ast_hash": "867bfc29bd284928af2d841f63126b8f",
+    "semantic_hash": ""
+  },
+  "TesisMCP/CHATGPT_REVIEW.md": {
+    "mtime": 1793125262.46022,
+    "seen": 1793131745.7163186,
+    "ast_hash": "64797ee4075f28a1d6de362a119fb48a",
+    "semantic_hash": ""
+  },
+  "TesisMCP/CLAUDE.md": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.716323,
+    "ast_hash": "5c27369b226fcf2be8a6cfe52224e767",
+    "semantic_hash": ""
+  },
+  "TesisMCP/index.html": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.7163267,
+    "ast_hash": "02d04d4321f068edfa562d42ad5d0e02",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/arquitectura_byoa_api_mcp.md": {
+    "mtime": 1793118466.17582,
+    "seen": 1793131745.7164319,
+    "ast_hash": "4382eca5dc8081ea723d2ed74b416de5",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/continuidad_frontend_antigravity.md": {
+    "mtime": 1793131119.063008,
+    "seen": 1793131745.716457,
+    "ast_hash": "deed74b1da9d4cea8e05d7b702e97448",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/guia_continuidad_backend.md": {
+    "mtime": 1793116988.6878479,
+    "seen": 1793131745.7165067,
+    "ast_hash": "e50f96171d0f3573a37f75d33f942daa",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/implementacion_b4_citas_ieee_zotero.md": {
+    "mtime": 1793118714.6049547,
+    "seen": 1793131745.7165158,
+    "ast_hash": "281500d03eb0b777450bb8cad04b4e24",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/matriz_integracion_frontend_backend.md": {
+    "mtime": 1793131142.497161,
+    "seen": 1793131745.7165244,
+    "ast_hash": "16c95a8c7cf8ebf1ccc2608e1b3ed3ff",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b10_operacion_local_y_despliegue.md": {
+    "mtime": 1793076094.464652,
+    "seen": 1793131745.716537,
+    "ast_hash": "9c18c23b04820025d6ed7e8aef721972",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_2_revision_anclada_snapshot.md": {
+    "mtime": 1793046971.202469,
+    "seen": 1793131745.7165504,
+    "ast_hash": "068b32fe62dce72a8123b3b97f8a2304",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_3_exportacion_congelada_snapshot.md": {
+    "mtime": 1793035330.6417668,
+    "seen": 1793131745.7165544,
+    "ast_hash": "1a5f7a7e8c2d48a507d11040bf25ef12",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_b2_1_materializacion_textual_propuestas.md": {
+    "mtime": 1793036849.6217523,
+    "seen": 1793131745.7165582,
+    "ast_hash": "84a43c445dec192828693eb1932d79ea",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_b2_2_documento_canonico.md": {
+    "mtime": 1793038910.671169,
+    "seen": 1793131745.7165625,
+    "ast_hash": "b406b0f56880c10f54349b19e0e6695e",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b1_b2_3_diffs_ia_documento.md": {
+    "mtime": 1793047073.970587,
+    "seen": 1793131745.716567,
+    "ast_hash": "88b65b9ad5714e008471760932839041",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b6_1_lotes_generacion.md": {
+    "mtime": 1793056301.966035,
+    "seen": 1793131745.7165709,
+    "ast_hash": "f3c9a000e54ac64953bca432eb95fcde",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b6_2_concurrencia_worker.md": {
+    "mtime": 1793057778.8175576,
+    "seen": 1793131745.7165747,
+    "ast_hash": "c223dd2ae11933bac9a246675ed430f0",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b6_3_sintesis_trazable.md": {
+    "mtime": 1793059706.778534,
+    "seen": 1793131745.7165787,
+    "ast_hash": "4c48f26d0ebdf44bf3826e01332770f0",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b6_4_invitaciones_apoyo.md": {
+    "mtime": 1793059686.7653446,
+    "seen": 1793131745.7165828,
+    "ast_hash": "78e52fd365e4fc563613151f8bf68a52",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b6_completo.md": {
+    "mtime": 1793059706.9625356,
+    "seen": 1793131745.7165866,
+    "ast_hash": "8c234e9a4d68c95309cced85a3eb6292",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b7_multiformato.md": {
+    "mtime": 1793118714.6053815,
+    "seen": 1793131745.7165904,
+    "ast_hash": "60b41856fc79af4fc4cf7cb49395df7a",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b8_datos_figuras.md": {
+    "mtime": 1793069262.3134875,
+    "seen": 1793131745.7165942,
+    "ast_hash": "f832e2535241e69dbffacc47789c3895",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paquete_b9_conectores_licenciados.md": {
+    "mtime": 1793075427.1609263,
+    "seen": 1793131745.7165983,
+    "ast_hash": "559f91e7297d43aaf1cf9303fc0f3552",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paso_1_acceso_y_seleccion_proyecto.md": {
+    "mtime": 1793125319.8386068,
+    "seen": 1793131745.716602,
+    "ast_hash": "5117f69f2953dac396d32f6c82981c7f",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/paso_2_documento_y_editor_versionado.md": {
+    "mtime": 1793127371.3074796,
+    "seen": 1793131745.716606,
+    "ast_hash": "7d99b6db88e7edd3091094f3dea3bb34",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/pendientes_backend_despues_b4.md": {
+    "mtime": 1793117006.385733,
+    "seen": 1793131745.71661,
+    "ast_hash": "5885ef6fdaed4c5b3b67c7410a9e8fc1",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/plan_revision_inteligente_citas.md": {
+    "mtime": 1793118714.6050653,
+    "seen": 1793131745.7166228,
+    "ast_hash": "7b53c5e545ea42219d3e311b58652a01",
+    "semantic_hash": ""
+  },
+  "docs/02_arquitectura_y_sistema/prompt_maestro_antigravity_frontend_restante.md": {
+    "mtime": 1793128267.1690793,
+    "seen": 1793131745.7166266,
+    "ast_hash": "e43a8c73542285ae3980a14dfb2fc4b4",
+    "semantic_hash": ""
+  },
+  "TesisMCP/public/favicon.svg": {
+    "mtime": 1793140946.0,
+    "seen": 1793131745.7171714,
+    "ast_hash": "41eaaffbfd91dd864ca21d6e2f5a70c1",
+    "semantic_hash": ""
+  }
+}

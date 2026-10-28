@@ -1,0 +1,15 @@
+flowchart TD
+    I["Tesista crea proyecto"] --> P["Selecciona paso P01 a P32"]
+    P --> G{"¿Prerequisitos completos?"}
+    G -- No --> F["Mostrar campos faltantes; no modificar estado"]
+    G -- Sí --> C["Preparar contexto y fuentes del proyecto"]
+    C --> B["Tesista revisa y edita propuesta"]
+    B --> V{"¿Versión vigente y reglas válidas?"}
+    V -- No --> E["Devolver conflicto o errores; no guardar"]
+    V -- Sí --> D["Crear revisión inmutable y actualizar paso"]
+    D --> S["Tesista envía capítulo"]
+    S --> R["Asesor revisa revisión vigente"]
+    R --> A{"¿Aprueba?"}
+    A -- No --> O["Registra comentarios y solicita cambios"]
+    O --> B
+    A -- Sí --> H["Registra aprobación y desbloquea capítulo siguiente"]

@@ -1,0 +1,171 @@
+🔥 Capítulo 3 · Objetivos, preguntas e
+hipótesis
+
+🔎 ¿De qué trata esta categoría?
+Una vez definido tu problema, necesitas transformarlo en metas claras que guíen toda la
+investigación. Para eso se formulan:
+●​ Objetivos: lo que quieres lograr (general y específicos).​
+●​ Preguntas de investigación: las dudas que responderás con tu tesis.​
+●​ Hipótesis: las posibles respuestas que pondrás a prueba.​
+
+Este capítulo convierte tu problema en un mapa de ruta preciso, para que sepas
+exactamente hacia dónde vas y cómo comprobarás lo que planteas.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Empieza con el objetivo general: debe resumir lo que tu tesis busca alcanzar en
+una sola frase.​
+2.​ Desglosa objetivos específicos: entre 3 y 5, cada uno con verbo medible (analizar,
+comparar, evaluar…).​
+3.​ Redacta preguntas claras: se derivan de los objetivos y deben ser precisas.​
+4.​ Formula hipótesis: si tu investigación es cuantitativa, define relaciones entre
+variables. Si es cualitativa, plantea supuestos exploratorios.​
+5.​ Opera variables: traduce conceptos en indicadores concretos para medirlos y
+analizarlos
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #9: Objetivos generales y específicos (SMART)
+
+👉 Objetivo: definir metas claras, alcanzables y medibles.
+Prompt:
+
+Actúa como un metodólogo experto en investigación científica, diseño metodológico y
+elaboración de tesis universitarias.
+Tu tarea es formular el OBJETIVO GENERAL y los OBJETIVOS ESPECÍFICOS de
+una investigación académica siguiendo estándares universitarios de investigación
+formativa.
+Información de entrada:
+
+Tema de investigación: [tu tema aquí]
+Título de investigación: [Tu título aquí
+Problema general: [tu problema general aquí]
+Pregunta general de investigación: [tu pregunta de investigación]
+Preguntas específicas: [Tus preguntas específicas]
+Variables o categorías: [tus categorías aquí ]
+Unidad de análisis: [PEGAR UNIDAD DE ANÁLISIS]
+Lugar: [tu lugar aquí]
+Tiempo: [tu tiempo aquí]
+Tipo de investigación: [tu tipo aquí]
+Instrucciones obligatorias:
+
+Analiza el problema y las preguntas de investigación antes de formular los objetivos.
+Formula:
+* 1 objetivo general.
+* Entre 3 y 5 objetivos específicos.
+Todos los objetivos deben:
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+* Iniciar con un verbo en infinitivo.
+* Mantener coherencia directa con las preguntas de investigación.
+* Ser alcanzables mediante investigación científica.
+* Ser específicos, claros y medibles.
+* Evitar verbos ambiguos como: comprender, conocer, entender, aprender.
+Prioriza verbos metodológicamente sólidos como:
+* Determinar
+* Analizar
+* Evaluar
+* Identificar
+* Comparar
+* Explicar
+* Describir
+* Establecer
+* Relacionar
+* Diseñar
+* Proponer
+Verifica que el objetivo general responda directamente a la pregunta general.
+Verifica que cada objetivo específico responda únicamente a una pregunta específica.
+Comprueba que exista trazabilidad metodológica:
+Pregunta → Objetivo → Variable → Resultado esperado.
+Ajusta la redacción al tipo de investigación:
+* Cuantitativa → orientación a medición, relación, efecto o explicación.
+* Cualitativa → orientación a comprensión, interpretación o exploración.
+* Mixta → integración de ambas perspectivas.
+Evita incluir soluciones anticipadas, conclusiones o juicios de valor.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Formato de salida:
+Objetivo general:
+[Objetivo]
+Objetivos específicos:
+OE1:
+...
+OE2:
+...
+OE3:
+...
+OE4:
+...
+OE5:
+...
+Matriz de consistencia preliminar:
+Pregunta general → Objetivo general
+Pregunta específica 1 → Objetivo específico 1
+Pregunta específica 2 → Objetivo específico 2
+Pregunta específica 3 → Objetivo específico 3
+Validación metodológica:
+Coherencia con el problema: [Sí / No]
+Coherencia con preguntas: [Sí / No]
+Coherencia con variables: [Sí / No]
+Nivel de precisión metodológica: [Alto / Medio / Bajo]
+Antes de finalizar, revisa si existe redundancia, objetivos demasiado amplios o
+imposibles de medir y corrígelos automáticamente.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+​
+
+Prompt #10: Preguntas de investigación
+
+👉 Objetivo: transformar los objetivos en preguntas claras.
+Prompt:
+A partir de los objetivos de mi tema [TEMA], redacta 5 preguntas de
+investigación:
+➔​ 2 descriptivas (explican qué ocurre).​
+➔​ 2 relacionales (explican vínculos entre variables).​
+➔​ 1 explicativa (busca causas o razones).​
+Indica cómo cada pregunta se relaciona con un objetivo específico.​
+
+Prompt #11: Hipótesis y variables
+
+👉 Objetivo: plantear respuestas tentativas y definir variables.
+Prompt:
+Formula para mi tema [TEMA]:
+➔​ 1 hipótesis general y 2 hipótesis específicas.​
+➔​ Identifica las variables dependientes e independientes.​
+➔​ Escribe una definición conceptual y otra operacional de cada variable.​
+
+Prompt #12: Tabla de operacionalización
+
+👉 Objetivo: traducir variables en indicadores y escalas medibles.
+Prompt:
+Construye una tabla de operacionalización de variables para mi tema [TEMA].
+Incluye:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+➔​ Variable​
+➔​ Dimensión​
+➔​ Indicador​
+➔​ Ítems sugeridos​
+➔​ Escala de medición​
+➔​ Fuente teórica​
+➔​ Procedimiento de cálculo
+
+Resultado esperado del Capítulo 3
+Al finalizar este capítulo tendrás:
+●​ Un objetivo general claro y entre 3–5 objetivos específicos bien planteados.​
+●​ Un listado de preguntas de investigación alineadas con los objetivos.​
+●​ Hipótesis claras (si tu enfoque es cuantitativo) con variables definidas.​
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+●​ Una tabla de operacionalización que te servirá como base para diseñar tu
+metodología e instrumentos.
+
+👉 Con esto ya habrás transformado tu problema en un plan de investigación claro y
+comprobable.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

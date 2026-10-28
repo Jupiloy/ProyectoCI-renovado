@@ -1,0 +1,90 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: tesismcp
+      POSTGRES_USER: tesismcp
+      POSTGRES_PASSWORD: tesismcp_local
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - tesismcp_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tesismcp -d tesismcp"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  grobid:
+    image: grobid/grobid:0.9.1-crf
+    profiles: ["grobid"]
+    environment:
+      JAVA_OPTS: "-Xms256m -Xmx1024m -XX:ActiveProcessorCount=2"
+    ports:
+      - "127.0.0.1:8070:8070"
+
+  web:
+    profiles: ["app"]
+    build: .
+    environment:
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-1}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-localhost,127.0.0.1}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:-}
+      DJANGO_TRUST_PROXY_SSL: ${DJANGO_TRUST_PROXY_SSL:-0}
+      ZOTERO_OAUTH_CLIENT_KEY: ${ZOTERO_OAUTH_CLIENT_KEY:-}
+      ZOTERO_OAUTH_CLIENT_SECRET: ${ZOTERO_OAUTH_CLIENT_SECRET:-}
+      ZOTERO_OAUTH_CALLBACK_URL: ${ZOTERO_OAUTH_CALLBACK_URL:-}
+      ZOTERO_CREDENTIAL_ENCRYPTION_KEY: ${ZOTERO_CREDENTIAL_ENCRYPTION_KEY:-}
+      DATABASE_URL: postgresql://tesismcp:tesismcp_local@db:5432/tesismcp
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - tesismcp_media:/app/var/media
+      - tesismcp_models:/app/var/models
+    depends_on:
+      db:
+        condition: service_healthy
+
+  worker:
+    profiles: ["app"]
+    build: .
+    command: ["python", "backend/manage.py", "run_document_worker"]
+    environment:
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-1}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-}
+      DATABASE_URL: postgresql://tesismcp:tesismcp_local@db:5432/tesismcp
+      TESISMCP_GROBID_URL: http://grobid:8070
+    volumes:
+      - tesismcp_media:/app/var/media
+      - tesismcp_models:/app/var/models
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ai_worker:
+    profiles: ["app"]
+    build: .
+    command:
+      - python
+      - backend/manage.py
+      - run_ai_worker
+      - --concurrency
+      - ${TESISMCP_AI_WORKER_CONCURRENCY:-1}
+    environment:
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-1}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-}
+      DATABASE_URL: postgresql://tesismcp:tesismcp_local@db:5432/tesismcp
+      # B5.1 server-side opcional: en modo asíncrono, proveedor y secreto solo en este worker.
+      TESISMCP_LLM_PROVIDER: ${TESISMCP_LLM_PROVIDER:-DISABLED}
+      TESISMCP_GEMINI_MODEL: ${TESISMCP_GEMINI_MODEL:-gemini-3.8-flash}
+      TESISMCP_AI_WORKER_MAX_CONCURRENCY: ${TESISMCP_AI_WORKER_MAX_CONCURRENCY:-4}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  tesismcp_postgres:
+  tesismcp_media:
+  tesismcp_models:

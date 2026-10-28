@@ -1,0 +1,80 @@
+🔥 Capítulo 8 · Muestreo y
+procedimientos
+
+🔎 ¿De qué trata esta categoría?
+No puedes investigar “a todo el mundo”, por eso necesitas seleccionar de manera clara a
+tus participantes o casos de estudio. En este capítulo trabajarás en:
+➔​ Definir el marco muestral: a qué población pertenece tu estudio.​
+➔​ Elegir la técnica de muestreo: probabilística (aleatoria, estratificada, sistemática) o
+no probabilística (intencional, bola de nieve, conveniencia).​
+➔​ Calcular el tamaño de muestra: cuántos sujetos necesitarás para obtener
+resultados válidos.​
+➔​ Describir el procedimiento de campo: los pasos prácticos para recolectar tus
+datos en la realidad.​
+
+El objetivo es que al terminar este capítulo tengas un plan claro y justificado de cómo
+seleccionarás a tus participantes y cómo aplicarás tus instrumentos en el terreno.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Empieza por tu población: define claramente quiénes son y dónde están.​
+2.​ Elige la técnica adecuada: probabilística si buscas generalizar, no probabilística si
+buscas explorar casos específicos.​
+3.​ Calcula el tamaño de la muestra: usa fórmulas o software (como G*Power,
+Raosoft, etc.) y siempre explica tus criterios.​
+4.​ Describe el procedimiento: cómo los contactarás, qué permisos necesitas, cómo
+aplicarás encuestas/entrevistas y cómo controlarás errores.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #33: Marco y técnica de muestreo
+
+👉 Objetivo: definir población, muestra y método de selección.
+Prompt:
+Para mi investigación [TEMA], define el marco muestral: población total,
+características y contexto.​
+Luego, recomienda la técnica de muestreo más adecuada (probabilística o no
+probabilística).​
+Explica por qué esa técnica es la mejor opción e identifica los posibles sesgos
+que debo considerar.
+
+Prompt #34: Tamaño de muestra
+
+👉 Objetivo: calcular un número de participantes válido y justificable.
+Prompt:
+Estima el tamaño de la muestra para mi investigación [TEMA].​
+Incluye:
+➔​ Supuestos de cálculo (nivel de confianza, margen de error, potencia
+estadística).​
+➔​ Tamaño poblacional aproximado [N].​
+➔​ Fórmula utilizada o razonamiento del cálculo.​
+➔​ Recomendación final del número de participantes.​
+
+Prompt #35: Procedimiento de campo
+
+👉 Objetivo: detallar los pasos prácticos para la recolección de datos.
+Prompt:
+Redacta el procedimiento de campo para mi investigación [TEMA].​
+Incluye:
+➔​ Estrategia de reclutamiento de participantes.​
+➔​ Pasos para aplicar los instrumentos (cuestionarios, entrevistas, etc.).​
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+➔​ Tiempos estimados de aplicación.​
+➔​ Medidas de control de calidad (supervisión, doble revisión, manejo de no
+respuestas).​
+Explica en formato narrativo y con pasos numerados.
+
+Resultado esperado del Capítulo 8
+Al finalizar esta sección tendrás:
+➔​ Tu población y muestra ya definidas con claridad.​
+➔​ La técnica de muestreo justificada (por qué elegiste esa y no otra).​
+➔​ El tamaño de muestra calculado con base científica.​
+➔​ Un procedimiento detallado de campo, listo para ejecutarse.
+
+👉 Con esto, tu tesis ya tendrá un plan claro de a quién estudiarás y cómo realizarás la
+recolección de datos.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

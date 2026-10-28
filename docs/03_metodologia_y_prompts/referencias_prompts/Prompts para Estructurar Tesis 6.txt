@@ -1,0 +1,136 @@
+🔥 Capítulo 6 · Metodología
+
+🔎 ¿De qué trata esta categoría?
+
+La metodología es el manual de instrucciones de tu investigación. Aquí respondes:
+●​ ¿Qué enfoque usarás (cuantitativo, cualitativo o mixto)?​
+●​ ¿Qué diseño aplicarás (experimental, descriptivo, estudio de caso, etc.)?​
+●​ ¿Cómo garantizarás validez, confiabilidad y ética?​
+●​ ¿Qué pasos seguirás para que otros puedan replicar tu investigación?​
+
+El objetivo es que tu tesis tenga un plan metodológico sólido, replicable y transparente, de
+modo que cualquier lector entienda exactamente cómo llevaste a cabo tu investigación.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Elige el enfoque y diseño correcto: define si tu investigación será cuantitativa,
+cualitativa o mixta, y qué diseño la sustenta.​
+2.​ Detalla indicadores y técnicas: explica qué vas a medir y cómo.​
+3.​ Garantiza calidad y rigor: especifica cómo asegurarás validez y confiabilidad.​
+4.​ Cuida los principios éticos: muestra que respetas a los participantes y proteges
+los datos.​
+5.​ Deja un plan de replicabilidad: tu investigación debe ser clara para que otro
+investigador pueda repetirla.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #25: Enfoque y diseño
+
+👉 Objetivo: definir claramente cómo se abordará la investigación.
+Prompt:
+Actúa como asesor metodológico. Propón el enfoque y diseño de investigación
+más adecuados para mi tema [TEMA DE TESIS].​
+Explica:
+➔​ Si será cuantitativo, cualitativo o mixto.​
+➔​ El diseño sugerido (experimental, correlacional, estudio de caso, etc.).​
+➔​ Justificación de por qué este diseño es el más apropiado.​
+➔​ Limitaciones que podría presentar.​
+
+Prompt #26: Indicadores y técnicas de recolección
+
+👉 Objetivo: definir qué medirás y cómo obtendrás la información.
+Prompt:
+Elabora una tabla para mi tema [TEMA] con:
+➔​ Variables de estudio.​
+➔​ Indicadores de cada variable.​
+➔​ Técnicas de recolección de datos (encuesta, entrevista, observación,
+etc.).​
+➔​ Instrumentos sugeridos.​
+➔​ Ejemplo de un ítem o pregunta por variable.​
+
+Prompt #27: Validez y confiabilidad
+
+👉 Objetivo: garantizar rigor metodológico.
+Prompt:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Diseña un plan de validación y confiabilidad para mi investigación sobre
+[TEMA].​
+Incluye:
+➔​ Estrategias de validez (contenido, constructo, criterio).​
+➔​ Estrategias de confiabilidad (alfa de Cronbach, test-retest, triangulación).​
+➔​ Cómo documentar y reportar los resultados de estas pruebas.​
+
+Prompt #28: Ética y permisos
+
+👉 Objetivo: garantizar que la investigación respete a los participantes.
+Prompt:
+Redacta un apartado de consideraciones éticas para mi tesis sobre [TEMA].​
+Incluye:
+➔​ Riesgos potenciales para los participantes.​
+➔​ Medidas de protección de identidad y confidencialidad.​
+➔​ Consentimiento informado.​
+➔​ Si requiere aprobación de un comité de ética, justifica por qué.​
+
+Prompt #29: Metodología completa (Adaptar a guía propia)
+
+👉 Objetivo: asegurar transparencia y posibilidad de repetir el estudio.
+Prompt:
+
+Eres un experto en redacción de proyectos de investigación y tesis según la "Guía de
+elaboración de trabajos conducentes a grados y títulos".
+Redacta el capítulo **II. METODOLOGÍA** del Proyecto de Investigación siguiendo
+**exactamente** las exigencias de la guía:
+**Requisitos formales obligatorios:**
+- Redactar en **prosa continua**, lenguaje formal, sin subtítulos, sin viñetas, sin
+guiones, sin negritas.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+- Escrito en **tercera persona** y en **tiempo futuro del modo indicativo**.
+- Extensión mínima sugerida: 3 páginas (aprox. 800-1200 palabras).
+- Estructura interna obligatoria (debe desarrollarse en este orden, pero integrándose
+fluidamente en el texto):
+1. **Tipo, enfoque, diseño y alcance** (si corresponde) de la investigación.
+2. **Variables o categorías**Definición conceptual y (cuando corresponda)
+operacional o de categorización.
+3. **Unidad de análisis**Población, criterios de inclusión/exclusión, tamaño de
+muestra y método de muestreo (si aplica).
+4. **Técnicas e instrumentos de recolección de datos**: Validación (mínimo 3 jueces
+expertos si es instrumento propio), consistencia interna, etc.
+5. **Métodos para el análisis de datos**.
+6. **Aspectos éticos**: Principios de integridad científica, consentimiento/asentimiento
+informado, confidencialidad, etc.
+Incluye referencias a normativas relevantes (Código de Ética en Investigación de la
+UCV, etc.) cuando corresponda.
+**Instrucciones adicionales:**
+- Mantén coherencia con el resto del proyecto (objetivos, supuesto, enfoque general).
+- Usa lenguaje académico preciso y formal.
+- Al final del capítulo, indica claramente que los instrumentos y consentimientos se
+encuentran en los Anexos correspondientes.
+Tema de la tesis: [PEGA AQUÍ EL TÍTULO COMPLETO DE TU TESIS]
+Enfoque general: [PEGA EL ENFOQUE QUE USARÁS]
+Diseño: [PEGA EL DISEÑO]
+Objetivo general: [PEGA EL OBJETIVO GENERAL]
+Objetivos específicos: [PEGA LOS OBJETIVOS ESPECÍFICOS]
+Supuesto: [PEGA EL SUPUESTO]
+Población/Unidad de análisis: [DESCRIBE]
+Instrumentos: [DESCRIBE QUÉ USARÁS]
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Redacta el capítulo completo listo para copiar y pegar.
+
+Resultado esperado del Capítulo 6
+Al finalizar esta sección tendrás:
+➔​ Un enfoque y diseño metodológico claros y justificados.​
+➔​ Una tabla de variables, indicadores, técnicas e instrumentos.​
+➔​ Un plan de validez y confiabilidad definido.​
+➔​ Un apartado de ética y permisos sólido.​
+➔​ Un plan de replicabilidad que muestra transparencia y rigor científico.
+
+👉 Con este capítulo, tu tesis ya tendrá un camino metodológico completo y defendible.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

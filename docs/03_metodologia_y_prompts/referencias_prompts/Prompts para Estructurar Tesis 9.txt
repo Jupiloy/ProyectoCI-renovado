@@ -1,0 +1,69 @@
+🔥 Capítulo 9 · Ética y gestión de datos
+
+🔎 ¿De qué trata esta categoría?
+
+En toda investigación académica es esencial garantizar que los participantes estén
+protegidos y que los datos sean manejados de manera responsable.
+En este capítulo trabajarás en:
+➔​ Elaborar un consentimiento informado claro y comprensible.​
+➔​ Definir los principios éticos que guiarán tu estudio.​
+➔​ Explicar cómo se manejarán, almacenarán y protegerán los datos.​
+➔​ Demostrar que tu investigación es transparente, respetuosa y replicable.​
+
+El objetivo es que al finalizar este capítulo tengas un plan ético sólido y un plan de gestión
+de datos confiable para tu tesis.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Consentimiento claro: redacta un documento que explique en lenguaje sencillo los
+riesgos, beneficios y derechos de los participantes.​
+2.​ Confidencialidad: especifica cómo protegerás identidad y datos (anonimización,
+claves, almacenamiento seguro).​
+3.​ Gestión de datos: explica dónde guardarás la información, quién tendrá acceso y
+por cuánto tiempo.​
+4.​ Cumplimiento normativo: revisa si tu institución exige aprobación de un comité de
+ética
+
+Prompt #36: Consentimiento informado
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+👉 Objetivo: redactar un documento ético y comprensible para los participantes.
+Prompt:
+Actúa como comité de ética académica. Redacta un consentimiento informado
+para mi investigación [TEMA], dirigido a [POBLACIÓN].​
+Incluye:
+➔​ Propósito del estudio explicado en lenguaje claro.​
+➔​ Procedimientos que se aplicarán.​
+➔​ Riesgos y beneficios potenciales.​
+➔​ Garantía de confidencialidad y anonimato.​
+➔​ Derecho a retirarse en cualquier momento sin consecuencias.​
+➔​ Datos de contacto del investigador responsable.​
+
+Prompt #37: Plan de gestión de datos
+
+👉 Objetivo: definir cómo se manejarán los datos de forma segura.
+Prompt:
+Elabora un plan de gestión de datos para mi tesis [TEMA].​
+Incluye:
+➔​ Métodos de recolección y codificación de datos.​
+➔​ Estrategias de anonimización y protección de identidad.​
+➔​ Herramientas o plataformas de almacenamiento seguro (ej. Google
+Drive institucional, repositorios académicos).​
+➔​ Tiempo de retención y protocolo de eliminación de datos.​
+➔​ Quién tendrá acceso a la información y bajo qué condiciones.
+
+Resultado esperado del Capítulo 9
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Al finalizar esta sección tendrás:
+➔​ Un consentimiento informado redactado y listo para entregar a los participantes.​
+➔​ Un plan de ética y gestión de datos, que muestra transparencia y responsabilidad.​
+➔​ Cumplimiento de los requisitos básicos exigidos por comités de ética académicos y
+universidades.
+
+👉 Con esto ya habrás asegurado que tu investigación cumpla con principios éticos
+fundamentales y que tu manejo de datos sea claro y seguro.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

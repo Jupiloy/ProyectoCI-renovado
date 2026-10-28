@@ -1,0 +1,80 @@
+erDiagram
+    PROJECT ||--o{ CONSISTENCY_ROW : alinea
+    PROJECT ||--o{ RESEARCH_VARIABLE : define
+    CONSISTENCY_ROW ||--o{ CONSISTENCY_ROW_VARIABLE : vincula
+    RESEARCH_VARIABLE ||--o{ CONSISTENCY_ROW_VARIABLE : participa
+    RESEARCH_VARIABLE ||--o{ VARIABLE_DIMENSION : divide
+    VARIABLE_DIMENSION ||--o{ INDICATOR : mide
+
+    PROJECT {
+        uuid id PK "! auto"
+    }
+    %% PROJECT: tabla de referencia (solo PK); status=ARCHIVED para retiro lógico
+
+    CONSISTENCY_ROW {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+        smallint ordinal "! >=0 (0 general, 1..n especificas)"
+        text question_text "?"
+        text objective_text "?"
+        text hypothesis_text "?"
+        timestamptz created_at "!"
+        timestamptz updated_at "!"
+    }
+    %% CONSISTENCY_ROW:
+    %%   CHECKs: ordinal >= 0
+    %%   Índices: UNIQUE(project_id, ordinal)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT
+
+    RESEARCH_VARIABLE {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+        varchar role "!(16) INDEPENDENT|DEPENDENT|OTHER"
+        varchar name "!(200)"
+        text conceptual_definition "?"
+        text operational_definition "?"
+        smallint ordinal "! >=1"
+        timestamptz created_at "!"
+        timestamptz updated_at "!"
+    }
+    %% RESEARCH_VARIABLE:
+    %%   CHECKs: ordinal >= 1, role IN ('INDEPENDENT', 'DEPENDENT', 'OTHER')
+    %%   Índices: UNIQUE(project_id, ordinal), B-Tree(project_id, role)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT
+
+    CONSISTENCY_ROW_VARIABLE {
+        bigint id PK "! auto"
+        bigint consistency_row_id FK "!"
+        bigint variable_id FK "!"
+        timestamptz created_at "!"
+    }
+    %% CONSISTENCY_ROW_VARIABLE:
+    %%   CHECKs: unicidad del par (consistency_row_id, variable_id)
+    %%   Índices: UNIQUE(consistency_row_id, variable_id), B-Tree(consistency_row_id), B-Tree(variable_id)
+    %%   ON DELETE: consistency_row_id, variable_id → RESTRICT/PROTECT
+
+    VARIABLE_DIMENSION {
+        bigint id PK "! auto"
+        bigint variable_id FK "!"
+        smallint ordinal "! >=1"
+        varchar name "!(200)"
+        text definition "?"
+    }
+    %% VARIABLE_DIMENSION:
+    %%   CHECKs: ordinal >= 1
+    %%   Índices: UNIQUE(variable_id, ordinal), B-Tree(variable_id)
+    %%   ON DELETE: variable_id → RESTRICT/PROTECT
+
+    INDICATOR {
+        bigint id PK "! auto"
+        bigint dimension_id FK "!"
+        smallint ordinal "! >=1"
+        varchar name "!(200)"
+        varchar measurement_scale "?(30)"
+        varchar technique "?(120)"
+        text operational_rule "?"
+    }
+    %% INDICATOR:
+    %%   CHECKs: ordinal >= 1
+    %%   Índices: UNIQUE(dimension_id, ordinal), B-Tree(dimension_id)
+    %%   ON DELETE: dimension_id → RESTRICT/PROTECT

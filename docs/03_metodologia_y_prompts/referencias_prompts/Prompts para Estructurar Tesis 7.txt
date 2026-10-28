@@ -1,0 +1,78 @@
+🔥 Capítulo 7 · Instrumentos
+
+🔎 ¿De qué trata esta categoría?
+
+Los instrumentos son las herramientas prácticas que utilizarás para recolectar los datos de
+tu investigación. Según tu enfoque, pueden ser:
+●​ Cuantitativos: cuestionarios, escalas, rúbricas, tests.​
+●​ Cualitativos: guías de entrevistas, cuestionarios abiertos, guías de observación,
+grupos focales.​
+
+En este capítulo lograrás:
+➔​ Diseñar un cuestionario cuantitativo estructurado.​
+➔​ Crear una guía de entrevista o focus group cualitativa.​
+➔​ Preparar un piloto de prueba para evaluar la calidad de tu instrumento antes de
+aplicarlo.​
+
+El objetivo es que al finalizar tengas tus instrumentos listos, validados y prácticos,
+garantizando que tu investigación recopile datos confiables y relevantes.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Diseña primero un borrador con ítems o preguntas relevantes.​
+2.​ Asegúrate de la claridad: evita ambigüedades o tecnicismos innecesarios.​
+3.​ Adapta al tipo de enfoque: cerrado y medible (cuantitativo), abierto y
+exploratorio (cualitativo).​
+4.​ Haz un piloto: prueba con pocas personas para detectar errores o mejoras.​
+5.​ Ajusta y valida antes de aplicar en toda la muestra.​
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #30: Cuestionario cuantitativo
+
+👉 Objetivo: crear un cuestionario estructurado con preguntas claras y medibles.
+Prompt:
+Diseña un cuestionario cuantitativo para mi tema [TEMA DE TESIS].​
+Incluye:
+➔​ Variables de estudio.​
+➔​ 4–6 ítems por variable.​
+➔​ Escala de respuesta tipo Likert (1–5).​
+➔​ Instrucciones para el encuestado.​
+➔​ Código sugerido para cada ítem (ej. V1.1, V1.2…).​
+
+🔹 Prompt #31: Guía de entrevista o focus group
+👉 Objetivo: obtener información cualitativa profunda.
+Prompt:
+Redacta una guía de entrevista semiestructurada para mi investigación [TEMA].​
+Organízala en:
+➔​ Bloques temáticos principales.​
+➔​ 2–3 preguntas abiertas por bloque.​
+➔​ Preguntas de sondeo o probes que inviten a profundizar.​
+➔​ Una pregunta final de cierre que permita reflexiones amplias.​
+
+🔹 Prompt #32: Piloto y ajuste del instrumento
+
+👉 Objetivo: verificar claridad y calidad de los instrumentos.
+Prompt:
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Diseña un plan de prueba piloto para el instrumento
+[CUESTIONARIO/ENTREVISTA].​
+Incluye:
+➔​ Número de participantes recomendados.​
+➔​ Criterios de revisión (claridad, tiempo de aplicación, comprensión).​
+➔​ Indicadores de ajuste (ítems confusos, falta de variabilidad en
+respuestas).​
+➔​ Propuesta de ajustes antes de aplicar la versión final.
+
+Resultado esperado del Capítulo 7
+Al finalizar este capítulo tendrás:
+➔​ Un cuestionario cuantitativo estructurado y codificado (si tu tesis es cuantitativa).​
+➔​ Una guía de entrevista o focus group clara y temática (si tu tesis es cualitativa).​
+➔​ Un plan de prueba piloto para validar y mejorar tus instrumentos.
+
+👉 Con esto ya tendrás tus herramientas de recolección de datos listas para aplicar.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

@@ -1,0 +1,77 @@
+🔥 Capítulo 10 · Recolección y limpieza
+de datos
+
+🔎 ¿De qué trata esta categoría?
+No basta con aplicar encuestas o entrevistas: la calidad de tu investigación depende de
+cómo estructures y depures la información.
+En este capítulo aprenderás a:
+➔​ Crear un diccionario de datos (qué variable mide qué).​
+➔​ Establecer un pipeline de limpieza (extracción de datos para corregir errores y
+preparar la base.​
+➔​ Documentar decisiones y cambios en una bitácora de datos.​
+
+El objetivo es que al finalizar esta sección tengas una base de datos clara, organizada y
+lista para el análisis estadístico o cualitativo.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Diseña un diccionario de datos: define nombre de la variable, tipo (numérica,
+categórica, texto), rango válido y descripción.​
+2.​ Establece un pipeline de limpieza: piensa en pasos automáticos o manuales como
+detección de valores atípicos, tratamiento de datos faltantes, estandarización de
+escalas.​
+3.​ Crea una bitácora de decisiones: documenta todos los ajustes realizados para que
+tu proceso sea transparente y replicable.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #38: Diccionario de datos
+
+👉 Objetivo: estructurar la base de datos de forma clara.
+Prompt:
+Actúa como especialista en gestión de datos. Diseña un diccionario de datos
+para mi investigación [TEMA].​
+Incluye:
+➔​ Nombre de la variable​
+➔​ Tipo (numérica, categórica, texto)​
+➔​ Rango de valores válidos​
+➔​ Descripción de lo que mide​
+➔​ Reglas de validación​
+➔​ Manejo de valores perdidos​
+
+🔹 Prompt #39: Pipeline de limpieza
+
+👉 Objetivo: planificar el proceso de depuración de datos.
+Prompt:
+Elabora un pipeline de limpieza de datos para mi tesis [TEMA].​
+Incluye los pasos:
+➔​ Revisión de registros incompletos​
+➔​ Detección y tratamiento de valores atípicos​
+➔​ Estrategias para imputación o eliminación de datos faltantes​
+➔​ Revisión de consistencia entre variables​
+➔​ Normalización de escalas (si aplica)​
+
+🔹 Prompt 40: Bitácora de decisiones
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+👉 Objetivo: documentar el proceso de recolección y limpieza.
+Prompt:
+Diseña un formato de bitácora de datos para mi investigación [TEMA].​
+Incluye:
+➔​ Fecha de modificación​
+➔​ Descripción del cambio realizado​
+➔​ Justificación del cambio​
+➔​ Impacto esperado en el análisis​
+➔​ Responsable de la decisión
+
+Resultado esperado del Capítulo 10
+Al finalizar esta sección tendrás:
+➔​ Un diccionario de datos estructurado que define claramente tus variables.​
+➔​ Un pipeline de limpieza organizado, para asegurar consistencia y calidad de datos.​
+➔​ Una bitácora de decisiones que documenta todo el proceso, garantizando
+transparencia y replicabilidad.
+
+👉 Con esto tu investigación contará con datos listos, limpios y confiables para el análisis.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

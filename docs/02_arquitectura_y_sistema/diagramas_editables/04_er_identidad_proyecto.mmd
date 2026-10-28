@@ -1,0 +1,114 @@
+erDiagram
+    USER ||--o{ PROJECT_PARTICIPANT : participa
+    PROJECT ||--|{ PROJECT_PARTICIPANT : tiene
+    PROJECT ||--|| RESEARCH_PROFILE : define
+    PROJECT ||--o{ STEP_PROGRESS : registra
+    PROJECT ||--|{ CHAPTER : contiene
+    USER ||--o{ PROJECT_INVITATION : emite
+    PROJECT ||--o{ PROJECT_INVITATION : invita
+
+    USER {
+        bigint id PK "! auto"
+        varchar email UK "!(254) UNIQUE(lower(email))"
+        varchar display_name "!(150)"
+        boolean is_active "! DEFAULT true"
+        timestamptz created_at "!"
+    }
+    %% USER:
+    %%   CHECKs: lower(email) normalizado
+    %%   Índices: UNIQUE B-Tree funcional sobre lower(email)
+    %%   ON DELETE: PROTECT en toda FK hacia user
+
+    PROJECT {
+        uuid id PK "! auto"
+        varchar name "!(160)"
+        varchar title "!(300)"
+        varchar career "?(160)"
+        varchar citation_style "!(20) DEFAULT IEEE"
+        varchar status "!(12) DEFAULT ACTIVE ACTIVE|ARCHIVED"
+        timestamptz created_at "!"
+        timestamptz updated_at "!"
+    }
+    %% PROJECT:
+    %%   CHECKs: status IN ('ACTIVE', 'ARCHIVED')
+    %%   Índices: B-Tree (status, updated_at DESC)
+    %%   ON DELETE: status=ARCHIVED para retiro lógico; PROTECT/RESTRICT en dependientes, sin CASCADE
+
+    PROJECT_PARTICIPANT {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+        bigint user_id FK "!"
+        varchar role "!(10) OWNER|ADVISOR"
+        boolean active "! DEFAULT true"
+        timestamptz joined_at "!"
+        timestamptz left_at "?"
+    }
+    %% PROJECT_PARTICIPANT:
+    %%   CHECKs: active = (left_at IS NULL), role IN ('OWNER', 'ADVISOR')
+    %%   Índices: UNIQUE(project_id, user_id), UNIQUE PARCIAL(project_id) WHERE role='OWNER' AND active, UNIQUE PARCIAL(project_id) WHERE role='ADVISOR' AND active, B-Tree(user_id, active, role)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT, user_id → PROTECT
+
+    RESEARCH_PROFILE {
+        uuid project_id PK "! FK project"
+        varchar approach "?(16) QUANTITATIVE|QUALITATIVE|MIXED"
+        text topic "?"
+        varchar ods_code "?(12)"
+        text unit_of_analysis "?"
+        text place "?"
+        varchar period_text "?(120)"
+        text problem_statement "?"
+        smallint schema_version "! DEFAULT 1"
+        int lock_version "! DEFAULT 0"
+        timestamptz updated_at "!"
+    }
+    %% RESEARCH_PROFILE:
+    %%   CHECKs: lock_version >= 0 AND schema_version >= 1, approach IS NULL OR approach IN ('QUANTITATIVE', 'QUALITATIVE', 'MIXED')
+    %%   Índices: PK(project_id)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT
+
+    STEP_PROGRESS {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+        char step_code "!(3) P01..P32"
+        varchar status "!(16) DEFAULT NOT_STARTED NOT_STARTED|IN_PROGRESS|COMPLETED"
+        jsonb output_json "! DEFAULT {}"
+        smallint output_schema_version "! DEFAULT 1"
+        timestamptz completed_at "?"
+        timestamptz updated_at "!"
+    }
+    %% STEP_PROGRESS:
+    %%   CHECKs: step_code pattern '^P[0-3][0-9]$', (status='COMPLETED') = (completed_at IS NOT NULL), status IN ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED')
+    %%   Índices: UNIQUE(project_id, step_code), B-Tree(project_id, status)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT
+
+    CHAPTER {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+        smallint number "! 1..7"
+        varchar status "!(20) DEFAULT DRAFT DRAFT|READY|CHANGES_REQUESTED|APPROVED"
+        bigint approved_revision_id FK "?"
+        timestamptz approved_at "?"
+        timestamptz created_at "!"
+        timestamptz updated_at "!"
+    }
+    %% CHAPTER:
+    %%   CHECKs: number BETWEEN 1 AND 7, (status='APPROVED') = (approved_revision_id IS NOT NULL AND approved_at IS NOT NULL), status IN ('DRAFT', 'READY', 'CHANGES_REQUESTED', 'APPROVED')
+    %%   Índices: UNIQUE(project_id, number), B-Tree(project_id, status), B-Tree(approved_revision_id)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT, approved_revision_id → RESTRICT / SET NULL al reabrir
+
+    PROJECT_INVITATION {
+        uuid id PK "! auto"
+        uuid project_id FK "!"
+        bigint created_by_id FK "!"
+        varchar invited_email "!(254)"
+        varchar role "!(10) DEFAULT ADVISOR ADVISOR"
+        char token_hash UK "!(64) UNIQUE"
+        timestamptz expires_at "!"
+        timestamptz accepted_at "?"
+        timestamptz revoked_at "?"
+        timestamptz created_at "!"
+    }
+    %% PROJECT_INVITATION:
+    %%   CHECKs: accepted_at IS NULL OR revoked_at IS NULL, role IN ('ADVISOR')
+    %%   Índices: UNIQUE(token_hash), B-Tree(project_id, expires_at), B-Tree(created_by_id)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT, created_by_id → PROTECT

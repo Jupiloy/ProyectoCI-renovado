@@ -1,0 +1,30 @@
+PROMPT: Agente estratégico para reducción de plagio al 0%
+"Actúa como un estudiante de Derecho altamente crítico y reflexivo.
+Elabora la Introducción de un informe académico en estilo APA sobre [tema específico], que
+cumpla con los siguientes criterios para evitar cualquier sospecha de ser generado por IA:
+1. Usa un lenguaje humano variado y auténtico: evita repeticiones, frases cliché o fórmulas
+típicas como 'en la actualidad', 'es importante señalar', 'de esta forma', etc.
+2. Introduce pausas naturales, conectores flexibles y estructuras mixtas (largas y cortas).
+3. Aporta una interpretación jurídica personal o matices de análisis
+propios del pensamiento humano.
+1. Cita fuentes reales, actualizadas y verificables (Google Scholar, SUNEDU, doctrina
+peruana, bases jurídicas como Gaceta Jurídica,
+IUS360, etc.).
+1. Integra comentarios reflexivos, dudas razonables o conexiones interdisciplinarias.
+2. No uses frases duplicadas ni muletillas. Cuida el ritmo argumentativo.
+3. Haz un análisis contextual profundo y coherente, conectando conceptos de forma natural
+y lógica.
+4. Contrasta ideas sin ser absoluto y demuestra un entendimiento genuino del tema.
+5. Elimina patrones predecibles: personaliza cada párrafo como si fuera producto de tu
+propia experiencia universitaria.
+6. Introduce observaciones o comparaciones con casos reales, si aplica.
+7. La introducción debe ser progresiva, original y sin fórmulas prefabricadas. Evita todo
+rastro de estructura genérica. Redacta con la intención de lograr un Turnitin 0%, un lenguaje
+humano auténtico y un razonamiento jurídico superior."
+
+🔥
+
+Ventaja: Podrás prever todo riesgo de detección de niveles de similitud y evita
+sospechas en la detección de la.
+
+

@@ -1,0 +1,83 @@
+erDiagram
+    PROJECT ||--o{ SOURCE_DOCUMENT : registra
+    CHAPTER ||--o{ CHAPTER_REVISION : versiona
+    SOURCE_DOCUMENT ||--o{ SOURCE_EXCERPT : fragmenta
+    CHAPTER_REVISION ||--o{ EVIDENCE_CITATION : afirma
+    SOURCE_EXCERPT ||--o{ EVIDENCE_CITATION : respalda
+    USER o|--o{ EVIDENCE_CITATION : verifica
+
+    PROJECT {
+        uuid id PK "! auto"
+    }
+    %% PROJECT: tabla de referencia (solo PK); status=ARCHIVED para retiro lógico
+
+    CHAPTER {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+    }
+    %% CHAPTER: tabla de referencia (PK, FK); ON DELETE → RESTRICT/PROTECT
+
+    USER {
+        bigint id PK "! auto"
+    }
+    %% USER: tabla de referencia (solo PK); ON DELETE → PROTECT en toda FK
+
+    SOURCE_DOCUMENT {
+        uuid id PK "! auto"
+        uuid project_id FK "!"
+        varchar kind "!(10) UPLOAD|EXTERNAL"
+        text title "!"
+        jsonb authors_json "! DEFAULT []"
+        smallint publication_year "?"
+        varchar doi "?(255)"
+        varchar handle "?(255)"
+        text url "?"
+        text storage_key "?"
+        char sha256 "?(64)"
+        varchar mime_type "?(100)"
+        int page_count "? >0"
+        varchar verification_status "!(20) DEFAULT PENDING PENDING|METADATA_CHECKED|TEXT_CHECKED|REJECTED"
+        timestamptz created_at "!"
+    }
+    %% SOURCE_DOCUMENT:
+    %%   CHECKs: kind IN ('UPLOAD', 'EXTERNAL'), page_count IS NULL OR page_count > 0, verification_status IN ('PENDING', 'METADATA_CHECKED', 'TEXT_CHECKED', 'REJECTED'), kind <> 'UPLOAD' OR (storage_key IS NOT NULL AND sha256 IS NOT NULL), kind <> 'EXTERNAL' OR (doi IS NOT NULL OR handle IS NOT NULL OR url IS NOT NULL)
+    %%   Índices: UNIQUE PARCIAL(project_id, sha256) WHERE sha256 IS NOT NULL, UNIQUE PARCIAL(project_id, doi) WHERE doi IS NOT NULL, B-Tree(project_id, verification_status)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT
+
+    SOURCE_EXCERPT {
+        bigint id PK "! auto"
+        uuid source_id FK "!"
+        int chunk_no "! >=1"
+        int page_no "? >0"
+        varchar locator "?(160)"
+        text text "! length>0"
+        char text_sha256 "!(64)"
+        timestamptz created_at "!"
+    }
+    %% SOURCE_EXCERPT:
+    %%   CHECKs: chunk_no > 0, page_no IS NULL OR page_no > 0, length(trim(text)) > 0, page_no IS NOT NULL OR COALESCE(length(trim(locator)), 0) > 0
+    %%   Índices: UNIQUE(source_id, chunk_no), B-Tree(source_id, page_no, chunk_no)
+    %%   ON DELETE: source_id → RESTRICT/PROTECT
+
+    CHAPTER_REVISION {
+        bigint id PK "! auto"
+        bigint chapter_id FK "!"
+    }
+    %% CHAPTER_REVISION: tabla de referencia (PK, FK); inmutable; ON DELETE → PROTECT
+
+    EVIDENCE_CITATION {
+        bigint id PK "! auto"
+        bigint revision_id FK "!"
+        bigint excerpt_id FK "!"
+        int claim_start_cp "! >=0"
+        int claim_end_cp "! >claim_start_cp"
+        text supporting_quote "! length>0"
+        varchar status "!(16) DEFAULT NEEDS_REVIEW NEEDS_REVIEW|VERIFIED|REJECTED"
+        bigint checked_by_id FK "?"
+        timestamptz checked_at "?"
+        timestamptz created_at "!"
+    }
+    %% EVIDENCE_CITATION:
+    %%   CHECKs: claim_start_cp >= 0 AND claim_end_cp > claim_start_cp, length(supporting_quote) > 0, (checked_by_id IS NULL) = (checked_at IS NULL), status <> 'VERIFIED' OR checked_by_id IS NOT NULL, status IN ('NEEDS_REVIEW', 'VERIFIED', 'REJECTED')
+    %%   Índices: B-Tree(revision_id, status), B-Tree(excerpt_id), B-Tree(checked_by_id)
+    %%   ON DELETE: revisión inmutable; revision_id, excerpt_id, checked_by_id → PROTECT

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+</head>
+<body class="bg-transparent text-[var(--foreground)] antialiased p-3">
+  <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl p-5 shadow-lg max-w-4xl mx-auto">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between border-b border-[var(--border)] pb-4 mb-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🎓</span>
+          <h2 class="font-bold text-base text-[var(--foreground)]">Ecosistema Colaborativo de Tesis (MCP)</h2>
+          <span class="text-xs px-2.5 py-0.5 rounded-full font-medium bg-blue-500/10 text-blue-500 border border-blue-500/20">Interactivo</span>
+        </div>
+        <p class="text-xs text-[var(--muted-foreground)] mt-0.5">Explora cómo interactúan el Tesista, la IA fundamentada en fuentes y el Asesor en tiempo real.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btnPrev" onclick="changeStep(-1)" class="px-2.5 py-1 text-xs rounded-lg border border-[var(--border)] hover:bg-[var(--secondary)] transition-colors">◀ Anterior</button>
+        <button id="btnNext" onclick="changeStep(1)" class="px-2.5 py-1 text-xs rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] font-medium hover:opacity-90 transition-opacity">Siguiente ▶</button>
+      </div>
+    </div>
+
+    <!-- Stepper Navigation -->
+    <div class="grid grid-cols-4 gap-2 mb-4">
+      <button onclick="goToStep(0)" id="stepTab-0" class="flex flex-col items-center p-2 rounded-xl border border-blue-500 bg-blue-500/10 text-blue-500 transition-all text-left">
+        <span class="text-xs font-semibold">1. Fuentes</span>
+        <span class="text-[11px] opacity-80 truncate max-w-full">NotebookLM / RAG</span>
+      </button>
+      <button onclick="goToStep(1)" id="stepTab-1" class="flex flex-col items-center p-2 rounded-xl border border-[var(--border)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] transition-all text-left">
+        <span class="text-xs font-semibold">2. IA Guiada</span>
+        <span class="text-[11px] opacity-80 truncate max-w-full">MCP + Prompts 1-7</span>
+      </button>
+      <button onclick="goToStep(2)" id="stepTab-2" class="flex flex-col items-center p-2 rounded-xl border border-[var(--border)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] transition-all text-left">
+        <span class="text-xs font-semibold">3. Asesor</span>
+        <span class="text-[11px] opacity-80 truncate max-w-full">Notas estilo Docs</span>
+      </button>
+      <button onclick="goToStep(3)" id="stepTab-3" class="flex flex-col items-center p-2 rounded-xl border border-[var(--border)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] transition-all text-left">
+        <span class="text-xs font-semibold">4. Entrega</span>
+        <span class="text-[11px] opacity-80 truncate max-w-full">Exportación Word</span>
+      </button>
+    </div>
+
+    <!-- Dynamic Content Card -->
+    <div id="stepContainer" class="bg-[var(--background)] border border-[var(--border)] rounded-xl p-4 min-h-[260px] flex flex-col justify-between">
+      <!-- Content will be injected here via JS -->
+    </div>
+
+    <!-- Footer Stats / Pills -->
+    <div class="mt-4 pt-3 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--muted-foreground)]">
+      <div class="flex items-center gap-3">
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Memoria de Estado Activa</span>
+        <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Protocolo MCP</span>
+      </div>
+      <div class="text-[11px]">
+        Paso <span id="currentStepNum" class="font-bold text-[var(--foreground)]">1</span> de 4
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const steps = [
+      {
+        title: "Paso 1: Carga de Fuentes del Tesista (Estilo NotebookLM)",
+        tag: "Fase de Fundamentación",
+        badgeColor: "bg-blue-500/10 text-blue-500 border-blue-500/20",
+        description: "El estudiante no empieza en blanco. Carga sus artículos científicos (PDFs Scopus/SciELO), libros o reglamentos. La IA solo redactará con citas verificables.",
+        layout: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-2">
+            <div class="border border-dashed border-[var(--border)] bg-[var(--card)]/50 rounded-lg p-3 flex flex-col items-center justify-center text-center">
+              <span class="text-2xl mb-1">📂</span>
+              <p class="text-xs font-medium text-[var(--foreground)]">Fuentes subidas por el alumno</p>
+              <div class="mt-2 space-y-1 w-full text-left">
+                <div class="text-xs p-1.5 rounded bg-[var(--card)] border border-[var(--border)] flex items-center justify-between">
+                  <span class="truncate">📄 paper_iot_cadena_frio_2025.pdf</span>
+                  <span class="text-[10px] text-emerald-500 font-semibold">Indexado</span>
+                </div>
+                <div class="text-xs p-1.5 rounded bg-[var(--card)] border border-[var(--border)] flex items-center justify-between">
+                  <span class="truncate">📄 guia_grados_titulos_utp_2026.pdf</span>
+                  <span class="text-[10px] text-emerald-500 font-semibold">Reglamento</span>
+                </div>
+              </div>
+            </div>
+            <div class="bg-[var(--card)] border border-[var(--border)] rounded-lg p-3 flex flex-col justify-between">
+              <div>
+                <span class="text-[11px] font-semibold text-blue-500 uppercase tracking-wider">Cero Alucinaciones</span>
+                <p class="text-xs text-[var(--muted-foreground)] mt-1">El motor RAG procesa los fragmentos de texto. Ninguna cita bibliográfica será inventada porque el modelo solo responde basándose en esta biblioteca.</p>
+              </div>
+              <div class="p-2 bg-emerald-500/10 border border-emerald-500/20 rounded text-xs text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1.5">
+                <span>🛡️</span> Citas verificables con DOI real
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Paso 2: Generación Guiada y Toma de Decisiones (MCP)",
+        tag: "Fase Metodológica (Cap. 1 al 7)",
+        badgeColor: "bg-purple-500/10 text-purple-500 border-purple-500/20",
+        description: "El MCP inyecta los 32 prompts secuenciales. El alumno interactúa activamente, toma decisiones de investigación y el Agente Validador audita la calidad.",
+        layout: `
+          <div class="space-y-2 mt-2">
+            <div class="bg-[var(--card)] border border-[var(--border)] rounded-lg p-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs font-bold text-purple-500 flex items-center gap-1">🤖 Agente Metodólogo (Prompt #9: Objetivos SMART)</span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-purple-500/10 text-purple-400">Capítulo 3</span>
+              </div>
+              <p class="text-xs text-[var(--muted-foreground)] italic">"Josué, en base al problema delimitado en el Cap. 2, aquí tienes 2 opciones de Objetivo General. ¿Cuál deseas seleccionar?"</p>
+              <div class="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <div class="p-2 rounded border border-purple-500/40 bg-purple-500/5 cursor-pointer">
+                  <span class="font-semibold text-[var(--foreground)]">Opción A (Recomendada):</span>
+                  <p class="text-[11px] text-[var(--muted-foreground)] mt-0.5">"Determinar el impacto de sensores IoT en la merma agroexportadora..."</p>
+                </div>
+                <div class="p-2 rounded border border-[var(--border)] bg-[var(--card)] opacity-60">
+                  <span class="font-semibold text-[var(--foreground)]">Opción B:</span>
+                  <p class="text-[11px] text-[var(--muted-foreground)] mt-0.5">"Analizar la relación entre temperatura y costos operativos..."</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-2 bg-[var(--card)] border border-[var(--border)] rounded-lg flex items-center justify-between text-xs">
+              <span class="text-[var(--muted-foreground)] flex items-center gap-1"><span>🔍</span> Validador de Coherencia:</span>
+              <span class="text-emerald-500 font-semibold">100% Alineado con Taxonomía de Bloom</span>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Paso 3: Supervisión Asíncrona del Asesor (Estilo Google Docs)",
+        tag: "Fase de Supervisión Colaborativa",
+        badgeColor: "bg-amber-500/10 text-amber-500 border-amber-500/20",
+        description: "El asesor revisa el avance desde su panel, visualiza la justificación y puede dejar notas o comentarios directos al margen del texto.",
+        layout: `
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-2">
+            <div class="md:col-span-2 bg-[var(--card)] border border-[var(--border)] rounded-lg p-3 text-xs space-y-2">
+              <div class="flex items-center justify-between border-b border-[var(--border)] pb-1.5">
+                <span class="font-semibold text-[var(--foreground)]">Borrador: Capítulo 2 - Planteamiento</span>
+                <span class="px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-500 border border-amber-500/20 font-medium">Con Observaciones</span>
+              </div>
+              <p class="text-[var(--muted-foreground)] leading-relaxed">
+                ...En el ámbito de las empresas agroexportadoras de la región Ica, se evidencia una deficiencia crítica en el monitoreo térmico. 
+                <mark class="bg-amber-400/20 text-amber-300 px-1 py-0.5 rounded border-b border-amber-400">Por consiguiente, la falta de automatización genera un incremento del 14% en pérdidas operativas.</mark>
+              </p>
+              <div class="text-[11px] text-blue-500 flex items-center gap-1">
+                <span>📎</span> 1 Fuente citada del tesista: <em>paper_iot_cadena_frio_2025.pdf (Pág. 12)</em>
+              </div>
+            </div>
+            <div class="bg-amber-500/5 border border-amber-500/30 rounded-lg p-2.5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-1 text-xs font-semibold text-amber-500 mb-1">
+                  <span>💬</span> Nota del Asesor:
+                </div>
+                <p class="text-xs text-[var(--foreground)] bg-[var(--card)] p-2 rounded border border-amber-500/20">
+                  "Josué, cita también un antecedente local de Ica del 2024 para reforzar esta cifra."
+                </p>
+              </div>
+              <button class="mt-2 w-full py-1 text-xs rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-500 font-medium hover:bg-emerald-500/20">
+                ✅ Dar Visto Bueno
+              </button>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Paso 4: Subsanación con IA y Exportación a Word",
+        tag: "Fase de Cierre y Entregables",
+        badgeColor: "bg-emerald-500/10 text-emerald-500 border-emerald-500/20",
+        description: "El alumno le pide a la IA que ajuste el texto según el comentario del asesor. Al completar el Cap. 7 (Instrumentos), se descarga la tesis en Word.",
+        layout: `
+          <div class="space-y-3 mt-2">
+            <div class="bg-[var(--card)] border border-[var(--border)] rounded-lg p-3 text-xs flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">💡</span>
+                <div>
+                  <p class="font-semibold text-[var(--foreground)]">Asistencia para resolver observaciones:</p>
+                  <p class="text-[11px] text-[var(--muted-foreground)]">La IA buscó en las fuentes del alumno y redactó el párrafo con el antecedente de Ica solicitado.</p>
+                </div>
+              </div>
+              <span class="px-2 py-1 rounded bg-emerald-500/10 text-emerald-500 text-xs font-semibold">Subsanado</span>
+            </div>
+            <div class="bg-gradient-to-r from-blue-500/10 to-emerald-500/10 border border-blue-500/20 rounded-xl p-3 flex items-center justify-between">
+              <div>
+                <h4 class="text-xs font-bold text-[var(--foreground)] flex items-center gap-1.5">
+                  <span>📄</span> Tesis_Consolidada_Capitulos_1_al_7.docx
+                </h4>
+                <p class="text-[11px] text-[var(--muted-foreground)]">Formato oficial UTP 2026 • APA 7ª • Matriz de consistencia e instrumentos listos.</p>
+              </div>
+              <button class="px-3 py-1.5 text-xs font-medium rounded-lg bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm hover:opacity-90 transition-all flex items-center gap-1">
+                <span>⬇️</span> Descargar Word
+              </button>
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let currentStep = 0;
+
+    function renderStep() {
+      const step = steps[currentStep];
+      document.getElementById("currentStepNum").innerText = currentStep + 1;
+      
+      // Update tab styles
+      for (let i = 0; i < 4; i++) {
+        const tab = document.getElementById(`stepTab-${i}`);
+        if (i === currentStep) {
+          tab.className = "flex flex-col items-center p-2 rounded-xl border border-blue-500 bg-blue-500/10 text-blue-500 transition-all text-left shadow-sm";
+        } else {
+          tab.className = "flex flex-col items-center p-2 rounded-xl border border-[var(--border)] hover:bg-[var(--secondary)] text-[var(--muted-foreground)] transition-all text-left";
+        }
+      }
+
+      // Render content
+      const container = document.getElementById("stepContainer");
+      container.innerHTML = `
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full border ${step.badgeColor}">${step.tag}</span>
+            <span class="text-[11px] text-[var(--muted-foreground)]">Fase del Ecosistema</span>
+          </div>
+          <h3 class="text-sm font-bold text-[var(--foreground)]">${step.title}</h3>
+          <p class="text-xs text-[var(--muted-foreground)] mt-1">${step.description}</p>
+        </div>
+        ${step.layout}
+      `;
+
+      // Update button states
+      document.getElementById("btnPrev").disabled = currentStep === 0;
+      document.getElementById("btnPrev").style.opacity = currentStep === 0 ? "0.4" : "1";
+      document.getElementById("btnNext").innerText = currentStep === 3 ? "Finalizar ✨" : "Siguiente ▶";
+    }
+
+    function changeStep(dir) {
+      currentStep = Math.max(0, Math.min(3, currentStep + dir));
+      renderStep();
+    }
+
+    function goToStep(idx) {
+      currentStep = idx;
+      renderStep();
+    }
+
+    renderStep();
+  </script>
+</body>
+</html>

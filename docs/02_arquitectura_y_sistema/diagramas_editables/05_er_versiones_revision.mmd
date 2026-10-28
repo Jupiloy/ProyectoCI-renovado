@@ -1,0 +1,76 @@
+erDiagram
+    CHAPTER ||--o{ CHAPTER_REVISION : versiona
+    CHAPTER ||--o| CHAPTER_REVISION : aprueba_actual
+    CHAPTER_REVISION ||--o{ REVIEW_COMMENT : ancla
+    CHAPTER ||--o{ REVIEW_EVENT : audita
+    CHAPTER_REVISION o|--o{ REVIEW_EVENT : objeto
+    USER ||--o{ CHAPTER_REVISION : redacta
+    USER ||--o{ REVIEW_COMMENT : comenta
+    USER o|--o{ REVIEW_COMMENT : resuelve
+    USER ||--o{ REVIEW_EVENT : ejecuta
+
+    CHAPTER {
+        bigint id PK "! auto"
+        uuid project_id FK "!"
+        smallint number "! 1..7"
+        varchar status "!(20) DEFAULT DRAFT DRAFT|READY|CHANGES_REQUESTED|APPROVED"
+        bigint approved_revision_id FK "?"
+        timestamptz approved_at "?"
+    }
+    %% CHAPTER:
+    %%   CHECKs: number BETWEEN 1 AND 7, (status='APPROVED') = (approved_revision_id IS NOT NULL AND approved_at IS NOT NULL), status IN ('DRAFT', 'READY', 'CHANGES_REQUESTED', 'APPROVED')
+    %%   Índices: UNIQUE(project_id, number), B-Tree(project_id, status), B-Tree(approved_revision_id)
+    %%   ON DELETE: project_id → RESTRICT/PROTECT, approved_revision_id → RESTRICT / SET NULL al reabrir
+
+    CHAPTER_REVISION {
+        bigint id PK "! auto"
+        bigint chapter_id FK "!"
+        int revision_no "! >=1"
+        char step_code "!(3) P01..P32"
+        uuid idempotency_key "! UNIQUE(chapter_id, idempotency_key)"
+        text content_md "! length>0 snapshot completo"
+        char content_sha256 "!(64)"
+        bigint created_by_id FK "!"
+        timestamptz created_at "!"
+    }
+    %% CHAPTER_REVISION:
+    %%   CHECKs: revision_no > 0 AND length(content_md) > 0
+    %%   Índices: UNIQUE(chapter_id, revision_no), UNIQUE(chapter_id, idempotency_key), B-Tree(chapter_id, revision_no DESC), B-Tree(created_by_id)
+    %%   ON DELETE: inmutable; chapter_id → PROTECT/RESTRICT, created_by_id → PROTECT, sin CASCADE
+
+    REVIEW_COMMENT {
+        bigint id PK "! auto"
+        bigint revision_id FK "!"
+        bigint author_id FK "!"
+        int start_cp "! >=0"
+        int end_cp "! >start_cp"
+        text selected_text "!"
+        text body "!"
+        varchar status "!(10) DEFAULT OPEN OPEN|RESOLVED"
+        bigint resolved_by_id FK "?"
+        timestamptz resolved_at "?"
+        timestamptz created_at "!"
+    }
+    %% REVIEW_COMMENT:
+    %%   CHECKs: start_cp >= 0 AND end_cp > start_cp, (status='RESOLVED') = (resolved_by_id IS NOT NULL AND resolved_at IS NOT NULL), status IN ('OPEN', 'RESOLVED')
+    %%   Índices: B-Tree(revision_id, status, created_at), B-Tree(author_id), B-Tree(resolved_by_id)
+    %%   ON DELETE: histórico inmutable salvo status; revision_id, author_id, resolved_by_id → PROTECT
+
+    REVIEW_EVENT {
+        bigint id PK "! auto"
+        bigint chapter_id FK "!"
+        bigint revision_id FK "?"
+        bigint actor_id FK "!"
+        varchar action "!(20) SUBMIT|REQUEST_CHANGES|APPROVE|REOPEN"
+        text reason "?"
+        timestamptz created_at "!"
+    }
+    %% REVIEW_EVENT:
+    %%   CHECKs: action IN ('SUBMIT', 'REQUEST_CHANGES', 'APPROVE', 'REOPEN'), action = 'REOPEN' OR revision_id IS NOT NULL, action <> 'REOPEN' OR (reason IS NOT NULL AND length(trim(reason)) > 0)
+    %%   Índices: B-Tree(chapter_id, created_at, id), B-Tree(revision_id), B-Tree(actor_id)
+    %%   ON DELETE: append-only; chapter_id, revision_id, actor_id → PROTECT
+
+    USER {
+        bigint id PK "! auto"
+    }
+    %% USER: tabla de referencia (solo PK); ON DELETE → PROTECT en toda FK

@@ -1,0 +1,2781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visor de Arquitectura de Base de Datos - TesisMCP</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: #1e293b;
+            --surface-hover: #273549;
+            --border-color: #334155;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --accent-mvp: #10b981;
+            --accent-ext: #a855f7;
+            --accent-warn: #f59e0b;
+            --accent-info: #06b6d4;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --code-bg: #0b1120;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.15rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .header-title h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 0.4rem;
+            background: #090d16;
+            padding: 0.35rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 7px;
+            font-size: 0.86rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #0f172a;
+        }
+
+        main {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1650px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.25s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .diagram-container {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .diagram-toolbar {
+            padding: 0.85rem 1.25rem;
+            background: rgba(15, 23, 42, 0.7);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .diagram-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .diagram-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-action {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            transition: all 0.2s;
+        }
+
+        .btn-action:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--primary);
+        }
+
+        .image-wrapper {
+            background: #ffffff;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+            max-height: 80vh;
+        }
+
+        .image-wrapper img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .info-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+        }
+
+        .info-card h3 {
+            font-size: 1.05rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-card p, .info-card li {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .info-card ul {
+            padding-left: 1.2rem;
+            margin-top: 0.5rem;
+        }
+
+        /* STATS BANNER */
+        .stats-banner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-badge {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 0.65rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .stat-badge strong {
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        /* TOOLBAR DICCIONARIO */
+        .dict-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .dict-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 240px;
+            padding: 0.65rem 1rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .filter-select {
+            padding: 0.65rem 1rem;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.88rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+        }
+
+        .dict-actions-global {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* TABLA DICCIONARIO */
+        .dict-table-container {
+            background: var(--surface-color);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        .dict-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dict-table th {
+            background: #090d16;
+            padding: 0.85rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .dict-table td {
+            padding: 0.85rem 1rem;
+            font-size: 0.88rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+        }
+
+        .table-row-parent {
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .table-row-parent:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .table-row-parent.expanded {
+            background: rgba(56, 189, 248, 0.06);
+            border-bottom-color: transparent;
+        }
+
+        .toggle-icon {
+            display: inline-block;
+            width: 20px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--primary);
+            transition: transform 0.2s ease;
+            user-select: none;
+        }
+
+        .table-row-parent.expanded .toggle-icon {
+            transform: rotate(90deg);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-mvp {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-mvp);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .badge-ext {
+            background: rgba(168, 85, 247, 0.2);
+            color: var(--accent-ext);
+            border: 1px solid rgba(168, 85, 247, 0.4);
+        }
+
+        .tag-domain {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* DETAIL PANEL ACORDEÓN */
+        .detail-row {
+            display: none;
+            background: #0d1424;
+        }
+
+        .detail-row.open {
+            display: table-row;
+        }
+
+        .detail-cell {
+            padding: 1.5rem !important;
+            border-bottom: 2px solid var(--border-color) !important;
+        }
+
+        .detail-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .subtable-container {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--surface-color);
+        }
+
+        .subtable-header {
+            padding: 0.65rem 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .subtable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+        }
+
+        .subtable th {
+            background: #090d16;
+            padding: 0.6rem 0.85rem;
+            text-align: left;
+            font-size: 0.75rem;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .subtable td {
+            padding: 0.55rem 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: middle;
+        }
+
+        .subtable tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pill-key {
+            display: inline-block;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .pill-pk { background: rgba(56, 189, 248, 0.2); color: var(--primary); border: 1px solid var(--primary); }
+        .pill-fk { background: rgba(245, 158, 11, 0.2); color: var(--accent-warn); border: 1px solid var(--accent-warn); }
+        .pill-uk { background: rgba(16, 185, 129, 0.2); color: var(--accent-mvp); border: 1px solid var(--accent-mvp); }
+
+        .choices-box {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.25rem;
+        }
+
+        .choice-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.35rem;
+            border-radius: 3px;
+            font-size: 0.72rem;
+            font-family: monospace;
+            color: #e2e8f0;
+        }
+
+        .constraints-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        @media (max-width: 1200px) {
+            .constraints-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .constraints-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .constraints-card h4 {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .constraints-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .constraints-list li {
+            font-size: 0.8rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 0.5rem 0.75rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary);
+            line-height: 1.4;
+        }
+
+        .constraints-list li.constraint-check { border-left-color: var(--accent-warn); }
+        .constraints-list li.constraint-unique { border-left-color: var(--accent-mvp); }
+        .constraints-list li.constraint-index { border-left-color: var(--accent-info); }
+
+        .code-box {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            padding: 0.5rem 1rem;
+            background: rgba(15, 23, 42, 0.9);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-header span {
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--text-muted);
+        }
+
+        .code-pre {
+            padding: 1rem;
+            font-family: "Fira Code", monospace, "Courier New";
+            font-size: 0.78rem;
+            line-height: 1.45;
+            overflow-x: auto;
+            color: #38bdf8;
+            max-height: 280px;
+        }
+
+        .btn-copy {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 0.3rem 0.65rem;
+            border-radius: 5px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .btn-copy:hover {
+            background: var(--primary);
+            color: #0f172a;
+        }
+
+        /* TAB 5: MIGRACIONES E INVARIANTES */
+        .migra-section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1.5rem 0 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .migra-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+            line-height: 1.5;
+        }
+
+        /* PHASES GRID */
+        .phases-flow {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .phase-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .phase-badge {
+            align-self: flex-start;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .phase-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-tables {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+            margin: 0.65rem 0;
+        }
+
+        .phase-table-tag {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            padding: 0.2rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--primary);
+        }
+
+        .phase-deps {
+            margin-top: auto;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .callout-box {
+            background: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-left: 4px solid var(--accent-warn);
+            border-radius: 8px;
+            padding: 1.1rem 1.4rem;
+            margin-bottom: 2rem;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            color: #fde68a;
+        }
+
+        .callout-box strong {
+            color: #fff;
+        }
+
+        .callout-box code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #fbcfe8;
+        }
+
+        /* INVARIANTS TABLE */
+        .invariants-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface-color);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            margin-bottom: 2rem;
+        }
+
+        .invariants-table th {
+            background: #090d16;
+            padding: 0.85rem 1rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .invariants-table td {
+            padding: 0.85rem 1rem;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            vertical-align: top;
+            line-height: 1.45;
+        }
+
+        .invariants-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .pill-lock {
+            display: inline-block;
+            background: rgba(239, 68, 68, 0.18);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        .pill-optimistic {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.18);
+            color: #7dd3fc;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            font-family: monospace;
+        }
+
+        /* TOAST NOTIFICATION */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #0284c7;
+            color: #ffffff;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            background: #090d16;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <h1>TesisMCP • Arquitectura de Base de Datos</h1>
+            <p>Modelado Relacional en PostgreSQL (21 Tablas • 9 MVP Semana 12 vs. 12 Extensión)</p>
+        </div>
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('tab-conceptual', this)">1. Conceptual (DER)</button>
+            <button class="tab-btn" onclick="switchTab('tab-logico', this)">2. Modelo Lógico</button>
+            <button class="tab-btn" onclick="switchTab('tab-fisico', this)">3. Modelo Físico Completo</button>
+            <button class="tab-btn" onclick="switchTab('tab-diccionario', this)">4. Diccionario de Tablas (21)</button>
+            <button class="tab-btn" onclick="switchTab('tab-migraciones', this)">5. Migraciones e Invariantes</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- TAB 1: CONCEPTUAL (DER) -->
+        <div id="tab-conceptual" class="tab-content active">
+            <div class="diagram-container">
+                <div class="diagram-toolbar">
+                    <span class="diagram-title">Diagrama Entidad-Relación Conceptual (5 Dominios Arquitectónicos)</span>
+                    <div class="diagram-actions">
+                        <a href="diagrama_er_conceptual.svg" target="_blank" class="btn-action">🔍 Abrir Vectorial (SVG)</a>
+                        <a href="diagrama_er_conceptual.png" download class="btn-action">⬇️ Descargar PNG</a>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="diagrama_er_conceptual.png" alt="Diagrama Entidad-Relación Conceptual TesisMCP">
+                </div>
+            </div>
+
+            <div class="info-card-grid">
+                <div class="info-card">
+                    <h3>🏛️ Gobernanza y Avance</h3>
+                    <p>Gestiona la identidad del estudiante y asesor, asegurando que cada proyecto de tesis tenga un solo titular y avance secuencial a través de los 32 pasos estructurados de titulación.</p>
+                </div>
+                <div class="info-card">
+                    <h3>📑 Inmutabilidad de Revisiones</h3>
+                    <p>Cada vez que el estudiante guarda un paso, se crea una revisión inmutable del texto entregado para ese paso. Las observaciones del asesor se anclan a esa revisión; la instantánea completa del capítulo aprobado está pendiente.</p>
+                </div>
+                <div class="info-card">
+                    <h3>🔬 Grounding Científico</h3>
+                    <p>Las afirmaciones redactadas se vinculan a fragmentos específicos de artículos y tesis reales, garantizando que el 100% de las citas cuenten con localizador físico o DOI comprobado.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: LÓGICO -->
+        <div id="tab-logico" class="tab-content">
+            <div class="diagram-container">
+                <div class="diagram-toolbar">
+                    <span class="diagram-title">Diagrama Lógico Relacional Normalizado (Entidades y Claves)</span>
+                    <div class="diagram-actions">
+                        <a href="diagrama_modelo_logico.svg" target="_blank" class="btn-action">🔍 Abrir Vectorial (SVG)</a>
+                        <a href="diagrama_modelo_logico.png" download class="btn-action">⬇️ Descargar PNG</a>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="diagrama_modelo_logico.png" alt="Modelo Lógico Relacional TesisMCP">
+                </div>
+            </div>
+
+            <div class="info-card-grid">
+                <div class="info-card">
+                    <h3>🔗 Resolución de Relaciones N:M</h3>
+                    <p>Uso de tablas asociativas explícitas con restricciones de unicidad compuesta:</p>
+                    <ul>
+                        <li><code>project_participant</code>: Vincula usuarios y proyectos con roles diferenciados.</li>
+                        <li><code>consistency_row_variable</code>: Conecta variables con preguntas y objetivos.</li>
+                        <li><code>instrument_item_indicator</code>: Mapea preguntas de encuesta con indicadores.</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>🛡️ Integridad de Dominio</h3>
+                    <p>Claves compuestas y restricciones lógicas que impiden mezclar datos entre proyectos ajenos o citar fuentes no pertenecientes al espacio del tesista.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: FÍSICO COMPLETO -->
+        <div id="tab-fisico" class="tab-content">
+            <div class="diagram-container">
+                <div class="diagram-toolbar">
+                    <span class="diagram-title">Modelo físico propuesto para PostgreSQL (21 tablas)</span>
+                    <div class="diagram-actions">
+                        <a href="diagrama_modelo_fisico_completo.svg" target="_blank" class="btn-action">🔍 Abrir Vectorial (SVG)</a>
+                        <a href="diagrama_modelo_fisico_completo.png" download class="btn-action">⬇️ Descargar PNG</a>
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="diagrama_modelo_fisico_completo.png" alt="Modelo Físico Completo PostgreSQL TesisMCP">
+                </div>
+            </div>
+
+            <div class="info-card-grid">
+                <div class="info-card" style="border-left: 4px solid var(--accent-mvp);">
+                    <h3 style="color: var(--accent-mvp);">🟢 Tablas MVP (Semana 12 - 9 Tablas)</h3>
+                    <p>Enfocadas en la demostración funcional del APF3:</p>
+                    <ul>
+                        <li><code>user</code>, <code>project</code>, <code>project_participant</code></li>
+                        <li><code>research_profile</code> (con <code>lock_version</code>)</li>
+                        <li><code>step_progress</code> (JSONB P01–P32)</li>
+                        <li><code>chapter</code> (1 al 7), <code>chapter_revision</code> (MD inmutable)</li>
+                        <li><code>review_comment</code>, <code>review_event</code> (auditoría)</li>
+                    </ul>
+                </div>
+                <div class="info-card" style="border-left: 4px solid var(--accent-ext);">
+                    <h3 style="color: var(--accent-ext);">🟣 Tablas de Extensión (12 Tablas)</h3>
+                    <p>Complementan la plataforma para entrega final:</p>
+                    <ul>
+                        <li>Invitaciones con token criptográfico (<code>project_invitation</code>).</li>
+                        <li>Matriz metodológica y operacionalización (<code>consistency_row</code>, <code>research_variable</code>, <code>variable_dimension</code>, <code>indicator</code>).</li>
+                        <li>Diseño de instrumentos (<code>instrument</code>, <code>instrument_item</code>).</li>
+                        <li>Ingestión y verificación RAG (<code>source_document</code>, <code>source_excerpt</code>, <code>evidence_citation</code>).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 4: DICCIONARIO INTERACTIVO (21 TABLAS) -->
+        <div id="tab-diccionario" class="tab-content">
+            <!-- BANNER DE ESTADÍSTICAS -->
+            <div class="stats-banner">
+                <div class="stat-badge"><span>Total Tablas:</span> <strong>21</strong></div>
+                <div class="stat-badge"><span style="color: var(--accent-mvp);">🟢 MVP Semana 12:</span> <strong>9 Tablas</strong></div>
+                <div class="stat-badge"><span style="color: var(--accent-ext);">🟣 Extensión:</span> <strong>12 Tablas</strong></div>
+                <div class="stat-badge"><span>Campos con Enums/Choices:</span> <strong>16</strong></div>
+                <div class="stat-badge"><span>Restricciones CHECK:</span> <strong>~25</strong></div>
+                <div class="stat-badge"><span>Índices Especializados:</span> <strong>~20</strong></div>
+            </div>
+
+            <!-- FILTROS Y BÚSQUEDA -->
+            <div class="dict-toolbar">
+                <div class="dict-filters">
+                    <input type="text" id="dictSearch" class="search-input" placeholder="🔍 Buscar tabla, campo, check o descripción..." onkeyup="filterDictionary()">
+                    <select id="domainFilter" class="filter-select" onchange="filterDictionary()">
+                        <option value="ALL">Todos los Dominios (5)</option>
+                        <option value="Identidad">Identidad y Gobernanza</option>
+                        <option value="Metodología">Metodología y Avance</option>
+                        <option value="Revisiones">Revisiones y Asesoría</option>
+                        <option value="Variables">Matriz e Instrumentos</option>
+                        <option value="Fuentes">Fuentes y Grounding RAG</option>
+                    </select>
+                    <select id="stageFilter" class="filter-select" onchange="filterDictionary()">
+                        <option value="ALL">Todas las Fases (21)</option>
+                        <option value="MVP">Solo MVP (9 Tablas)</option>
+                        <option value="Extensión">Solo Extensión (12 Tablas)</option>
+                    </select>
+                </div>
+                <div class="dict-actions-global">
+                    <button class="btn-action" onclick="toggleAllDetails(true)">➕ Expandir Todas</button>
+                    <button class="btn-action" onclick="toggleAllDetails(false)">➖ Colapsar Todas</button>
+                </div>
+            </div>
+
+            <div class="dict-table-container">
+                <table class="dict-table" id="tableDictionary">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"></th>
+                            <th style="width: 200px;">Tabla Física</th>
+                            <th style="width: 100px;">Fase</th>
+                            <th style="width: 150px;">Dominio</th>
+                            <th style="width: 250px;">Claves Principales</th>
+                            <th>Propósito y Restricción de Integridad</th>
+                            <th style="width: 110px; text-align: center;">DDL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <!-- 1. user -->
+                        <tr class="table-row-parent" id="row-user" onclick="toggleDetail('user')" data-domain="Identidad" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>user</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Identidad</span></td>
+                            <td><code>id BIGINT PK</code><br><code>email UK</code></td>
+                            <td>Almacena cuentas de tesistas y docentes. Unicidad funcional insensible a mayúsculas sobre <code>lower(email)</code>.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('user')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-user">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (5)</span> <span style="color: var(--primary);">Tabla: "user"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador subrogado único de la cuenta</td></tr>
+                                                <tr><td><strong>email</strong></td><td><code>varchar(254)</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-uk">UK</span></td><td>-</td><td>Correo institucional normalizado a minúsculas</td></tr>
+                                                <tr><td><strong>display_name</strong></td><td><code>varchar(150)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Nombre completo visible</td></tr>
+                                                <tr><td><strong>is_active</strong></td><td><code>boolean</code></td><td>NOT NULL</td><td><code>true</code></td><td>-</td><td>-</td><td>Estado de vigencia de la cuenta</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha UTC inmutable de registro</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_user_email:</strong> UNIQUE (email)</li>
+                                                <li class="constraint-check"><strong>chk_user_email_not_empty:</strong> CHECK (length(trim(email)) > 3 AND position('@' in email) > 1)</li>
+                                                <li class="constraint-index"><strong>user_lower_email_idx:</strong> UNIQUE INDEX ON lower(email)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('user')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-user">CREATE TABLE IF NOT EXISTS "user" (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    email VARCHAR(254) NOT NULL,
+    display_name VARCHAR(150) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT uq_user_email UNIQUE (email),
+    CONSTRAINT chk_user_email_not_empty CHECK (length(trim(email)) > 3 AND position('@' in email) > 1)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS user_lower_email_idx ON "user" (lower(email));</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 2. project -->
+                        <tr class="table-row-parent" id="row-project" onclick="toggleDetail('project')" data-domain="Identidad" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>project</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Identidad</span></td>
+                            <td><code>id UUID PK</code></td>
+                            <td>Entidad raíz del proyecto de tesis. Controla el título académico, carrera, estilo de citación y estado del proyecto.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('project')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-project">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (8)</span> <span style="color: var(--primary);">Tabla: "project"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td><code>gen_random_uuid()</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador UUID v4 de la tesis</td></tr>
+                                                <tr><td><strong>name</strong></td><td><code>varchar(160)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Nombre de trabajo o etiqueta del proyecto</td></tr>
+                                                <tr><td><strong>title</strong></td><td><code>varchar(300)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Título académico oficial y vigente</td></tr>
+                                                <tr><td><strong>career</strong></td><td><code>varchar(160)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Carrera o programa profesional</td></tr>
+                                                <tr><td><strong>citation_style</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td><code>'IEEE'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'IEEE'</span><span class="choice-item">'APA7'</span></div></td></tr>
+                                                <tr><td><strong>status</strong></td><td><code>varchar(12)</code></td><td>NOT NULL</td><td><code>'ACTIVE'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'ACTIVE'</span><span class="choice-item">'ARCHIVED'</span></div></td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de creación UTC</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Última actualización de metadatos</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-check"><strong>chk_project_status:</strong> CHECK (status IN ('ACTIVE', 'ARCHIVED'))</li>
+                                                <li class="constraint-check"><strong>chk_project_citation_style:</strong> CHECK (citation_style IN ('IEEE', 'APA7'))</li>
+                                                <li class="constraint-index"><strong>project_status_updated_idx:</strong> INDEX ON project (status, updated_at DESC)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('project')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-project">CREATE TABLE IF NOT EXISTS project (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(160) NOT NULL,
+    title VARCHAR(300) NOT NULL,
+    career VARCHAR(160),
+    citation_style VARCHAR(20) NOT NULL DEFAULT 'IEEE',
+    status VARCHAR(12) NOT NULL DEFAULT 'ACTIVE',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chk_project_status CHECK (status IN ('ACTIVE', 'ARCHIVED')),
+    CONSTRAINT chk_project_citation_style CHECK (citation_style IN ('IEEE', 'APA7'))
+);
+
+CREATE INDEX IF NOT EXISTS project_status_updated_idx ON project (status, updated_at DESC);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 3. project_participant -->
+                        <tr class="table-row-parent" id="row-project_participant" onclick="toggleDetail('project_participant')" data-domain="Identidad" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>project_participant</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Identidad</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(project_id, user_id) UK</code></td>
+                            <td>Mapea roles (OWNER / ADVISOR). Filtros parciales limitan estrictamente a un tesista titular y un asesor activos simultáneos.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('project_participant')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-project_participant">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "project_participant"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de participación</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE RESTRICT</td><td>Tesis vinculada</td></tr>
+                                                <tr><td><strong>user_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>user(id)</code> ON DELETE RESTRICT</td><td>Usuario participante</td></tr>
+                                                <tr><td><strong>role</strong></td><td><code>varchar(10)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'OWNER'</span><span class="choice-item">'ADVISOR'</span></div></td></tr>
+                                                <tr><td><strong>active</strong></td><td><code>boolean</code></td><td>NOT NULL</td><td><code>true</code></td><td>-</td><td>-</td><td>Indica si la vinculación está vigente</td></tr>
+                                                <tr><td><strong>joined_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de incorporación</td></tr>
+                                                <tr><td><strong>left_at</strong></td><td><code>timestamptz</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Fecha de desvinculación (si active = false)</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices Parciales</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_participant_project_user:</strong> UNIQUE (project_id, user_id)</li>
+                                                <li class="constraint-check"><strong>chk_participant_active:</strong> CHECK (active = (left_at IS NULL))</li>
+                                                <li class="constraint-check"><strong>chk_participant_role:</strong> CHECK (role IN ('OWNER', 'ADVISOR'))</li>
+                                                <li class="constraint-index"><strong>uq_participant_project_owner_active:</strong> UNIQUE INDEX ON (project_id) WHERE role = 'OWNER' AND active = true (Regla de negocio: 1 titular activo)</li>
+                                                <li class="constraint-index"><strong>uq_participant_project_advisor_active:</strong> UNIQUE INDEX ON (project_id) WHERE role = 'ADVISOR' AND active = true (Regla de negocio: 1 asesor activo)</li>
+                                                <li class="constraint-index"><strong>participant_user_active_role_idx:</strong> INDEX ON (user_id, active, role)</li>
+                                                <li class="constraint-index"><strong>participant_project_id_idx:</strong> INDEX ON (project_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('project_participant')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-project_participant">CREATE TABLE IF NOT EXISTS project_participant (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    project_id UUID NOT NULL,
+    user_id BIGINT NOT NULL,
+    role VARCHAR(10) NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT true,
+    joined_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    left_at TIMESTAMPTZ,
+    CONSTRAINT fk_participant_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_participant_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE RESTRICT,
+    CONSTRAINT uq_participant_project_user UNIQUE (project_id, user_id),
+    CONSTRAINT chk_participant_active CHECK (active = (left_at IS NULL)),
+    CONSTRAINT chk_participant_role CHECK (role IN ('OWNER', 'ADVISOR'))
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_participant_project_owner_active ON project_participant(project_id) WHERE role = 'OWNER' AND active = true;
+CREATE UNIQUE INDEX IF NOT EXISTS uq_participant_project_advisor_active ON project_participant(project_id) WHERE role = 'ADVISOR' AND active = true;
+CREATE INDEX IF NOT EXISTS participant_user_active_role_idx ON project_participant(user_id, active, role);
+CREATE INDEX IF NOT EXISTS participant_project_id_idx ON project_participant(project_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 4. project_invitation -->
+                        <tr class="table-row-parent" id="row-project_invitation" onclick="toggleDetail('project_invitation')" data-domain="Identidad" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>project_invitation</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Identidad</span></td>
+                            <td><code>id UUID PK</code><br><code>token_hash CHAR(64) UK</code></td>
+                            <td>Gestión segura de invitaciones para docentes con hash criptográfico y caducidad temporal.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('project_invitation')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-project_invitation">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (10)</span> <span style="color: var(--primary);">Tabla: "project_invitation"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td><code>gen_random_uuid()</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de la invitación</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Tesis a la que se invita</td></tr>
+                                                <tr><td><strong>email</strong></td><td><code>varchar(254)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Correo institucional del invitado</td></tr>
+                                                <tr><td><strong>role</strong></td><td><code>varchar(10)</code></td><td>NOT NULL</td><td><code>'ADVISOR'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'ADVISOR'</span></div></td></tr>
+                                                <tr><td><strong>token_hash</strong></td><td><code>char(64)</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-uk">UK</span></td><td>-</td><td>Hash SHA-256 del token criptográfico</td></tr>
+                                                <tr><td><strong>invited_by_user_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>user(id)</code> ON DELETE RESTRICT</td><td>Tesista que genera la invitación</td></tr>
+                                                <tr><td><strong>accepted_by_user_id</strong></td><td><code>bigint</code></td><td>NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>user(id)</code> ON DELETE RESTRICT</td><td>Docente que aceptó la invitación</td></tr>
+                                                <tr><td><strong>expires_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Fecha y hora de expiración</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de envío de la invitación</td></tr>
+                                                <tr><td><strong>accepted_at</strong></td><td><code>timestamptz</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Fecha de aceptación (NULL si pendiente)</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_invitation_token_hash:</strong> UNIQUE (token_hash)</li>
+                                                <li class="constraint-check"><strong>chk_invitation_role:</strong> CHECK (role = 'ADVISOR')</li>
+                                                <li class="constraint-check"><strong>chk_invitation_acceptance:</strong> CHECK (accepted_at IS NULL OR accepted_by_user_id IS NOT NULL)</li>
+                                                <li class="constraint-index"><strong>uq_invitation_pending_project_email:</strong> UNIQUE INDEX ON (project_id, lower(email)) WHERE accepted_at IS NULL</li>
+                                                <li class="constraint-index"><strong>invitation_token_hash_idx:</strong> INDEX ON (token_hash)</li>
+                                                <li class="constraint-index"><strong>invitation_project_id_idx:</strong> INDEX ON (project_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('project_invitation')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-project_invitation">CREATE TABLE IF NOT EXISTS project_invitation (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    project_id UUID NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    role VARCHAR(10) NOT NULL DEFAULT 'ADVISOR',
+    token_hash CHAR(64) NOT NULL,
+    invited_by_user_id BIGINT NOT NULL,
+    accepted_by_user_id BIGINT,
+    expires_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    accepted_at TIMESTAMPTZ,
+    CONSTRAINT fk_invitation_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT fk_invitation_invited_by FOREIGN KEY (invited_by_user_id) REFERENCES "user"(id) ON DELETE RESTRICT,
+    CONSTRAINT fk_invitation_accepted_by FOREIGN KEY (accepted_by_user_id) REFERENCES "user"(id) ON DELETE RESTRICT,
+    CONSTRAINT uq_invitation_token_hash UNIQUE (token_hash),
+    CONSTRAINT chk_invitation_role CHECK (role = 'ADVISOR'),
+    CONSTRAINT chk_invitation_acceptance CHECK (accepted_at IS NULL OR accepted_by_user_id IS NOT NULL)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_invitation_pending_project_email ON project_invitation(project_id, lower(email)) WHERE accepted_at IS NULL;
+CREATE INDEX IF NOT EXISTS invitation_token_hash_idx ON project_invitation(token_hash);
+CREATE INDEX IF NOT EXISTS invitation_project_id_idx ON project_invitation(project_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 5. research_profile -->
+                        <tr class="table-row-parent" id="row-research_profile" onclick="toggleDetail('research_profile')" data-domain="Metodología" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>research_profile</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Metodología</span></td>
+                            <td><code>project_id UUID PK,FK</code></td>
+                            <td>Perfil metodológico 1:1 con el proyecto. Contiene enfoque y lock_version para concurrencia optimista al guardar.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('research_profile')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-research_profile">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (10)</span> <span style="color: var(--primary);">Tabla: "research_profile"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-pk">PK</span> <span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Clave primaria compartida 1:1 con project</td></tr>
+                                                <tr><td><strong>academic_period</strong></td><td><code>varchar(20)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Semestre académico (ej. '2026-1')</td></tr>
+                                                <tr><td><strong>approach</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td><code>'QUANTITATIVE'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'QUANTITATIVE'</span><span class="choice-item">'QUALITATIVE'</span><span class="choice-item">'MIXED'</span></div></td></tr>
+                                                <tr><td><strong>general_problem</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Planteamiento del problema general</td></tr>
+                                                <tr><td><strong>general_objective</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Objetivo general formulado</td></tr>
+                                                <tr><td><strong>general_hypothesis</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Hipótesis general (si aplica)</td></tr>
+                                                <tr><td><strong>justification</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Justificación teórica y práctica</td></tr>
+                                                <tr><td><strong>theoretical_framework_summary</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Resumen de bases teóricas y antecedentes</td></tr>
+                                                <tr><td><strong>lock_version</strong></td><td><code>integer</code></td><td>NOT NULL</td><td><code>0</code></td><td>-</td><td>-</td><td>Control de concurrencia optimista (OCC)</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Marca temporal de última edición</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-check"><strong>chk_research_profile_approach:</strong> CHECK (approach IN ('QUANTITATIVE', 'QUALITATIVE', 'MIXED'))</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('research_profile')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-research_profile">CREATE TABLE IF NOT EXISTS research_profile (
+    project_id UUID PRIMARY KEY,
+    academic_period VARCHAR(20),
+    approach VARCHAR(20) NOT NULL DEFAULT 'QUANTITATIVE',
+    general_problem TEXT,
+    general_objective TEXT,
+    general_hypothesis TEXT,
+    justification TEXT,
+    theoretical_framework_summary TEXT,
+    lock_version INTEGER NOT NULL DEFAULT 0,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_research_profile_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT chk_research_profile_approach CHECK (approach IN ('QUANTITATIVE', 'QUALITATIVE', 'MIXED'))
+);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 6. step_progress -->
+                        <tr class="table-row-parent" id="row-step_progress" onclick="toggleDetail('step_progress')" data-domain="Metodología" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>step_progress</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Metodología</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(project_id, step_code) UK</code></td>
+                            <td>Registra el avance (NOT_STARTED, IN_PROGRESS, COMPLETED) y la salida JSONB de cada uno de los 32 pasos metodológicos (P01–P32).</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('step_progress')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-step_progress">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (8)</span> <span style="color: var(--primary);">Tabla: "step_progress"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de avance de paso</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Proyecto de tesis</td></tr>
+                                                <tr><td><strong>step_code</strong></td><td><code>varchar(8)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Código de paso: 'P01' a 'P32' (Regex validada)</td></tr>
+                                                <tr><td><strong>status</strong></td><td><code>varchar(15)</code></td><td>NOT NULL</td><td><code>'NOT_STARTED'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'NOT_STARTED'</span><span class="choice-item">'IN_PROGRESS'</span><span class="choice-item">'COMPLETED'</span></div></td></tr>
+                                                <tr><td><strong>output_payload</strong></td><td><code>jsonb</code></td><td>NOT NULL</td><td><code>'{}'::jsonb</code></td><td>-</td><td>-</td><td>Estructura JSON con resultados del paso</td></tr>
+                                                <tr><td><strong>started_at</strong></td><td><code>timestamptz</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Inicio formal del trabajo en el paso</td></tr>
+                                                <tr><td><strong>completed_at</strong></td><td><code>timestamptz</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Fecha de validación final del paso</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Último auto-guardado</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_step_progress_project_code:</strong> UNIQUE (project_id, step_code)</li>
+                                                <li class="constraint-check"><strong>chk_step_progress_status:</strong> CHECK (status IN ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED'))</li>
+                                                <li class="constraint-check"><strong>chk_step_progress_code:</strong> CHECK (step_code ~ '^P(0[1-9]|[12][0-9]|3[0-2])$')</li>
+                                                <li class="constraint-index"><strong>step_progress_project_status_idx:</strong> INDEX ON (project_id, status)</li>
+                                                <li class="constraint-index"><strong>step_progress_project_code_idx:</strong> INDEX ON (project_id, step_code)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('step_progress')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-step_progress">CREATE TABLE IF NOT EXISTS step_progress (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    project_id UUID NOT NULL,
+    step_code VARCHAR(8) NOT NULL,
+    status VARCHAR(15) NOT NULL DEFAULT 'NOT_STARTED',
+    output_payload JSONB NOT NULL DEFAULT '{}'::jsonb,
+    started_at TIMESTAMPTZ,
+    completed_at TIMESTAMPTZ,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_step_progress_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT uq_step_progress_project_code UNIQUE (project_id, step_code),
+    CONSTRAINT chk_step_progress_status CHECK (status IN ('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED')),
+    CONSTRAINT chk_step_progress_code CHECK (step_code ~ '^P(0[1-9]|[12][0-9]|3[0-2])$')
+);
+
+CREATE INDEX IF NOT EXISTS step_progress_project_status_idx ON step_progress (project_id, status);
+CREATE INDEX IF NOT EXISTS step_progress_project_code_idx ON step_progress (project_id, step_code);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 7. chapter -->
+                        <tr class="table-row-parent" id="row-chapter" onclick="toggleDetail('chapter')" data-domain="Metodología" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>chapter</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Metodología</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(project_id, number) UK</code></td>
+                            <td>Estructura exacta de los Capítulos 1 al 7. Mantiene estado de aprobación y referencia a approved_revision_id.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('chapter')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-chapter">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "chapter"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del capítulo</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Tesis asociada</td></tr>
+                                                <tr><td><strong>number</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Número de capítulo canónico: 1 al 7</td></tr>
+                                                <tr><td><strong>title</strong></td><td><code>varchar(160)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Título oficial del capítulo de tesis</td></tr>
+                                                <tr><td><strong>status</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td><code>'DRAFT'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'DRAFT'</span><span class="choice-item">'IN_REVIEW'</span><span class="choice-item">'APPROVED'</span><span class="choice-item">'REJECTED'</span></div></td></tr>
+                                                <tr><td><strong>approved_revision_id</strong></td><td><code>bigint</code></td><td>NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>chapter_revision(id)</code> ON DELETE SET NULL</td><td>Puntero a la versión inmutable aprobada</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Última actualización de estado</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_chapter_project_number:</strong> UNIQUE (project_id, number)</li>
+                                                <li class="constraint-check"><strong>chk_chapter_number:</strong> CHECK (number BETWEEN 1 AND 7)</li>
+                                                <li class="constraint-check"><strong>chk_chapter_status:</strong> CHECK (status IN ('DRAFT', 'IN_REVIEW', 'APPROVED', 'REJECTED'))</li>
+                                                <li class="constraint-index"><strong>chapter_project_status_idx:</strong> INDEX ON (project_id, status)</li>
+                                                <li class="constraint-index"><strong>chapter_project_number_idx:</strong> INDEX ON (project_id, number)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('chapter')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-chapter">-- Creado inicialmente sin approved_revision_id FK para romper ciclo circular
+CREATE TABLE IF NOT EXISTS chapter (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    project_id UUID NOT NULL,
+    number SMALLINT NOT NULL,
+    title VARCHAR(160) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'DRAFT',
+    approved_revision_id BIGINT,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_chapter_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT uq_chapter_project_number UNIQUE (project_id, number),
+    CONSTRAINT chk_chapter_number CHECK (number BETWEEN 1 AND 7),
+    CONSTRAINT chk_chapter_status CHECK (status IN ('DRAFT', 'IN_REVIEW', 'APPROVED', 'REJECTED'))
+);
+
+CREATE INDEX IF NOT EXISTS chapter_project_status_idx ON chapter (project_id, status);
+CREATE INDEX IF NOT EXISTS chapter_project_number_idx ON chapter (project_id, number);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 8. chapter_revision -->
+                        <tr class="table-row-parent" id="row-chapter_revision" onclick="toggleDetail('chapter_revision')" data-domain="Revisiones" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>chapter_revision</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Revisiones</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(chapter_id, revision_no) UK</code></td>
+                            <td>Instantánea inmutable del capítulo en Markdown. Incluye content_sha256 e idempotency_key contra reintentos.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('chapter_revision')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-chapter_revision">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (9)</span> <span style="color: var(--primary);">Tabla: "chapter_revision"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador inmutable de la revisión</td></tr>
+                                                <tr><td><strong>chapter_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>chapter(id)</code> ON DELETE CASCADE</td><td>Capítulo al que pertenece</td></tr>
+                                                <tr><td><strong>revision_no</strong></td><td><code>integer</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Número correlativo secuencial (1, 2, 3...)</td></tr>
+                                                <tr><td><strong>author_user_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>user(id)</code> ON DELETE RESTRICT</td><td>Usuario autor de la revisión</td></tr>
+                                                <tr><td><strong>content_md</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Texto íntegro en Markdown inmutable</td></tr>
+                                                <tr><td><strong>content_sha256</strong></td><td><code>char(64)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Hash SHA-256 para integridad de contenido</td></tr>
+                                                <tr><td><strong>word_count</strong></td><td><code>integer</code></td><td>NOT NULL</td><td><code>0</code></td><td>-</td><td>-</td><td>Conteo físico real de palabras</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha y hora UTC de congelamiento</td></tr>
+                                                <tr><td><strong>idempotency_key</strong></td><td><code>varchar(64)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Clave de idempotencia contra doble envío</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_chapter_revision_no:</strong> UNIQUE (chapter_id, revision_no)</li>
+                                                <li class="constraint-check"><strong>chk_revision_no_positive:</strong> CHECK (revision_no >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_revision_word_count:</strong> CHECK (word_count >= 0)</li>
+                                                <li class="constraint-index"><strong>uq_revision_chapter_idempotency:</strong> UNIQUE INDEX ON (chapter_id, idempotency_key) WHERE idempotency_key IS NOT NULL</li>
+                                                <li class="constraint-index"><strong>chapter_revision_chapter_created_idx:</strong> INDEX ON (chapter_id, created_at DESC)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL + Ciclo FK</span> <button class="btn-copy" onclick="copyDDL('chapter_revision')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-chapter_revision">CREATE TABLE IF NOT EXISTS chapter_revision (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    chapter_id BIGINT NOT NULL,
+    revision_no INTEGER NOT NULL,
+    author_user_id BIGINT NOT NULL,
+    content_md TEXT NOT NULL,
+    content_sha256 CHAR(64) NOT NULL,
+    word_count INTEGER NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    idempotency_key VARCHAR(64),
+    CONSTRAINT fk_revision_chapter FOREIGN KEY (chapter_id) REFERENCES chapter(id) ON DELETE CASCADE,
+    CONSTRAINT fk_revision_author FOREIGN KEY (author_user_id) REFERENCES "user"(id) ON DELETE RESTRICT,
+    CONSTRAINT uq_chapter_revision_no UNIQUE (chapter_id, revision_no),
+    CONSTRAINT chk_revision_no_positive CHECK (revision_no >= 1),
+    CONSTRAINT chk_revision_word_count CHECK (word_count >= 0)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_revision_chapter_idempotency ON chapter_revision(chapter_id, idempotency_key) WHERE idempotency_key IS NOT NULL;
+CREATE INDEX IF NOT EXISTS chapter_revision_chapter_created_idx ON chapter_revision(chapter_id, created_at DESC);
+
+-- Resolución de ciclo circular con chapter:
+ALTER TABLE chapter ADD CONSTRAINT fk_chapter_approved_rev FOREIGN KEY (approved_revision_id) REFERENCES chapter_revision(id) ON DELETE SET NULL;</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 9. review_comment -->
+                        <tr class="table-row-parent" id="row-review_comment" onclick="toggleDetail('review_comment')" data-domain="Revisiones" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>review_comment</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Revisiones</span></td>
+                            <td><code>id BIGINT PK</code><br><code>revision_id FK</code></td>
+                            <td>Observaciones docentes ancladas a posiciones de caracteres (start_cp, end_cp) sobre la revisión inmutable.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('review_comment')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-review_comment">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (10)</span> <span style="color: var(--primary);">Tabla: "review_comment"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de la observación</td></tr>
+                                                <tr><td><strong>revision_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>chapter_revision(id)</code> ON DELETE CASCADE</td><td>Revisión inmutable observada</td></tr>
+                                                <tr><td><strong>user_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>user(id)</code> ON DELETE RESTRICT</td><td>Docente asesor que emite el comentario</td></tr>
+                                                <tr><td><strong>start_cp</strong></td><td><code>integer</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Punto de inicio en caracteres Unicode (0-indexed)</td></tr>
+                                                <tr><td><strong>end_cp</strong></td><td><code>integer</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Punto de fin en caracteres Unicode</td></tr>
+                                                <tr><td><strong>kind</strong></td><td><code>varchar(15)</code></td><td>NOT NULL</td><td><code>'OBSERVATION'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'OBSERVATION'</span><span class="choice-item">'APPROVAL'</span><span class="choice-item">'REJECTION'</span></div></td></tr>
+                                                <tr><td><strong>body</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Texto explicativo y pedagógico de la retroalimentación</td></tr>
+                                                <tr><td><strong>resolved</strong></td><td><code>boolean</code></td><td>NOT NULL</td><td><code>false</code></td><td>-</td><td>-</td><td>Estado de subsanación de la observación</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de publicación de la observación</td></tr>
+                                                <tr><td><strong>resolved_at</strong></td><td><code>timestamptz</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Fecha en que fue marcada como resuelta</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-check"><strong>chk_comment_kind:</strong> CHECK (kind IN ('OBSERVATION', 'APPROVAL', 'REJECTION'))</li>
+                                                <li class="constraint-check"><strong>chk_comment_range:</strong> CHECK (start_cp IS NULL OR (start_cp >= 0 AND end_cp IS NOT NULL AND end_cp >= start_cp))</li>
+                                                <li class="constraint-index"><strong>review_comment_revision_resolved_idx:</strong> INDEX ON (revision_id, resolved)</li>
+                                                <li class="constraint-index"><strong>review_comment_user_id_idx:</strong> INDEX ON (user_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('review_comment')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-review_comment">CREATE TABLE IF NOT EXISTS review_comment (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    revision_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    start_cp INTEGER,
+    end_cp INTEGER,
+    kind VARCHAR(15) NOT NULL DEFAULT 'OBSERVATION',
+    body TEXT NOT NULL,
+    resolved BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    resolved_at TIMESTAMPTZ,
+    CONSTRAINT fk_comment_revision FOREIGN KEY (revision_id) REFERENCES chapter_revision(id) ON DELETE CASCADE,
+    CONSTRAINT fk_comment_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE RESTRICT,
+    CONSTRAINT chk_comment_kind CHECK (kind IN ('OBSERVATION', 'APPROVAL', 'REJECTION')),
+    CONSTRAINT chk_comment_range CHECK (start_cp IS NULL OR (start_cp >= 0 AND end_cp IS NOT NULL AND end_cp >= start_cp))
+);
+
+CREATE INDEX IF NOT EXISTS review_comment_revision_resolved_idx ON review_comment (revision_id, resolved);
+CREATE INDEX IF NOT EXISTS review_comment_user_id_idx ON review_comment (user_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 10. review_event -->
+                        <tr class="table-row-parent" id="row-review_event" onclick="toggleDetail('review_event')" data-domain="Revisiones" data-stage="MVP">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>review_event</code></td>
+                            <td><span class="badge badge-mvp">MVP</span></td>
+                            <td><span class="tag-domain">Revisiones</span></td>
+                            <td><code>id BIGINT PK</code><br><code>chapter_id FK</code></td>
+                            <td>Libro de auditoría append-only para transiciones: SUBMIT, REQUEST_CHANGES, APPROVE y REOPEN (con motivo obligatorio).</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('review_event')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-review_event">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "review_event"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de evento en el log de auditoría</td></tr>
+                                                <tr><td><strong>chapter_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>chapter(id)</code> ON DELETE CASCADE</td><td>Capítulo que experimenta la transición</td></tr>
+                                                <tr><td><strong>revision_id</strong></td><td><code>bigint</code></td><td>NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>chapter_revision(id)</code> ON DELETE SET NULL</td><td>Revisión vinculada al evento (si aplica)</td></tr>
+                                                <tr><td><strong>actor_user_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>user(id)</code> ON DELETE RESTRICT</td><td>Usuario que desencadena la acción</td></tr>
+                                                <tr><td><strong>action</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'SUBMIT'</span><span class="choice-item">'REQUEST_CHANGES'</span><span class="choice-item">'APPROVE'</span><span class="choice-item">'REOPEN'</span></div></td></tr>
+                                                <tr><td><strong>notes</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Motivo de la transición (obligatorio en REOPEN)</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha y hora UTC del evento</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-check"><strong>chk_review_event_action:</strong> CHECK (action IN ('SUBMIT', 'REQUEST_CHANGES', 'APPROVE', 'REOPEN'))</li>
+                                                <li class="constraint-check"><strong>chk_reopen_notes:</strong> CHECK (action &lt;&gt; 'REOPEN' OR (notes IS NOT NULL AND length(trim(notes)) >= 10))</li>
+                                                <li class="constraint-index"><strong>review_event_chapter_created_idx:</strong> INDEX ON (chapter_id, created_at DESC)</li>
+                                                <li class="constraint-index"><strong>review_event_actor_idx:</strong> INDEX ON (actor_user_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('review_event')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-review_event">CREATE TABLE IF NOT EXISTS review_event (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    chapter_id BIGINT NOT NULL,
+    revision_id BIGINT,
+    actor_user_id BIGINT NOT NULL,
+    action VARCHAR(20) NOT NULL,
+    notes TEXT,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_event_chapter FOREIGN KEY (chapter_id) REFERENCES chapter(id) ON DELETE CASCADE,
+    CONSTRAINT fk_event_revision FOREIGN KEY (revision_id) REFERENCES chapter_revision(id) ON DELETE SET NULL,
+    CONSTRAINT fk_event_actor FOREIGN KEY (actor_user_id) REFERENCES "user"(id) ON DELETE RESTRICT,
+    CONSTRAINT chk_review_event_action CHECK (action IN ('SUBMIT', 'REQUEST_CHANGES', 'APPROVE', 'REOPEN')),
+    CONSTRAINT chk_reopen_notes CHECK (action &lt;&gt; 'REOPEN' OR (notes IS NOT NULL AND length(trim(notes)) >= 10))
+);
+
+CREATE INDEX IF NOT EXISTS review_event_chapter_created_idx ON review_event (chapter_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS review_event_actor_idx ON review_event (actor_user_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 11. consistency_row -->
+                        <tr class="table-row-parent" id="row-consistency_row" onclick="toggleDetail('consistency_row')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>consistency_row</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(project_id, ordinal) UK</code></td>
+                            <td>Filas de la matriz de consistencia (ordinal 0 general, 1..n específicas). Alinea preguntas, objetivos e hipótesis.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('consistency_row')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-consistency_row">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "consistency_row"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de fila de matriz</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Proyecto de tesis</td></tr>
+                                                <tr><td><strong>ordinal</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td><code>0</code></td><td>-</td><td>-</td><td>0 = General, 1..n = Específicos</td></tr>
+                                                <tr><td><strong>question</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Formulación del problema (general o específico)</td></tr>
+                                                <tr><td><strong>objective</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Objetivo correlativo</td></tr>
+                                                <tr><td><strong>hypothesis</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Hipótesis planteada (si aplica al diseño)</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Última edición</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_consistency_row_project_ordinal:</strong> UNIQUE (project_id, ordinal)</li>
+                                                <li class="constraint-check"><strong>chk_consistency_row_ordinal:</strong> CHECK (ordinal >= 0)</li>
+                                                <li class="constraint-check"><strong>chk_consistency_row_question_not_empty:</strong> CHECK (length(trim(question)) > 5)</li>
+                                                <li class="constraint-check"><strong>chk_consistency_row_objective_not_empty:</strong> CHECK (length(trim(objective)) > 5)</li>
+                                                <li class="constraint-index"><strong>consistency_row_project_idx:</strong> INDEX ON (project_id, ordinal)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('consistency_row')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-consistency_row">CREATE TABLE IF NOT EXISTS consistency_row (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    project_id UUID NOT NULL,
+    ordinal SMALLINT NOT NULL DEFAULT 0,
+    question TEXT NOT NULL,
+    objective TEXT NOT NULL,
+    hypothesis TEXT,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_consistency_row_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT uq_consistency_row_project_ordinal UNIQUE (project_id, ordinal),
+    CONSTRAINT chk_consistency_row_ordinal CHECK (ordinal >= 0),
+    CONSTRAINT chk_consistency_row_question_not_empty CHECK (length(trim(question)) > 5),
+    CONSTRAINT chk_consistency_row_objective_not_empty CHECK (length(trim(objective)) > 5)
+);
+
+CREATE INDEX IF NOT EXISTS consistency_row_project_idx ON consistency_row (project_id, ordinal);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 12. research_variable -->
+                        <tr class="table-row-parent" id="row-research_variable" onclick="toggleDetail('research_variable')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>research_variable</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(project_id, ordinal) UK</code></td>
+                            <td>Variables con rol metodológico (INDEPENDENT, DEPENDENT, OTHER) y definiciones conceptuales.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('research_variable')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-research_variable">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (8)</span> <span style="color: var(--primary);">Tabla: "research_variable"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de la variable</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Proyecto de tesis</td></tr>
+                                                <tr><td><strong>ordinal</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Orden de presentación (1, 2, 3...)</td></tr>
+                                                <tr><td><strong>name</strong></td><td><code>varchar(160)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Nombre de la variable de estudio</td></tr>
+                                                <tr><td><strong>role</strong></td><td><code>varchar(15)</code></td><td>NOT NULL</td><td><code>'OTHER'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'INDEPENDENT'</span><span class="choice-item">'DEPENDENT'</span><span class="choice-item">'INTERVENING'</span><span class="choice-item">'MODERATING'</span><span class="choice-item">'OTHER'</span></div></td></tr>
+                                                <tr><td><strong>conceptual_definition</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Definición conceptual según autores</td></tr>
+                                                <tr><td><strong>operational_definition</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Definición operacional y forma de medida</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Última edición</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_research_variable_project_ordinal:</strong> UNIQUE (project_id, ordinal)</li>
+                                                <li class="constraint-check"><strong>chk_research_variable_ordinal:</strong> CHECK (ordinal >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_research_variable_role:</strong> CHECK (role IN ('INDEPENDENT', 'DEPENDENT', 'INTERVENING', 'MODERATING', 'OTHER'))</li>
+                                                <li class="constraint-index"><strong>research_variable_project_idx:</strong> INDEX ON (project_id, ordinal)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('research_variable')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-research_variable">CREATE TABLE IF NOT EXISTS research_variable (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    project_id UUID NOT NULL,
+    ordinal SMALLINT NOT NULL,
+    name VARCHAR(160) NOT NULL,
+    role VARCHAR(15) NOT NULL DEFAULT 'OTHER',
+    conceptual_definition TEXT,
+    operational_definition TEXT,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_research_variable_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT uq_research_variable_project_ordinal UNIQUE (project_id, ordinal),
+    CONSTRAINT chk_research_variable_ordinal CHECK (ordinal >= 1),
+    CONSTRAINT chk_research_variable_role CHECK (role IN ('INDEPENDENT', 'DEPENDENT', 'INTERVENING', 'MODERATING', 'OTHER'))
+);
+
+CREATE INDEX IF NOT EXISTS research_variable_project_idx ON research_variable (project_id, ordinal);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 13. consistency_row_variable -->
+                        <tr class="table-row-parent" id="row-consistency_row_variable" onclick="toggleDetail('consistency_row_variable')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>consistency_row_variable</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(row_id, var_id) UK</code></td>
+                            <td>Tabla asociativa que vincula qué variables participan en cada pregunta u objetivo de la matriz de consistencia.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('consistency_row_variable')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-consistency_row_variable">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (4)</span> <span style="color: var(--primary);">Tabla: "consistency_row_variable"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del vínculo asociativo</td></tr>
+                                                <tr><td><strong>row_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>consistency_row(id)</code> ON DELETE CASCADE</td><td>Fila de matriz vinculada</td></tr>
+                                                <tr><td><strong>variable_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>research_variable(id)</code> ON DELETE RESTRICT</td><td>Variable participante</td></tr>
+                                                <tr><td><strong>role_in_row</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td><code>'PRIMARY'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'PRIMARY'</span><span class="choice-item">'SECONDARY'</span></div></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_crv_row_variable:</strong> UNIQUE (row_id, variable_id)</li>
+                                                <li class="constraint-check"><strong>chk_crv_role_in_row:</strong> CHECK (role_in_row IN ('PRIMARY', 'SECONDARY'))</li>
+                                                <li class="constraint-index"><strong>crv_row_id_idx:</strong> INDEX ON (row_id)</li>
+                                                <li class="constraint-index"><strong>crv_variable_id_idx:</strong> INDEX ON (variable_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('consistency_row_variable')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-consistency_row_variable">CREATE TABLE IF NOT EXISTS consistency_row_variable (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    row_id BIGINT NOT NULL,
+    variable_id BIGINT NOT NULL,
+    role_in_row VARCHAR(20) NOT NULL DEFAULT 'PRIMARY',
+    CONSTRAINT fk_crv_row FOREIGN KEY (row_id) REFERENCES consistency_row(id) ON DELETE CASCADE,
+    CONSTRAINT fk_crv_variable FOREIGN KEY (variable_id) REFERENCES research_variable(id) ON DELETE RESTRICT,
+    CONSTRAINT uq_crv_row_variable UNIQUE (row_id, variable_id),
+    CONSTRAINT chk_crv_role_in_row CHECK (role_in_row IN ('PRIMARY', 'SECONDARY'))
+);
+
+CREATE INDEX IF NOT EXISTS crv_row_id_idx ON consistency_row_variable (row_id);
+CREATE INDEX IF NOT EXISTS crv_variable_id_idx ON consistency_row_variable (variable_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 14. variable_dimension -->
+                        <tr class="table-row-parent" id="row-variable_dimension" onclick="toggleDetail('variable_dimension')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>variable_dimension</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(variable_id, ordinal) UK</code></td>
+                            <td>Descomposición de variables en dimensiones teóricas.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('variable_dimension')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-variable_dimension">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (6)</span> <span style="color: var(--primary);">Tabla: "variable_dimension"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de la dimensión</td></tr>
+                                                <tr><td><strong>variable_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>research_variable(id)</code> ON DELETE CASCADE</td><td>Variable a la que pertenece</td></tr>
+                                                <tr><td><strong>ordinal</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Orden de la dimensión (1, 2, 3...)</td></tr>
+                                                <tr><td><strong>name</strong></td><td><code>varchar(160)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Nombre de la dimensión conceptual</td></tr>
+                                                <tr><td><strong>description</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Descripción o justificación teórica</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Última actualización</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_variable_dimension_ordinal:</strong> UNIQUE (variable_id, ordinal)</li>
+                                                <li class="constraint-check"><strong>chk_dimension_ordinal:</strong> CHECK (ordinal >= 1)</li>
+                                                <li class="constraint-index"><strong>variable_dimension_variable_idx:</strong> INDEX ON (variable_id, ordinal)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('variable_dimension')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-variable_dimension">CREATE TABLE IF NOT EXISTS variable_dimension (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    variable_id BIGINT NOT NULL,
+    ordinal SMALLINT NOT NULL,
+    name VARCHAR(160) NOT NULL,
+    description TEXT,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_dimension_variable FOREIGN KEY (variable_id) REFERENCES research_variable(id) ON DELETE CASCADE,
+    CONSTRAINT uq_variable_dimension_ordinal UNIQUE (variable_id, ordinal),
+    CONSTRAINT chk_dimension_ordinal CHECK (ordinal >= 1)
+);
+
+CREATE INDEX IF NOT EXISTS variable_dimension_variable_idx ON variable_dimension (variable_id, ordinal);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 15. indicator -->
+                        <tr class="table-row-parent" id="row-indicator" onclick="toggleDetail('indicator')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>indicator</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(dimension_id, ordinal) UK</code></td>
+                            <td>Indicadores medibles con escala de medición (ordinal, nominal, intervalo, razón) y regla operacional.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('indicator')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-indicator">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "indicator"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del indicador</td></tr>
+                                                <tr><td><strong>dimension_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>variable_dimension(id)</code> ON DELETE CASCADE</td><td>Dimensión teórica a la que responde</td></tr>
+                                                <tr><td><strong>ordinal</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Orden dentro de la dimensión (1, 2, 3...)</td></tr>
+                                                <tr><td><strong>name</strong></td><td><code>varchar(200)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Nombre o enunciado del indicador</td></tr>
+                                                <tr><td><strong>measurement_scale</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'NOMINAL'</span><span class="choice-item">'ORDINAL'</span><span class="choice-item">'INTERVAL'</span><span class="choice-item">'RATIO'</span></div></td></tr>
+                                                <tr><td><strong>operational_rule</strong></td><td><code>text</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Fórmula o regla de cuantificación empírica</td></tr>
+                                                <tr><td><strong>updated_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Última actualización</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_indicator_dimension_ordinal:</strong> UNIQUE (dimension_id, ordinal)</li>
+                                                <li class="constraint-check"><strong>chk_indicator_ordinal:</strong> CHECK (ordinal >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_indicator_scale:</strong> CHECK (measurement_scale IN ('NOMINAL', 'ORDINAL', 'INTERVAL', 'RATIO'))</li>
+                                                <li class="constraint-index"><strong>indicator_dimension_idx:</strong> INDEX ON (dimension_id, ordinal)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('indicator')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-indicator">CREATE TABLE IF NOT EXISTS indicator (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    dimension_id BIGINT NOT NULL,
+    ordinal SMALLINT NOT NULL,
+    name VARCHAR(200) NOT NULL,
+    measurement_scale VARCHAR(20) NOT NULL,
+    operational_rule TEXT,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_indicator_dimension FOREIGN KEY (dimension_id) REFERENCES variable_dimension(id) ON DELETE CASCADE,
+    CONSTRAINT uq_indicator_dimension_ordinal UNIQUE (dimension_id, ordinal),
+    CONSTRAINT chk_indicator_ordinal CHECK (ordinal >= 1),
+    CONSTRAINT chk_indicator_scale CHECK (measurement_scale IN ('NOMINAL', 'ORDINAL', 'INTERVAL', 'RATIO'))
+);
+
+CREATE INDEX IF NOT EXISTS indicator_dimension_idx ON indicator (dimension_id, ordinal);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 16. instrument -->
+                        <tr class="table-row-parent" id="row-instrument" onclick="toggleDetail('instrument')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>instrument</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id UUID PK</code><br><code>(project, lineage, version) UK</code></td>
+                            <td>Diseño de cuestionarios y entrevistas. Soporta control de versiones formal ante pruebas piloto.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('instrument')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-instrument">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (10)</span> <span style="color: var(--primary);">Tabla: "instrument"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td><code>gen_random_uuid()</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del instrumento</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Proyecto de tesis</td></tr>
+                                                <tr><td><strong>lineage_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>UUID identificador del linaje evolutivo</td></tr>
+                                                <tr><td><strong>version</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td><code>1</code></td><td>-</td><td>-</td><td>Número de versión (1 para piloto, 2 para final)</td></tr>
+                                                <tr><td><strong>name</strong></td><td><code>varchar(200)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Nombre del instrumento de recolección</td></tr>
+                                                <tr><td><strong>kind</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'QUESTIONNAIRE'</span><span class="choice-item">'INTERVIEW_GUIDE'</span><span class="choice-item">'OBSERVATION_SHEET'</span><span class="choice-item">'CHECKLIST'</span><span class="choice-item">'OTHER'</span></div></td></tr>
+                                                <tr><td><strong>reliability_method</strong></td><td><code>varchar(50)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Método de fiabilidad (Alfa de Cronbach, KR-20)</td></tr>
+                                                <tr><td><strong>reliability_score</strong></td><td><code>numeric(5,4)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Coeficiente calculado (ej. 0.8920)</td></tr>
+                                                <tr><td><strong>is_locked</strong></td><td><code>boolean</code></td><td>NOT NULL</td><td><code>false</code></td><td>-</td><td>-</td><td>Bloqueo tras aplicación en campo</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de diseño</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_instrument_lineage_version:</strong> UNIQUE (project_id, lineage_id, version)</li>
+                                                <li class="constraint-check"><strong>chk_instrument_version:</strong> CHECK (version >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_instrument_kind:</strong> CHECK (kind IN ('QUESTIONNAIRE', 'INTERVIEW_GUIDE', 'OBSERVATION_SHEET', 'CHECKLIST', 'OTHER'))</li>
+                                                <li class="constraint-check"><strong>chk_instrument_reliability_score:</strong> CHECK (reliability_score IS NULL OR (reliability_score >= 0.0000 AND reliability_score &lt;= 1.0000))</li>
+                                                <li class="constraint-index"><strong>instrument_project_lineage_idx:</strong> INDEX ON (project_id, lineage_id)</li>
+                                                <li class="constraint-index"><strong>instrument_project_kind_idx:</strong> INDEX ON (project_id, kind)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('instrument')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-instrument">CREATE TABLE IF NOT EXISTS instrument (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    project_id UUID NOT NULL,
+    lineage_id UUID NOT NULL,
+    version SMALLINT NOT NULL DEFAULT 1,
+    name VARCHAR(200) NOT NULL,
+    kind VARCHAR(20) NOT NULL,
+    reliability_method VARCHAR(50),
+    reliability_score NUMERIC(5,4),
+    is_locked BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_instrument_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT uq_instrument_lineage_version UNIQUE (project_id, lineage_id, version),
+    CONSTRAINT chk_instrument_version CHECK (version >= 1),
+    CONSTRAINT chk_instrument_kind CHECK (kind IN ('QUESTIONNAIRE', 'INTERVIEW_GUIDE', 'OBSERVATION_SHEET', 'CHECKLIST', 'OTHER')),
+    CONSTRAINT chk_instrument_reliability_score CHECK (reliability_score IS NULL OR (reliability_score >= 0.0000 AND reliability_score &lt;= 1.0000))
+);
+
+CREATE INDEX IF NOT EXISTS instrument_project_lineage_idx ON instrument (project_id, lineage_id);
+CREATE INDEX IF NOT EXISTS instrument_project_kind_idx ON instrument (project_id, kind);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 17. instrument_item -->
+                        <tr class="table-row-parent" id="row-instrument_item" onclick="toggleDetail('instrument_item')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>instrument_item</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(instrument_id, ordinal) UK</code></td>
+                            <td>Preguntas individuales del instrumento con escala de respuesta (ej. Likert 5 puntos).</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('instrument_item')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-instrument_item">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "instrument_item"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del ítem</td></tr>
+                                                <tr><td><strong>instrument_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>instrument(id)</code> ON DELETE CASCADE</td><td>Instrumento al que pertenece</td></tr>
+                                                <tr><td><strong>ordinal</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Número de ítem/pregunta (1, 2, 3...)</td></tr>
+                                                <tr><td><strong>prompt</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Enunciado textual de la pregunta</td></tr>
+                                                <tr><td><strong>response_type</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'LIKERT_5'</span><span class="choice-item">'LIKERT_7'</span><span class="choice-item">'DICHOTOMOUS'</span><span class="choice-item">'OPEN'</span><span class="choice-item">'NUMERIC'</span></div></td></tr>
+                                                <tr><td><strong>is_mandatory</strong></td><td><code>boolean</code></td><td>NOT NULL</td><td><code>true</code></td><td>-</td><td>-</td><td>Indica si es obligatoria</td></tr>
+                                                <tr><td><strong>options_json</strong></td><td><code>jsonb</code></td><td>NOT NULL</td><td><code>'[]'::jsonb</code></td><td>-</td><td>-</td><td>Opciones de respuesta personalizadas</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_instrument_item_ordinal:</strong> UNIQUE (instrument_id, ordinal)</li>
+                                                <li class="constraint-check"><strong>chk_instrument_item_ordinal:</strong> CHECK (ordinal >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_instrument_item_response_type:</strong> CHECK (response_type IN ('LIKERT_5', 'LIKERT_7', 'DICHOTOMOUS', 'OPEN', 'NUMERIC'))</li>
+                                                <li class="constraint-index"><strong>instrument_item_instrument_idx:</strong> INDEX ON (instrument_id, ordinal)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('instrument_item')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-instrument_item">CREATE TABLE IF NOT EXISTS instrument_item (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    instrument_id UUID NOT NULL,
+    ordinal SMALLINT NOT NULL,
+    prompt TEXT NOT NULL,
+    response_type VARCHAR(20) NOT NULL,
+    is_mandatory BOOLEAN NOT NULL DEFAULT true,
+    options_json JSONB NOT NULL DEFAULT '[]'::jsonb,
+    CONSTRAINT fk_item_instrument FOREIGN KEY (instrument_id) REFERENCES instrument(id) ON DELETE CASCADE,
+    CONSTRAINT uq_instrument_item_ordinal UNIQUE (instrument_id, ordinal),
+    CONSTRAINT chk_instrument_item_ordinal CHECK (ordinal >= 1),
+    CONSTRAINT chk_instrument_item_response_type CHECK (response_type IN ('LIKERT_5', 'LIKERT_7', 'DICHOTOMOUS', 'OPEN', 'NUMERIC'))
+);
+
+CREATE INDEX IF NOT EXISTS instrument_item_instrument_idx ON instrument_item (instrument_id, ordinal);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 18. instrument_item_indicator -->
+                        <tr class="table-row-parent" id="row-instrument_item_indicator" onclick="toggleDetail('instrument_item_indicator')" data-domain="Variables" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>instrument_item_indicator</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Variables</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(item_id, indicator_id) UK</code></td>
+                            <td>Mapeo de operacionalización: garantiza que cada pregunta de campo mida exactamente un indicador del marco teórico.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('instrument_item_indicator')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-instrument_item_indicator">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (3)</span> <span style="color: var(--primary);">Tabla: "instrument_item_indicator"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del mapeo</td></tr>
+                                                <tr><td><strong>item_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>instrument_item(id)</code> ON DELETE CASCADE</td><td>Pregunta del cuestionario</td></tr>
+                                                <tr><td><strong>indicator_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>indicator(id)</code> ON DELETE RESTRICT</td><td>Indicador medido</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_item_indicator:</strong> UNIQUE (item_id, indicator_id)</li>
+                                                <li class="constraint-index"><strong>iii_item_id_idx:</strong> INDEX ON (item_id)</li>
+                                                <li class="constraint-index"><strong>iii_indicator_id_idx:</strong> INDEX ON (indicator_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('instrument_item_indicator')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-instrument_item_indicator">CREATE TABLE IF NOT EXISTS instrument_item_indicator (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    item_id BIGINT NOT NULL,
+    indicator_id BIGINT NOT NULL,
+    CONSTRAINT fk_iii_item FOREIGN KEY (item_id) REFERENCES instrument_item(id) ON DELETE CASCADE,
+    CONSTRAINT fk_iii_indicator FOREIGN KEY (indicator_id) REFERENCES indicator(id) ON DELETE RESTRICT,
+    CONSTRAINT uq_item_indicator UNIQUE (item_id, indicator_id)
+);
+
+CREATE INDEX IF NOT EXISTS iii_item_id_idx ON instrument_item_indicator (item_id);
+CREATE INDEX IF NOT EXISTS iii_indicator_id_idx ON instrument_item_indicator (indicator_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 19. source_document -->
+                        <tr class="table-row-parent" id="row-source_document" onclick="toggleDetail('source_document')" data-domain="Fuentes" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>source_document</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Fuentes</span></td>
+                            <td><code>id UUID PK</code></td>
+                            <td>Biblioteca de fuentes académicas (PDFs con número de páginas verificado físicamente y DOI/Handle comprobado).</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('source_document')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-source_document">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (13)</span> <span style="color: var(--primary);">Tabla: "source_document"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td><code>gen_random_uuid()</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del documento</td></tr>
+                                                <tr><td><strong>project_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>project(id)</code> ON DELETE CASCADE</td><td>Proyecto de tesis</td></tr>
+                                                <tr><td><strong>title</strong></td><td><code>varchar(300)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Título exacto según portada oficial</td></tr>
+                                                <tr><td><strong>authors</strong></td><td><code>varchar(300)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Autores normalizados en formato APA 7</td></tr>
+                                                <tr><td><strong>publication_year</strong></td><td><code>smallint</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Año de publicación (1900 a 2100)</td></tr>
+                                                <tr><td><strong>source_type</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'JOURNAL_ARTICLE'</span><span class="choice-item">'THESIS_LIC'</span><span class="choice-item">'THESIS_MASTER'</span><span class="choice-item">'THESIS_DOCTORAL'</span><span class="choice-item">'BOOK'</span><span class="choice-item">'CONFERENCE'</span><span class="choice-item">'REPORT'</span></div></td></tr>
+                                                <tr><td><strong>doi</strong></td><td><code>varchar(100)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Identificador de Objeto Digital comprobado</td></tr>
+                                                <tr><td><strong>handle</strong></td><td><code>varchar(120)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>URI de repositorio institucional (ALICIA)</td></tr>
+                                                <tr><td><strong>local_path</strong></td><td><code>varchar(500)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Ruta relativa al archivo PDF físico</td></tr>
+                                                <tr><td><strong>sha256_hash</strong></td><td><code>char(64)</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Hash criptográfico de archivo único</td></tr>
+                                                <tr><td><strong>total_physical_pages</strong></td><td><code>integer</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Conteo físico real de páginas del PDF</td></tr>
+                                                <tr><td><strong>is_open_access</strong></td><td><code>boolean</code></td><td>NOT NULL</td><td><code>false</code></td><td>-</td><td>-</td><td>Bandera de acceso abierto</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de catalogación</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_source_document_project_hash:</strong> UNIQUE (project_id, sha256_hash)</li>
+                                                <li class="constraint-check"><strong>chk_source_year:</strong> CHECK (publication_year BETWEEN 1900 AND 2100)</li>
+                                                <li class="constraint-check"><strong>chk_source_type:</strong> CHECK (source_type IN ('JOURNAL_ARTICLE', 'THESIS_LIC', 'THESIS_MASTER', 'THESIS_DOCTORAL', 'BOOK', 'CONFERENCE', 'REPORT'))</li>
+                                                <li class="constraint-check"><strong>chk_source_pages:</strong> CHECK (total_physical_pages > 0)</li>
+                                                <li class="constraint-index"><strong>uq_source_document_project_doi:</strong> UNIQUE INDEX ON (project_id, lower(doi)) WHERE doi IS NOT NULL</li>
+                                                <li class="constraint-index"><strong>source_document_project_idx:</strong> INDEX ON (project_id)</li>
+                                                <li class="constraint-index"><strong>source_document_sha256_idx:</strong> INDEX ON (sha256_hash)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('source_document')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-source_document">CREATE TABLE IF NOT EXISTS source_document (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    project_id UUID NOT NULL,
+    title VARCHAR(300) NOT NULL,
+    authors VARCHAR(300) NOT NULL,
+    publication_year SMALLINT NOT NULL,
+    source_type VARCHAR(20) NOT NULL,
+    doi VARCHAR(100),
+    handle VARCHAR(120),
+    local_path VARCHAR(500),
+    sha256_hash CHAR(64) NOT NULL,
+    total_physical_pages INTEGER NOT NULL,
+    is_open_access BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_source_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
+    CONSTRAINT uq_source_document_project_hash UNIQUE (project_id, sha256_hash),
+    CONSTRAINT chk_source_year CHECK (publication_year BETWEEN 1900 AND 2100),
+    CONSTRAINT chk_source_type CHECK (source_type IN ('JOURNAL_ARTICLE', 'THESIS_LIC', 'THESIS_MASTER', 'THESIS_DOCTORAL', 'BOOK', 'CONFERENCE', 'REPORT')),
+    CONSTRAINT chk_source_pages CHECK (total_physical_pages > 0)
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_source_document_project_doi ON source_document(project_id, lower(doi)) WHERE doi IS NOT NULL;
+CREATE INDEX IF NOT EXISTS source_document_project_idx ON source_document (project_id);
+CREATE INDEX IF NOT EXISTS source_document_sha256_idx ON source_document (sha256_hash);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 20. source_excerpt -->
+                        <tr class="table-row-parent" id="row-source_excerpt" onclick="toggleDetail('source_excerpt')" data-domain="Fuentes" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>source_excerpt</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Fuentes</span></td>
+                            <td><code>id BIGINT PK</code><br><code>(source_id, chunk_no) UK</code></td>
+                            <td>Fragmentos de texto reales extraídos del documento con indicación obligatoria del número de página física del PDF.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('source_excerpt')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-source_excerpt">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "source_excerpt"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador del extracto</td></tr>
+                                                <tr><td><strong>source_id</strong></td><td><code>uuid</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>source_document(id)</code> ON DELETE CASCADE</td><td>Documento fuente</td></tr>
+                                                <tr><td><strong>chunk_no</strong></td><td><code>integer</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Número correlativo de segmento (1, 2, 3...)</td></tr>
+                                                <tr><td><strong>physical_page</strong></td><td><code>integer</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Página física del PDF (base 1, verificada)</td></tr>
+                                                <tr><td><strong>text_content</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Texto textual extraído (mínimo 20 caracteres)</td></tr>
+                                                <tr><td><strong>embedding_vector</strong></td><td><code>bytea</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Vector de incrustación semántica</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de segmentación RAG</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-unique"><strong>uq_source_excerpt_chunk:</strong> UNIQUE (source_id, chunk_no)</li>
+                                                <li class="constraint-check"><strong>chk_excerpt_chunk_no:</strong> CHECK (chunk_no >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_excerpt_page:</strong> CHECK (physical_page >= 1)</li>
+                                                <li class="constraint-check"><strong>chk_excerpt_text_length:</strong> CHECK (length(trim(text_content)) >= 20)</li>
+                                                <li class="constraint-index"><strong>source_excerpt_source_page_idx:</strong> INDEX ON (source_id, physical_page)</li>
+                                                <li class="constraint-index"><strong>source_excerpt_source_id_idx:</strong> INDEX ON (source_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('source_excerpt')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-source_excerpt">CREATE TABLE IF NOT EXISTS source_excerpt (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    source_id UUID NOT NULL,
+    chunk_no INTEGER NOT NULL,
+    physical_page INTEGER NOT NULL,
+    text_content TEXT NOT NULL,
+    embedding_vector BYTEA,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_excerpt_source FOREIGN KEY (source_id) REFERENCES source_document(id) ON DELETE CASCADE,
+    CONSTRAINT uq_source_excerpt_chunk UNIQUE (source_id, chunk_no),
+    CONSTRAINT chk_excerpt_chunk_no CHECK (chunk_no >= 1),
+    CONSTRAINT chk_excerpt_page CHECK (physical_page >= 1),
+    CONSTRAINT chk_excerpt_text_length CHECK (length(trim(text_content)) >= 20)
+);
+
+CREATE INDEX IF NOT EXISTS source_excerpt_source_page_idx ON source_excerpt (source_id, physical_page);
+CREATE INDEX IF NOT EXISTS source_excerpt_source_id_idx ON source_excerpt (source_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- 21. evidence_citation -->
+                        <tr class="table-row-parent" id="row-evidence_citation" onclick="toggleDetail('evidence_citation')" data-domain="Fuentes" data-stage="Extensión">
+                            <td style="text-align: center;"><span class="toggle-icon">▶</span></td>
+                            <td><code>evidence_citation</code></td>
+                            <td><span class="badge badge-ext">Extensión</span></td>
+                            <td><span class="tag-domain">Fuentes</span></td>
+                            <td><code>id BIGINT PK</code><br><code>revision_id FK, excerpt_id FK</code></td>
+                            <td>Vínculo de Grounding: enlaza la afirmación de la tesis con el extracto del PDF para erradicar alucinaciones bibliográficas.</td>
+                            <td style="text-align: center;" onclick="event.stopPropagation();">
+                                <button class="btn-copy" onclick="copyDDL('evidence_citation')">📋 DDL</button>
+                            </td>
+                        </tr>
+                        <tr class="detail-row" id="detail-evidence_citation">
+                            <td colspan="7" class="detail-cell">
+                                <div class="detail-grid">
+                                    <div class="subtable-container">
+                                        <div class="subtable-header"><span>Estructura de Columnas (7)</span> <span style="color: var(--primary);">Tabla: "evidence_citation"</span></div>
+                                        <table class="subtable">
+                                            <thead>
+                                                <tr><th>Campo</th><th>Tipo SQL</th><th>Nulo</th><th>Default</th><th>Restricción</th><th>Relación / FK</th><th>Valores Permitidos / Descripción</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr><td><strong>id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td><code>GENERATED BY DEFAULT AS IDENTITY</code></td><td><span class="pill-key pill-pk">PK</span></td><td>-</td><td>Identificador de la cita comprobable</td></tr>
+                                                <tr><td><strong>revision_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>chapter_revision(id)</code> ON DELETE CASCADE</td><td>Revisión donde aparece la cita</td></tr>
+                                                <tr><td><strong>excerpt_id</strong></td><td><code>bigint</code></td><td>NOT NULL</td><td>-</td><td><span class="pill-key pill-fk">FK</span></td><td><code>source_excerpt(id)</code> ON DELETE RESTRICT</td><td>Fragmento del PDF de sustento</td></tr>
+                                                <tr><td><strong>claim_text</strong></td><td><code>text</code></td><td>NOT NULL</td><td>-</td><td>-</td><td>-</td><td>Texto textual redactado por el estudiante</td></tr>
+                                                <tr><td><strong>verification_status</strong></td><td><code>varchar(20)</code></td><td>NOT NULL</td><td><code>'GROUNDED'</code></td><td>-</td><td>-</td><td><div class="choices-box"><span class="choice-item">'GROUNDED'</span><span class="choice-item">'UNVERIFIED'</span><span class="choice-item">'CONTRADICTED'</span></div></td></tr>
+                                                <tr><td><strong>similarity_score</strong></td><td><code>numeric(4,3)</code></td><td>NULL</td><td>-</td><td>-</td><td>-</td><td>Puntaje de similitud semántica (0.000 a 1.000)</td></tr>
+                                                <tr><td><strong>created_at</strong></td><td><code>timestamptz</code></td><td>NOT NULL</td><td><code>CURRENT_TIMESTAMP</code></td><td>-</td><td>-</td><td>Fecha de vinculación y auditoría RAG</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="constraints-grid">
+                                        <div class="constraints-card">
+                                            <h4>Restricciones e Índices</h4>
+                                            <ul class="constraints-list">
+                                                <li class="constraint-check"><strong>chk_evidence_verification_status:</strong> CHECK (verification_status IN ('GROUNDED', 'UNVERIFIED', 'CONTRADICTED'))</li>
+                                                <li class="constraint-check"><strong>chk_evidence_similarity_score:</strong> CHECK (similarity_score IS NULL OR (similarity_score >= 0.000 AND similarity_score &lt;= 1.000))</li>
+                                                <li class="constraint-index"><strong>evidence_citation_revision_status_idx:</strong> INDEX ON (revision_id, verification_status)</li>
+                                                <li class="constraint-index"><strong>evidence_citation_excerpt_idx:</strong> INDEX ON (excerpt_id)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="code-box">
+                                            <div class="code-header"><span>PostgreSQL DDL</span> <button class="btn-copy" onclick="copyDDL('evidence_citation')">Copiar DDL</button></div>
+                                            <pre class="code-pre" id="ddl-evidence_citation">CREATE TABLE IF NOT EXISTS evidence_citation (
+    id BIGINT GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+    revision_id BIGINT NOT NULL,
+    excerpt_id BIGINT NOT NULL,
+    claim_text TEXT NOT NULL,
+    verification_status VARCHAR(20) NOT NULL DEFAULT 'GROUNDED',
+    similarity_score NUMERIC(4,3),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_citation_revision FOREIGN KEY (revision_id) REFERENCES chapter_revision(id) ON DELETE CASCADE,
+    CONSTRAINT fk_citation_excerpt FOREIGN KEY (excerpt_id) REFERENCES source_excerpt(id) ON DELETE RESTRICT,
+    CONSTRAINT chk_evidence_verification_status CHECK (verification_status IN ('GROUNDED', 'UNVERIFIED', 'CONTRADICTED')),
+    CONSTRAINT chk_evidence_similarity_score CHECK (similarity_score IS NULL OR (similarity_score >= 0.000 AND similarity_score &lt;= 1.000))
+);
+
+CREATE INDEX IF NOT EXISTS evidence_citation_revision_status_idx ON evidence_citation (revision_id, verification_status);
+CREATE INDEX IF NOT EXISTS evidence_citation_excerpt_idx ON evidence_citation (excerpt_id);</pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB 5: MIGRACIONES E INVARIANTES TRANSACCIONALES -->
+        <div id="tab-migraciones" class="tab-content">
+            <h2 class="migra-section-title">🚀 Secuencia de Migración y Fases Arquitectónicas (5 Fases)</h2>
+            <p class="migra-desc">El despliegue de las 21 tablas sigue un orden estricto de resolución de claves foráneas y dependencias. Se destaca la resolución del ciclo de dependencia circular entre <code>chapter</code> y <code>chapter_revision</code>.</p>
+
+            <div class="callout-box">
+                <strong>⚠️ Resolución de Dependencia Circular (Fase 2 y Fase 3):</strong><br>
+                La tabla <code>chapter</code> requiere una clave foránea a <code>approved_revision_id</code> que apunta a <code>chapter_revision(id)</code>, pero a su vez <code>chapter_revision</code> posee la clave foránea obligatoria <code>chapter_id</code> que apunta a <code>chapter(id)</code>.<br>
+                <strong>Estrategia de Migración:</strong>
+                <ol style="margin-top: 0.5rem; padding-left: 1.4rem;">
+                    <li>En <strong>Fase 2</strong>, se ejecuta <code>CREATE TABLE chapter</code> definiendo la columna <code>approved_revision_id BIGINT NULL</code> <em>sin</em> restricción de clave foránea.</li>
+                    <li>En <strong>Fase 3</strong>, se ejecuta <code>CREATE TABLE chapter_revision</code> con su clave foránea <code>REFERENCES chapter(id) ON DELETE CASCADE</code>.</li>
+                    <li>Inmediatamente después, se aplica la migración correctiva: <code>ALTER TABLE chapter ADD CONSTRAINT fk_chapter_approved_rev FOREIGN KEY (approved_revision_id) REFERENCES chapter_revision(id) ON DELETE SET NULL;</code>.</li>
+                </ol>
+            </div>
+
+            <!-- FASES DE MIGRACIÓN -->
+            <div class="phases-flow">
+                <!-- Fase 1 -->
+                <div class="phase-card" style="border-top: 4px solid #10b981;">
+                    <div class="phase-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981;">Fase 1 • MVP</div>
+                    <div class="phase-title">1. Núcleo de Identidad y Gobernanza</div>
+                    <p style="font-size: 0.82rem; color: var(--text-muted);">Cuentas, espacios de trabajo de tesis y vinculación de roles con índices parciales de unicidad.</p>
+                    <div class="phase-tables">
+                        <span class="phase-table-tag">user</span>
+                        <span class="phase-table-tag">project</span>
+                        <span class="phase-table-tag">project_participant</span>
+                    </div>
+                    <div class="phase-deps">
+                        <strong>Dependencias:</strong> Extensión <code>pgcrypto</code> / <code>uuid-ossp</code> (gen_random_uuid).
+                    </div>
+                </div>
+
+                <!-- Fase 2 -->
+                <div class="phase-card" style="border-top: 4px solid #38bdf8;">
+                    <div class="phase-badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">Fase 2 • MVP</div>
+                    <div class="phase-title">2. Estructura Metodológica y Avance</div>
+                    <p style="font-size: 0.82rem; color: var(--text-muted);">Perfil 1:1, control de 32 pasos (JSONB) y estructura de los 7 capítulos canónicos.</p>
+                    <div class="phase-tables">
+                        <span class="phase-table-tag">research_profile</span>
+                        <span class="phase-table-tag">step_progress</span>
+                        <span class="phase-table-tag">chapter</span>
+                    </div>
+                    <div class="phase-deps">
+                        <strong>Dependencias:</strong> Fase 1 (project). <em>Nota: chapter se crea sin FK approved_revision_id.</em>
+                    </div>
+                </div>
+
+                <!-- Fase 3 -->
+                <div class="phase-card" style="border-top: 4px solid #f59e0b;">
+                    <div class="phase-badge" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;">Fase 3 • MVP</div>
+                    <div class="phase-title">3. Revisiones Inmutables y Cierre de Ciclo</div>
+                    <p style="font-size: 0.82rem; color: var(--text-muted);">Instantáneas completas en Markdown con SHA-256 e idempotencia, y enlace circular.</p>
+                    <div class="phase-tables">
+                        <span class="phase-table-tag">chapter_revision</span>
+                        <span class="phase-table-tag">ALTER chapter FK</span>
+                    </div>
+                    <div class="phase-deps">
+                        <strong>Dependencias:</strong> Fase 1 (user) y Fase 2 (chapter). Cierra ciclo con <code>ALTER TABLE chapter</code>.
+                    </div>
+                </div>
+
+                <!-- Fase 4 -->
+                <div class="phase-card" style="border-top: 4px solid #06b6d4;">
+                    <div class="phase-badge" style="background: rgba(6, 182, 212, 0.2); color: #06b6d4;">Fase 4 • MVP</div>
+                    <div class="phase-title">4. Auditoría Docente y Flujo de Revisión</div>
+                    <p style="font-size: 0.82rem; color: var(--text-muted);">Mecanismo de feedback pedagógico sobre revisiones fijas y log inmutable de auditoría.</p>
+                    <div class="phase-tables">
+                        <span class="phase-table-tag">review_comment</span>
+                        <span class="phase-table-tag">review_event</span>
+                    </div>
+                    <div class="phase-deps">
+                        <strong>Dependencias:</strong> Fase 3 (chapter_revision, chapter, user).
+                    </div>
+                </div>
+
+                <!-- Fase 5 -->
+                <div class="phase-card" style="border-top: 4px solid #a855f7;">
+                    <div class="phase-badge" style="background: rgba(168, 85, 247, 0.2); color: #a855f7;">Fase 5 • Extensión</div>
+                    <div class="phase-title">5. Extensión Completa: Matriz, Instrumentos y RAG</div>
+                    <p style="font-size: 0.82rem; color: var(--text-muted);">Despliegue ordenado de las 11 tablas de extensión según su jerarquía estricta de FKs.</p>
+                    <div class="phase-tables">
+                        <span class="phase-table-tag">consistency_row</span>
+                        <span class="phase-table-tag">research_variable</span>
+                        <span class="phase-table-tag">consistency_row_variable</span>
+                        <span class="phase-table-tag">variable_dimension</span>
+                        <span class="phase-table-tag">indicator</span>
+                        <span class="phase-table-tag">instrument</span>
+                        <span class="phase-table-tag">instrument_item</span>
+                        <span class="phase-table-tag">instrument_item_indicator</span>
+                        <span class="phase-table-tag">project_invitation</span>
+                        <span class="phase-table-tag">source_document</span>
+                        <span class="phase-table-tag">source_excerpt</span>
+                        <span class="phase-table-tag">evidence_citation</span>
+                    </div>
+                    <div class="phase-deps">
+                        <strong>Dependencias:</strong> Fases 1, 2 y 3 (project, user, consistency_row, chapter_revision).
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVARIANTES TRANSACCIONALES -->
+            <h2 class="migra-section-title">🔒 Invariantes Transaccionales y Operaciones Atómicas (10 Operaciones)</h2>
+            <p class="migra-desc">La integridad relacional de TesisMCP se sostiene en transacciones ACID protegidas contra colisiones de red, escrituras concurrentes y estados inconsistentes.</p>
+
+            <table class="invariants-table">
+                <thead>
+                    <tr>
+                        <th style="width: 200px;">Operación / Caso de Uso</th>
+                        <th style="width: 220px;">Tablas y Bloqueos</th>
+                        <th style="width: 320px;">Validaciones de Invariante Previas</th>
+                        <th>Escrituras Atómicas / Transición de Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. Creación de Proyecto de Tesis</strong></td>
+                        <td>
+                            <code>project</code><br>
+                            <code>project_participant</code><br>
+                            <code>research_profile</code><br>
+                            <code>chapter</code> (7 filas)
+                        </td>
+                        <td>
+                            • Formato de correo institucional válido.<br>
+                            • Estilo de citación restringido a <code>'IEEE'</code> o <code>'APA7'</code>.<br>
+                            • Título no vacío (longitud > 10).
+                        </td>
+                        <td>
+                            Transacción atómica que crea el <code>project</code>, inserta al usuario como <code>OWNER</code> activo en <code>project_participant</code>, inicializa su <code>research_profile</code> con <code>lock_version=0</code> y siembra los 7 capítulos canónicos con <code>status='DRAFT'</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. Aceptación de Invitación de Asesor</strong></td>
+                        <td>
+                            <code>project_invitation</code> <span class="pill-lock">FOR UPDATE</span><br>
+                            <code>project_participant</code>
+                        </td>
+                        <td>
+                            • <code>expires_at > CURRENT_TIMESTAMP</code>.<br>
+                            • <code>accepted_at IS NULL</code> (invitación no consumida previamente).<br>
+                            • El usuario autenticado no cuenta ya con rol <code>OWNER</code> o <code>ADVISOR</code> activo en el proyecto.
+                        </td>
+                        <td>
+                            Bloqueo pesimista en <code>project_invitation</code>. Actualiza <code>accepted_at = NOW()</code> y <code>accepted_by_user_id</code>, e inserta concurrentemente el registro en <code>project_participant</code> con rol <code>'ADVISOR'</code> y <code>active=true</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. Guardado de Perfil Metodológico (OCC)</strong></td>
+                        <td>
+                            <code>research_profile</code> <span class="pill-optimistic">lock_version (OCC)</span>
+                        </td>
+                        <td>
+                            • <code>approach IN ('QUANTITATIVE', 'QUALITATIVE', 'MIXED')</code>.<br>
+                            • Verificación de versión: <code>WHERE project_id = $id AND lock_version = $expected</code>.
+                        </td>
+                        <td>
+                            Actualiza problema, objetivo, justificación e incrementa <code>lock_version = lock_version + 1</code>. Si <code>rows_affected == 0</code>, la transacción falla con error 409 Conflict por edición concurrente.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. Guardado / Auto-guardado de Paso Metodológico</strong></td>
+                        <td>
+                            <code>step_progress</code> (UPSERT atómico)
+                        </td>
+                        <td>
+                            • <code>step_code ~ '^P(0[1-9]|[12][0-9]|3[0-2])$'</code>.<br>
+                            • Payload JSON válido según esquema del paso.<br>
+                            • Usuario participante activo en el proyecto.
+                        </td>
+                        <td>
+                            Ejecuta <code>INSERT ... ON CONFLICT (project_id, step_code) DO UPDATE</code> actualizando <code>output_payload</code>, <code>status</code> y <code>updated_at = NOW()</code>. Si el estado cambia a <code>'COMPLETED'</code>, fija <code>completed_at = NOW()</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. Creación de Nueva Revisión de Capítulo</strong></td>
+                        <td>
+                            <code>chapter</code> <span class="pill-lock">FOR UPDATE</span><br>
+                            <code>chapter_revision</code>
+                        </td>
+                        <td>
+                            • Verificación de <code>idempotency_key</code> contra envíos duplicados de red.<br>
+                            • Conteo físico de palabras <code>word_count >= 0</code>.<br>
+                            • Contenido no nulo y cálculo estricto de <code>content_sha256</code>.
+                        </td>
+                        <td>
+                            Bloquea pesimistamente el <code>chapter</code> para calcular el correlativo exacto <code>revision_no = COALESCE(MAX(revision_no), 0) + 1</code>. Inserta la instantánea inmutable en <code>chapter_revision</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>6. Envío de Capítulo a Revisión Docente</strong></td>
+                        <td>
+                            <code>chapter</code> <span class="pill-lock">FOR UPDATE</span><br>
+                            <code>review_event</code>
+                        </td>
+                        <td>
+                            • <code>chapter.status IN ('DRAFT', 'REJECTED')</code>.<br>
+                            • Debe existir al menos una revisión congelada en <code>chapter_revision</code>.<br>
+                            • Actor debe ser el tesista <code>OWNER</code> activo.
+                        </td>
+                        <td>
+                            Transición de estado atómica: <code>status = 'IN_REVIEW'</code> en <code>chapter</code>, e inserción inmutable de evento <code>SUBMIT</code> en <code>review_event</code> con marca temporal UTC.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>7. Publicación de Observaciones por Asesor</strong></td>
+                        <td>
+                            <code>chapter_revision</code> (Solo Lectura)<br>
+                            <code>review_comment</code>
+                        </td>
+                        <td>
+                            • <code>0 &lt;= start_cp &lt;= end_cp &lt;= length(content_md)</code> en caracteres Unicode.<br>
+                            • Actor debe ser el docente <code>ADVISOR</code> activo.<br>
+                            • <code>kind IN ('OBSERVATION', 'APPROVAL', 'REJECTION')</code>.
+                        </td>
+                        <td>
+                            Inserción de una o múltiples observaciones ancladas en <code>review_comment</code> vinculadas a la revisión inmutable. No altera el contenido del texto bajo ninguna circunstancia.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>8. Aprobación Formal de Capítulo por Asesor</strong></td>
+                        <td>
+                            <code>chapter</code> <span class="pill-lock">FOR UPDATE</span><br>
+                            <code>review_event</code>
+                        </td>
+                        <td>
+                            • <code>chapter.status = 'IN_REVIEW'</code>.<br>
+                            • Actor debe ser el docente <code>ADVISOR</code> activo del proyecto.<br>
+                            • La revisión a aprobar debe pertenecer al capítulo en cuestión.
+                        </td>
+                        <td>
+                            Fija <code>status = 'APPROVED'</code> y <code>approved_revision_id = $rev_id</code> en <code>chapter</code>. Inserta evento <code>APPROVE</code> en <code>review_event</code>. Desbloquea la continuación del flujo en pasos subsiguientes.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>9. Ingestión y Segmentación de Fuente Científica</strong></td>
+                        <td>
+                            <code>source_document</code><br>
+                            <code>source_excerpt</code> (Lote)
+                        </td>
+                        <td>
+                            • <code>total_physical_pages > 0</code> verificado físicamente.<br>
+                            • No duplicidad de <code>(project_id, sha256_hash)</code>.<br>
+                            • Cada fragmento debe tener <code>physical_page >= 1</code> y longitud >= 20 caracteres.
+                        </td>
+                        <td>
+                            Inserta el registro maestro del documento en <code>source_document</code> e inserta en un solo lote transaccional todos sus extractos en <code>source_excerpt</code> con numeración correlativa <code>chunk_no</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>10. Citación de Evidencia Científica (Grounding RAG)</strong></td>
+                        <td>
+                            <code>chapter_revision</code><br>
+                            <code>source_excerpt</code><br>
+                            <code>evidence_citation</code>
+                        </td>
+                        <td>
+                            • <code>revision_id</code> debe pertenecer a un capítulo del proyecto activo.<br>
+                            • <code>excerpt_id</code> debe pertenecer a un <code>source_document</code> del mismo proyecto.<br>
+                            • <code>verification_status IN ('GROUNDED', 'UNVERIFIED', 'CONTRADICTED')</code>.
+                        </td>
+                        <td>
+                            Inserta el enlace verificable en <code>evidence_citation</code> registrando el <code>similarity_score</code> y garantizando trazabilidad total hasta la página física exacta del PDF.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toastNotification" class="toast">DDL copiado al portapapeles</div>
+
+    <footer>
+        <p>TesisMCP • Plataforma de Acompañamiento y Auditoría Metodológica de Tesis • PostgreSQL 16+ Architecture</p>
+    </footer>
+
+    <script>
+        // CAMBIO DE PESTAÑAS
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            if (btnElement) {
+                btnElement.classList.add('active');
+            } else {
+                const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+                if (targetBtn) targetBtn.classList.add('active');
+            }
+            
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) targetContent.classList.add('active');
+        }
+
+        // TOGGLE DETALLE DE TABLA
+        function toggleDetail(tableId) {
+            const parentRow = document.getElementById('row-' + tableId);
+            const detailRow = document.getElementById('detail-' + tableId);
+            
+            if (!parentRow || !detailRow) return;
+            
+            const isOpen = detailRow.classList.contains('open');
+            if (isOpen) {
+                detailRow.classList.remove('open');
+                parentRow.classList.remove('expanded');
+            } else {
+                detailRow.classList.add('open');
+                parentRow.classList.add('expanded');
+            }
+        }
+
+        // EXPANDIR / COLAPSAR TODAS
+        function toggleAllDetails(expand) {
+            const detailRows = document.querySelectorAll('.detail-row');
+            const parentRows = document.querySelectorAll('.table-row-parent');
+            
+            detailRows.forEach(row => {
+                if (expand) row.classList.add('open');
+                else row.classList.remove('open');
+            });
+            
+            parentRows.forEach(row => {
+                if (expand) row.classList.add('expanded');
+                else row.classList.remove('expanded');
+            });
+        }
+
+        // FILTRO DEL DICCIONARIO
+        function filterDictionary() {
+            const search = document.getElementById('dictSearch').value.toLowerCase().trim();
+            const domain = document.getElementById('domainFilter').value;
+            const stage = document.getElementById('stageFilter').value;
+            
+            const parentRows = document.querySelectorAll('.table-row-parent');
+            
+            parentRows.forEach(row => {
+                const tableId = row.id.replace('row-', '');
+                const detailRow = document.getElementById('detail-' + tableId);
+                
+                const rowText = row.innerText.toLowerCase();
+                const detailText = detailRow ? detailRow.innerText.toLowerCase() : '';
+                const fullText = rowText + ' ' + detailText;
+                
+                const rowDomain = row.getAttribute('data-domain');
+                const rowStage = row.getAttribute('data-stage');
+                
+                const matchesSearch = search === '' || fullText.includes(search);
+                const matchesDomain = (domain === 'ALL' || rowDomain === domain);
+                const matchesStage = (stage === 'ALL' || rowStage === stage);
+                
+                if (matchesSearch && matchesDomain && matchesStage) {
+                    row.style.display = '';
+                    // Si hay una búsqueda activa, expandimos automáticamente el detalle coincidente
+                    if (search.length > 2 && matchesSearch) {
+                        row.classList.add('expanded');
+                        if (detailRow) detailRow.classList.add('open');
+                    }
+                } else {
+                    row.style.display = 'none';
+                    if (detailRow) {
+                        detailRow.style.display = 'none';
+                        detailRow.classList.remove('open');
+                    }
+                    row.classList.remove('expanded');
+                }
+            });
+        }
+
+        // COPIAR DDL AL PORTAPAPELES
+        function copyDDL(tableId) {
+            const preEl = document.getElementById('ddl-' + tableId);
+            if (!preEl) return;
+            
+            const textToCopy = preEl.innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast(`DDL de "${tableId}" copiado al portapapeles`);
+            }).catch(err => {
+                console.error('Error al copiar DDL:', err);
+                // Fallback clásico
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast(`DDL de "${tableId}" copiado al portapapeles`);
+            });
+        }
+
+        // TOAST NOTIFICATION
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

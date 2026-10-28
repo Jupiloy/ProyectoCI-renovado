@@ -1,0 +1,232 @@
+🔥 Capítulo 1 · Selección del tema y
+alcance
+
+🔎 ¿De qué trata esta categoría?
+La elección del tema es el punto de partida de toda tesis. Si eliges mal, puedes terminar con
+un proyecto muy amplio, sin información suficiente o poco relevante. Si eliges bien, tendrás
+un camino más sencillo, motivador y con impacto académico.
+En esta categoría aprenderás a:
+➔​ Generar y comparar posibles temas de tesis.​
+➔​ Evaluar la viabilidad real de cada opción.​
+➔​ Redactar un enunciado preliminar atractivo y académico.​
+➔​ Delimitar el tema en tiempo, espacio y población, para que tu investigación sea
+manejable.​
+
+El objetivo es que al terminar esta sección tengas un tema claro, concreto y bien delimitado,
+listo para convertirse en el corazón de tu tesis.
+
+🛠️ Cómo aplicar los prompts de este capítulo
+1.​ Empieza amplio, termina enfocado: usa el primer prompt para generar opciones, y
+los siguientes para afinar hasta tener una versión definitiva.​
+2.​ Evalúa con lógica y objetividad: no te dejes llevar solo por lo que te gusta, sino por
+lo que realmente puedes investigar con tus recursos.​
+3.​ Usa tablas de comparación: te ayudarán a visualizar mejor qué opción es más
+conveniente.​
+4.​ Asegúrate de la delimitación: especifica siempre qué población, qué lugar y qué
+periodo vas a trabajar.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #1: Mapa de temas viables
+
+👉 Objetivo: generar varias ideas de temas posibles, con pros y contras.
+Prompt:
+Actúa como asesor académico experto en tesis. Considerando el área de
+estudio [ÁREA DE INVESTIGACIÓN] y mis intereses [INTERESES
+PERSONALES/PROFESIONALES], genera 10 temas potenciales de tesis. Para
+cada uno incluye:
+➔​ Pregunta central de investigación.​
+➔​ Nivel de originalidad esperado (alto/medio/bajo).​
+➔​ Acceso estimado a fuentes o datos.​
+➔​ Grado de dificultad (bajo/medio/alto).​
+➔​ Posibles riesgos o limitaciones.​
+Entrega la respuesta en formato de tabla comparativa.
+
+Prompt #2: Matriz de factibilidad
+
+👉 Objetivo: comparar opciones y elegir la más viable.
+Prompt:
+Elabora una matriz de factibilidad comparando los siguientes temas: [TEMA A],
+[TEMA B], [TEMA C]. Evalúalos con puntajes del 1 al 5 en:
+➔​ Acceso a datos.​
+➔​ Relevancia social o académica.​
+➔​ Brecha en la literatura.​
+➔​ Factibilidad técnica.​
+➔​ Tiempo estimado de investigación.​
+Concluye con una recomendación clara del tema más conveniente y
+explica en 150 palabras por qué.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt #3: Análisis de temas más relevantes a 2026
+
+👉 Objetivo: redactar un enunciado académico breve y atractivo.
+Prompt:
+
+Eres un experto en investigación formativa y tendencias académicas 2025-2027. Analiza las
+tendencias más relevantes y emergentes para tesis de pregrado en el Perú (especialmente
+en universidades) para el año 2026.
+Usa la siguiente guía (que adjunto en el contexto) como referencia obligatoria:
+- Los temas deben alinearse con líneas de investigación de pregrado.
+- Deben poder incorporar Objetivos de Desarrollo Sostenible (ODS).
+- Deben permitir investigación cuantitativa, cualitativa o mixta.
+- Deben ser viables en contexto nacional.
+- El título final debe poder construirse con: variables/categorías + unidad de análisis
++ lugar + tiempo (máximo 20 palabras).
+
+Rankea los **15 temas más relevantes** para tesis de pregrado en 2026, ordenados
+de mayor a menor potencial (del más prometedor al menos prometedor). Para cada
+tema indica:
+1. Nombre del tema propuesto.
+2. ODS principal al que contribuye.
+3. Tipo de investigación sugerido (cuantitativa, cualitativa o mixta).
+4. Por qué es altamente relevante en 2026 (tendencias globales + contexto
+peruano).
+5. Posible unidad de análisis (ej. empresas, pacientes, estudiantes, agricultores,
+etc.).
+6. Facultades/carreras donde encajaría mejor (psicología).
+
+Prioriza temas actuales como: IA y ética, sostenibilidad, salud post-pandemia,
+transformación digital, cambio climático, economía circular, inclusión social,
+gobernanza de datos, salud mental, educación híbrida, agronegocios resilientes,
+fintech, etc.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Devuélveme la lista numerada y bien estructurada.
+
+Prompt 4: Delimitación final del tema
+
+👉 Objetivo: establecer claramente población, lugar y tiempo de estudio.
+Prompt:
+Eres un experto en normatividad de tesis universitarias según la "Guía de elaboración
+de trabajos conducentes a grados y títulos" (versión 06, 2026).
+A partir del siguiente tema de tesis que te voy a dar:
+[Coloca aquí tu título]
+Genera **el título completo** de la propuesta de investigación / tesis siguiendo
+estrictamente estas reglas de la guía:
+**Requisitos obligatorios del título:**
+●​
+●​
+●​
+●​
+●​
+●​
+
+Máximo 20 palabras.
+Incluir: variable(s) o categoría(s) principales + unidad de análisis + lugar + tiempo.
+No usar abreviaturas.
+No terminar con punto final.
+Redactado en español formal.
+Respetar el anonimato de instituciones (no mencionar nombres específicos de
+empresas, hospitales, colegios, etc.).
+●​ Orientado a contribuir a un ODS (menciónalo implícitamente o en el enfoque).
+●​ Título claro, preciso y académico. **Estructura recomendada del título:**
+"[Variable/Categoría principal] en [unidad de análisis] de [lugar o contexto específico]
+durante el periodo [tiempo]" Además del título principal, proporciona:
+**Título final propuesto** (exacto, listo para usar).
+**Versión alternativa** (otra forma elegante del mismo título).
+**ODS principal** al que contribuye.
+**Tipo de investigación** sugerido (cuantitativa, cualitativa o mixta).
+**Justificación breve** de por qué este título cumple con la guía. Asegúrate de que el
+título no exceda las 20 palabras y sea perfectamente alineado con la guía.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+Prompt 5: Establecer la Introducción definitiva
+
+👉 Objetivo: Crear una Introducción que tenga en cuenta todas las directrices de proyecto
+de Investigación
+Prompt:
+Eres un investigador doctoral experto en metodología científica, con profundo conocimiento
+de las normas APA 7ª edición (o las normas específicas según facultad: ISO 690/IEEE para
+Ingeniería, Vancouver para Ciencias de la Salud), Normativa interna de originalidad de tesis,
+y la "Guía de Elaboración de Trabajos Conducentes a Grados y Títulos".
+Tu tarea es redactar el **Capítulo I. Introducción** completo para un [Proyecto de
+Investigación / Informe de Tesis] según **todas** las directrices exactas de la guía.
+**Tema general del estudio:** [INSERTAR AQUÍ EL TEMA COMPLETO,
+VARIABLES/CATEGORÍAS, UNIDAD DE ANÁLISIS, LUGAR Y TIEMPO]
+**Tipo de investigación:** [cuantitativa / cualitativa / mixta]
+**Enfoque:** [especificar]
+**Objetivo general propuesto:** [INSERTAR]
+**Objetivos específicos:** [LISTARLOS]
+**Instrucciones estrictas de redacción (cumplir al 100%):**
+- Redactar **exclusivamente en prosa continua**, lenguaje formal académico, **tercera
+persona**, **tiempo pasado del modo indicativo** (excepto en la formulación de objetivos,
+que van en infinitivo o futuro según corresponda).
+- **Sin subtítulos, sin viñetas, sin guiones, sin negritas, sin numeraciones visibles** dentro
+del capítulo.
+- Extensión mínima: **10 páginas** (aprox. 3000-4000 palabras, interlineado 1.5, Arial 12).
+Estructura el contenido para que alcance esta extensión con profundidad académica.
+- Flujo lógico natural: Realidad problemática → ODS → Planteamiento del problema →
+Justificación → Objetivos → Revisión de literatura (antecedentes + marco
+teórico/conceptual) → Hipótesis (si aplica).
+**Estructura obligatoria del contenido:**
+1. **Realidad problemática (extensa y jerárquica):**
+- Describir la problemática a nivel **internacional**, **nacional** (Perú) y **local** (si
+aplica, según el contexto del estudio).
+- Utilizar criterios del Anexo 2 de la guía: vacíos de conocimiento, inconsistencias teóricas,
+desactualización, limitaciones metodológicas, falta de contextualización, etc.
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+- Incluir estadísticas recientes, informes de organismos internacionales (OMS, UNESCO,
+Banco Mundial, ONU, etc.) y evidencia científica sólida.
+- Vincular explícitamente con el **Objetivo de Desarrollo Sostenible (ODS)** específico y
+sus metas a las que contribuye la investigación. Explicar la relevancia y brecha existente.
+2. **Planteamiento del problema:**
+- Formular **una pregunta de investigación principal** en modo interrogativo, clara, que
+incluya variables/categorías y unidad de análisis.
+- Detallar las preguntas específicas si corresponde.
+3. **Justificación de la investigación:**
+- Explicar la importancia teórica, práctica, metodológica y social de realizar el estudio.
+- Destacar aportes esperados al campo disciplinar, a la institución (manteniendo
+anonimato), y a las políticas públicas o profesionales.
+4. **Objetivos:**
+- Objetivo general.
+- Objetivos específicos (3-5 como máximo, bien alineados con el general y con las
+preguntas).
+5. **Revisión de literatura / Antecedentes:**
+- Mínimo **6 antecedentes internacionales** (preferiblemente más) de artículos indexados
+en **Scopus, WoS o SciELO**, revistas en **SJR Scimago**, preferentemente últimos 5
+años.
+- Incluir antecedentes nacionales si existen.
+- Sintetizar y analizar críticamente: qué se ha encontrado, qué brechas persisten.
+- Analizar **teorías y enfoques conceptuales** relacionados con las variables o categorías
+principales. Definirlas conceptualmente con autores clave.
+6. **Hipótesis o supuesto (solo si aplica en investigaciones cuantitativas o mixtas):**
+- Formular hipótesis claras, fundamentadas en la revisión de literatura y teorías.
+Enunciarlas de forma declarativa.
+**Requisitos adicionales de calidad:**
+- Todo el texto debe demostrar **originalidad** y **pensamiento crítico** (no solo
+descripción, sino análisis y síntesis).
+- Usar transiciones fluidas entre párrafos y secciones.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+- Citar abundantemente con normas correctas según la facultad (gestor bibliográfico
+simulado: Mendeley/Zotero).
+- Mantener **anonimato** de cualquier institución específica según la guía (no revelar
+nombres reales si no es necesario).
+- El título del trabajo debe cumplir: variables/categorías + unidad de análisis + lugar +
+tiempo, máximo 20 palabras, sin punto final.
+**Salida esperada:**
+Proporciona **solo el texto completo del Capítulo I. Introducción**, listo para copiar y pegar
+en el documento (formato Word, Arial 12, interlineado 1.5, justificado). Al final, agrega una
+sección de **"Referencias"** preliminar con las fuentes citadas (mínimo 15-20 referencias
+de calidad para esta sección).
+Genera un contenido académico de **alto nivel**, publicable, coherente y totalmente
+alineado .
+
+Resultado esperado del Capítulo 1
+Al terminar esta sección tendrás:
+●​ Una lista de temas potenciales con ventajas y limitaciones.​
+●​ Una matriz comparativa que te ayudará a elegir con criterio.​
+●​ Un enunciado preliminar que da forma académica a tu elección.​
+●​ Un tema delimitado con precisión, listo para convertirse en el eje central de tu
+tesis.
+
+👉 Con esto cerramos el Capítulo 1. Ya tendrás tu tema y alcance definidos.
+
+© 2025 @SilverLawyer | Todos los derechos reservados
+
+

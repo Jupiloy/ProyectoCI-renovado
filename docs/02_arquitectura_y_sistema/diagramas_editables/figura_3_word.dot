@@ -1,0 +1,16 @@
+digraph G {
+      graph [bgcolor="white", fontname="Arial", nodesep=0.40, ranksep=0.60];
+      node [shape=box, style="rounded,filled", fillcolor="#F4F6F8", color="#8A9BAA", fontname="Arial", fontsize=10, margin="0.12,0.08"];
+      edge [color="#526477", arrowsize=0.65, fontname="Arial", fontsize=9];
+    
+          rankdir=TB;
+          draft [label="DRAFT\nBorrador"];
+          ready [label="READY\nEnviado"];
+          changes [label="CHANGES_REQUESTED\nCon observaciones"];
+          approved [label="APPROVED\nAprobado"];
+          draft->ready [label="Tesista envía revisión vigente"];
+          ready->changes [label="Asesor observa"];
+          changes->draft [label="Tesista crea nueva revisión"];
+          ready->approved [label="Asesor aprueba sin pendientes"];
+          approved->draft [label="Asesor reabre con motivo"];
+        }
