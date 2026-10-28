@@ -14,8 +14,8 @@ import type {
   ChapterContentTree,
   ChapterCitation,
   ChapterDocument,
-  ChapterSnapshotDetail,
-  ChapterSnapshotSummary,
+  ChapterSnapshotDetailApi,
+  ChapterSnapshotSummaryApi,
   ChapterState,
   ProjectSummary,
   ReviewComment,
@@ -95,8 +95,8 @@ export function VistaEditor({
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
-  const [snapshots, setSnapshots] = useState<ChapterSnapshotSummary[]>([])
-  const [snapshotDetalle, setSnapshotDetalle] = useState<ChapterSnapshotDetail | null>(null)
+  const [snapshots, setSnapshots] = useState<ChapterSnapshotSummaryApi[]>([])
+  const [snapshotDetalle, setSnapshotDetalle] = useState<ChapterSnapshotDetailApi | null>(null)
   const [cargandoVersion, setCargandoVersion] = useState(false)
   const [comentarios, setComentarios] = useState<ReviewComment[]>([])
   const [resolviendoId, setResolviendoId] = useState<number | null>(null)
@@ -166,10 +166,12 @@ export function VistaEditor({
   }, [proyecto.project_id])
 
   const cargarComentarios = useCallback(async (capitulo: number) => {
-    const resumen = await listChapterSnapshots(proyecto.project_id, capitulo)
+    // El módulo legacy de demo (src/features/) comparte listChapterSnapshots con el
+    // contrato antiguo; aquí se ajusta al contrato real del backend sin tocarlo.
+    const resumen = (await listChapterSnapshots(proyecto.project_id, capitulo)) as unknown as ChapterSnapshotSummaryApi[]
     const base = await listComments(proyecto.project_id, capitulo)
     const detalle = await Promise.allSettled(
-      resumen.map((s) => listComments(proyecto.project_id, capitulo, s.snapshot_id)),
+      resumen.map((s) => listComments(proyecto.project_id, capitulo, s.id)),
     )
     const porSnapshot = detalle
       .map((r) => (r.status === "fulfilled" ? (r as PromiseFulfilledResult<ReviewComment[]>).value : []))
@@ -451,7 +453,7 @@ export function VistaEditor({
     setCargandoVersion(true)
     setError(null)
     try {
-      const detalle = await getChapterSnapshot(proyecto.project_id, numeroCapitulo as number, objetivo)
+      const detalle = (await getChapterSnapshot(proyecto.project_id, numeroCapitulo as number, objetivo)) as unknown as ChapterSnapshotDetailApi
       setSnapshotDetalle(detalle)
       setModoDocumento(modo)
     } catch (cause) {
@@ -846,15 +848,15 @@ export function VistaEditor({
                   snapshots.map((s) => (
                     <button
                       className="chapter-row"
-                      key={s.snapshot_id}
-                      onClick={() => void abrirModo("snapshot", s.snapshot_id)}
+                      key={s.id}
+                      onClick={() => void abrirModo("snapshot", s.id)}
                       title="Ver el contenido de esta versión"
                     >
                       <span className="chapter-number">{s.snapshot_no}</span>
                       <div>
-                        <strong>{s.status}</strong>
+                        <strong>Versión de estado {s.state_version}</strong>
                         <small className="version-sha">
-                          SHA {s.content_sha256.slice(0, 12)}… ·{" "}
+                          SHA {s.payload_sha256.slice(0, 12)}… ·{" "}
                           {new Date(s.created_at).toLocaleString()}
                         </small>
                       </div>

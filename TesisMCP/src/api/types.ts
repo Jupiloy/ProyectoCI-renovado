@@ -384,6 +384,41 @@ export type ChapterSnapshotDetail = {
   evidence_links?: Record<string, unknown>[]
 }
 
+/**
+ * Contrato real del backend para instantáneas (backend/thesis/services/chapter_serialization.py,
+ * _snapshot_summary y _snapshot_detail). Los tipos sin sufijo «Api» conservan el contrato del
+ * módulo de demostración (src/features/) y no se tocan en R6.
+ */
+export type ChapterSnapshotSummaryApi = {
+  id: string
+  snapshot_no: number
+  format_version: number
+  payload_sha256: string
+  state_version: number
+  workflow_version_no: number | null
+  document_revision_id: string | null
+  created_at: string
+}
+
+export type ChapterSnapshotDetailApi = {
+  id: string
+  chapter_no: number
+  snapshot_no: number
+  format_version: number
+  project_title: string
+  state_version: number
+  workflow_version_no: number | null
+  document_revision_id: string | null
+  content_tree: Record<string, unknown> | null
+  citations: Record<string, unknown>[]
+  content_md: string
+  sections_manifest: Record<string, unknown>[] | null
+  document_artifacts_manifest: Record<string, unknown>[] | null
+  payload_sha256: string
+  created_by_id: number | null
+  created_at: string
+}
+
 export type ReviewComment = {
   comment_id: number
   snapshot_id: string | null

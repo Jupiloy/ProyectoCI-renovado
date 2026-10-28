@@ -5,7 +5,7 @@ import {
 } from "../api/reviews"
 import { getWorkflowState } from "../api/workflows"
 import type {
-  ChapterSnapshotSummary,
+  ChapterSnapshotSummaryApi,
   ProjectSummary,
   ReviewComment,
 } from "../api/types"
@@ -23,7 +23,7 @@ export function VistaRevision({
 }) {
   const [numerosCapitulo, setNumerosCapitulo] = useState<number[]>([])
   const [numeroCapitulo, setNumeroCapitulo] = useState<number | null>(null)
-  const [snapshots, setSnapshots] = useState<ChapterSnapshotSummary[]>([])
+  const [snapshots, setSnapshots] = useState<ChapterSnapshotSummaryApi[]>([])
   const [comentarios, setComentarios] = useState<ReviewComment[]>([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState("")
@@ -61,11 +61,13 @@ export function VistaRevision({
     async function cargar() {
       setCargando(true)
       setError("")
-      const resumen = await listChapterSnapshots(proyecto.project_id, numeroCapitulo as number)
+      // El módulo legacy de demo (src/features/) comparte listChapterSnapshots con el
+      // contrato antiguo; aquí se ajusta al contrato real del backend sin tocarlo.
+      const resumen = (await listChapterSnapshots(proyecto.project_id, numeroCapitulo as number)) as unknown as ChapterSnapshotSummaryApi[]
       const comentariosCap = await listComments(proyecto.project_id, numeroCapitulo as number)
       if (!vigente) return
       const detalle = await Promise.allSettled(
-        resumen.map((s) => listComments(proyecto.project_id, numeroCapitulo as number, s.snapshot_id)),
+        resumen.map((s) => listComments(proyecto.project_id, numeroCapitulo as number, s.id)),
       )
       if (!vigente) return
       const comentariosPorSnapshot = detalle
@@ -181,12 +183,12 @@ export function VistaRevision({
               ) : (
                 <div className="chapter-list">
                   {snapshots.map((s) => (
-                    <div className="chapter-row" key={s.snapshot_id}>
+                    <div className="chapter-row" key={s.id}>
                       <span className="chapter-number">{s.snapshot_no}</span>
                       <div>
-                        <strong>{s.status}</strong>
+                        <strong>Versión de estado {s.state_version}</strong>
                         <small>
-                          SHA {s.content_sha256.slice(0, 12)}… ·{" "}
+                          SHA {s.payload_sha256.slice(0, 12)}… ·{" "}
                           {new Date(s.created_at).toLocaleString()}
                         </small>
                       </div>

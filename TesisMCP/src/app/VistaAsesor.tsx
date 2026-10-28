@@ -12,8 +12,8 @@ import {
 } from "../api/reviews"
 import type {
   AdvisorDashboardProject,
-  ChapterSnapshotDetail,
-  ChapterSnapshotSummary,
+  ChapterSnapshotDetailApi,
+  ChapterSnapshotSummaryApi,
   ChapterState,
   ProjectSummary,
   ReviewComment,
@@ -201,8 +201,8 @@ function AdvisorRevision({
 }) {
   const [capituloNo, setCapituloNo] = useState<number>(sel.chapters[0]?.chapter_no ?? 1)
   const [estado, setEstado] = useState<ChapterState | null>(null)
-  const [snapshots, setSnapshots] = useState<ChapterSnapshotSummary[]>([])
-  const [detalle, setDetalle] = useState<ChapterSnapshotDetail | null>(null)
+  const [snapshots, setSnapshots] = useState<ChapterSnapshotSummaryApi[]>([])
+  const [detalle, setDetalle] = useState<ChapterSnapshotDetailApi | null>(null)
   const [comentarios, setComentarios] = useState<ReviewComment[]>([])
   const [anclaje, setAnclaje] = useState<null | {
     snapshot_id: string
@@ -229,7 +229,9 @@ function AdvisorRevision({
     try {
       const [st, snaps, comms] = await Promise.all([
         getChapterState(sel.project_id, n),
-        listChapterSnapshots(sel.project_id, n).catch(() => [] as ChapterSnapshotSummary[]),
+        listChapterSnapshots(sel.project_id, n)
+          .then((r) => r as unknown as ChapterSnapshotSummaryApi[])
+          .catch(() => [] as ChapterSnapshotSummaryApi[]),
         listComments(sel.project_id, n).catch(() => [] as ReviewComment[]),
       ])
       if (s !== secuencia.current) return
@@ -237,7 +239,9 @@ function AdvisorRevision({
       setSnapshots(snaps)
       setComentarios(comms)
       if (st.submitted_snapshot_id) {
-        const det = await getChapterSnapshot(sel.project_id, n, st.submitted_snapshot_id)
+        // El módulo legacy de demo (src/features/) comparte getChapterSnapshot con el
+        // contrato antiguo; aquí se ajusta al contrato real del backend sin tocarlo.
+        const det = (await getChapterSnapshot(sel.project_id, n, st.submitted_snapshot_id)) as unknown as ChapterSnapshotDetailApi
         if (s !== secuencia.current) return
         setDetalle(det)
       }
@@ -256,15 +260,15 @@ function AdvisorRevision({
     void cargar(capituloNo)
   }, [capituloNo, cargar])
 
-  function abrirVersion(s: ChapterSnapshotSummary) {
+  function abrirVersion(s: ChapterSnapshotSummaryApi) {
     setError(null)
     setAnclaje(null)
     void (async () => {
-      setProcesando(`version:${s.snapshot_id}`)
+      setProcesando(`version:${s.id}`)
       try {
-        const det = await getChapterSnapshot(sel.project_id, capituloNo, s.snapshot_id)
+        const det = (await getChapterSnapshot(sel.project_id, capituloNo, s.id)) as unknown as ChapterSnapshotDetailApi
         setDetalle(det)
-        setComentarios(await listComments(sel.project_id, capituloNo, s.snapshot_id).catch(() => []))
+        setComentarios(await listComments(sel.project_id, capituloNo, s.id).catch(() => []))
       } catch (cause) {
         setError(cause instanceof Error ? cause.message : "No se pudo cargar la versión.")
       } finally {
@@ -296,7 +300,7 @@ function AdvisorRevision({
       return
     }
     setAnclaje({
-      snapshot_id: detalle.snapshot_id,
+      snapshot_id: detalle.id,
       start_cp: Array.from(detalle.content_md.slice(0, inicioUtf16)).length,
       end_cp: Array.from(detalle.content_md.slice(0, finUtf16)).length,
       selected_text: texto,
@@ -479,14 +483,14 @@ function AdvisorRevision({
             ) : (
               snapshots.map((s) => (
                 <button
-                  className={detalle?.snapshot_id === s.snapshot_id ? "active" : undefined}
-                  key={s.snapshot_id}
-                  disabled={procesando !== null && procesando === `version:${s.snapshot_id}`}
+                  className={detalle?.id === s.id ? "active" : undefined}
+                  key={s.id}
+                  disabled={procesando !== null && procesando === `version:${s.id}`}
                   onClick={() => abrirVersion(s)}
                 >
                   <span>Versión {s.snapshot_no}</span>
                   <small>
-                    SHA {s.content_sha256.slice(0, 12)}… · {new Date(s.created_at).toLocaleString()}
+                    SHA {s.payload_sha256.slice(0, 12)}… · {new Date(s.created_at).toLocaleString()}
                   </small>
                 </button>
               ))
